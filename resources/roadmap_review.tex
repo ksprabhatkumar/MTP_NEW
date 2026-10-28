@@ -1,0 +1,140 @@
+\documentclass[10pt]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{enumitem,multicol,microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array,tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{3pt}
+\setlength{\emergencystretch}{1.5em}
+\setlist[enumerate]{leftmargin=*,itemsep=5pt,topsep=3pt,parsep=0pt}
+\renewcommand{\refname}{Supporting references}
+\begin{document}
+\begin{center}
+{\large\bfseries What Is Missing from the Alternative MTP Roadmap?}\\[3pt]
+{\small Short review --- 4 October 2026}
+\end{center}
+
+\textbf{Verdict:} The phase structure is useful, but several statements turn hypotheses into guarantees. Keep the roadmap; correct the following before presenting it.
+
+\begin{enumerate}
+\item \textbf{Qualify summer achievements.} Say ``reported speed improvement and sensor-drop robustness'', not ``solved latency/hardware failure''. The report's 13.39\,ms is GPU batch-128 timing; Table~5.1 lists approximately 1.04M parameters, not 250k. Verify the actual checkpoint and temporal implementation before claiming smartwatch readiness~\cite{report}.
+
+\item \textbf{Narrow the research gap.} Dynamic wearable interactions already exist, and DecomposeWHAR combines SSM temporal modeling with dynamic cross-sensor attention~\cite{decompose}. Do not claim that no such combination exists or that all GNNs are static. Use the adaptive-graph and lightweight rotation-feature controls in the appended objectives document to make the comparison more defensible; the residual formula alone is not sufficient novelty.
+
+\item \textbf{Separate relocation from routing.} Adaptive connections may improve recognition; they do not automatically identify an arm sensor moved to a leg. Distinguish rotations, physical displacement, slot permutations, and missing sensors. Mark methodology as \emph{proposed} unless executable implementation evidence exists. PyG already supports dense adjacency through \texttt{DenseGINConv}; this is a layer choice, not bypassing a universal PyG limitation~\cite{pyg}.
+
+\item \textbf{Correct dataset terminology and availability.} The REALDISP benchmark paper is from 2012; the detailed displacement study is from 2014. Use \emph{ideal-placement, self-placement, and induced-displacement}, not unexplained ``mutual displacement''. The study records induced displacement for only three subjects (2, 5, 15); do not assume 17 displaced-subject folds~\cite{banos}.
+
+\item \textbf{Add the missing evaluation plan.} Specify subject-held-out testing, a separate validation subject, train-only normalization, and no test-scenario tuning. Compare fixed graphs, augmentation, DynamicWHAR, and adaptive branches under matched inputs. Report clean/displaced macro-F1, degradation, seeds/uncertainty, ablations, and batch-one latency/memory. Use numerical safeguards; do not claim CNN features guarantee denoising or that raw attention necessarily explodes.
+
+\item \textbf{Make MTP-II conditional and feasible.} GRL does not guarantee ``universal physics''. Original DANN uses unlabeled target data; source-only subject-adversarial learning is a different protocol. Keep held-out subjects out of training~\cite{dann}. Choose DAT as one extension; make FedAvg optional. GPU inference speed does not prove on-watch training, and federated updates do not automatically guarantee privacy~\cite{fedavg,leakage}.
+\end{enumerate}
+
+\textbf{Safer research-gap sentence:} ``We will test whether placement-aware dynamic routing improves real-displacement recognition beyond fixed graphs, augmentation, and existing wearable interaction models under a matched subject-independent protocol.''
+
+\textbf{Deliverables:} MTP-I: proposal, cited literature matrix, dataset/protocol specification, then a verified baseline/prototype. MTP-II: one justified extension, final robustness/efficiency experiments, ablations, and thesis. Present DAT/FedAvg as future options, not completed or guaranteed capabilities.
+
+\vspace{-4pt}
+\begin{multicols}{2}
+\fontsize{8.5}{9.5}\selectfont
+\begin{thebibliography}{7}
+\raggedright
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\bibitem{report} P. Kumar. \href{colloquium_report.pdf}{\emph{GAE-Mamba-WHAR}, colloquium report}, Table~5.1, PDF p.~44.
+\bibitem{decompose} H. Xie et al. \emph{Decomposing and Fusing Intra- and Inter-Sensor Spatio-Temporal Signal for Multi-Sensor Wearable Human Activity Recognition}. AAAI, 2025. \href{https://arxiv.org/abs/2501.10917}{arXiv:2501.10917}.
+\bibitem{pyg} PyTorch Geometric. \href{https://pytorch-geometric.readthedocs.io/en/latest/generated/torch_geometric.nn.dense.DenseGINConv.html}{\emph{DenseGINConv}, official documentation}.
+\columnbreak
+\bibitem{banos} O. Ba\~nos et al. \emph{Dealing with the Effects of Sensor Displacement in Wearable Activity Recognition}. Sensors, 2014. \href{https://doi.org/10.3390/s140609995}{doi:10.3390/s140609995}; includes the 2012 benchmark reference.
+\bibitem{dann} Y. Ganin et al. \href{https://www.jmlr.org/papers/v17/15-239.html}{\emph{Domain-Adversarial Training of Neural Networks}}. JMLR, 2016.
+\bibitem{fedavg} B. McMahan et al. \href{https://proceedings.mlr.press/v54/mcmahan17a.html}{\emph{Communication-Efficient Learning of Deep Networks from Decentralized Data}}. AISTATS, 2017.
+\bibitem{leakage} L. Zhu et al. \href{https://arxiv.org/abs/1906.08935}{\emph{Deep Leakage from Gradients}}. NeurIPS, 2019.
+\end{thebibliography}
+\end{multicols}
+
+\newpage
+\begin{center}
+{\large\bfseries A Clearer Roadmap: Summer $\rightarrow$ MTP-I $\rightarrow$ MTP-II}\\[3pt]
+{\small One research problem, two stages of completion}
+\end{center}
+
+\textbf{Summer: the starting point.} GT-WHAR-inspired BiGRU $\rightarrow$ GAE--Mamba--WHAR: reported faster inference and improved sensor-drop robustness. Retain this experience, but verify the model and results; do not present displacement robustness as already achieved~\cite{report}.
+
+\subsection*{MTP-I: define the problem and build the dynamic-graph prototype}
+\textbf{Theme:} Placement-robust wearable HAR through adaptive sensor interactions.\\
+\textbf{Question:} Can changing inter-sensor routing reduce activity-recognition errors under real placement changes, beyond a fixed graph and simple augmentation?
+
+\begin{enumerate}[itemsep=3pt]
+\item \textbf{First presentation---explain the proposal.} Present the summer-to-MTP transition, problem statement, cited literature, bounded gap, architecture, datasets, and evaluation plan. Clearly label existing work versus proposed work; do not imply planned experiments are completed. Check the panel's requirements.
+\item \textbf{Recover a trustworthy baseline.} Audit code, subject splits, normalization, and the temporal block. Re-run the corrected fixed graph; add no-graph and rotation/dropout-augmentation controls. Reproduce \href{https://github.com/wdkhuans/DynamicWHAR}{DynamicWHAR (Miao et al., 2022)} as the external dynamic-interaction control.
+\item \textbf{Fix the data protocol.} Use REALDISP first: 9 IMUs, 33 activities, ideal/self/induced placement. Check available recordings; induced displacement covers only subjects 2, 5, and 15 in the documented study~\cite{banos}. Use DSADS second; the project's five-IMU OPPORTUNITY selection is optional, not the full dataset.
+\item \textbf{Implement one spatial change.} Extract per-IMU features, then combine physical, globally learned, and input-dependent edges. Keep the verified temporal block/classifier unchanged; retain reconstruction only if its ablation helps. A proposed weighted graph is
+\[
+ A_t=\operatorname{RowNorm}\!\left(M_t\odot
+ [\alpha A_{\mathrm{phys}}+\beta A_{\mathrm{learn}}+\gamma A_{\mathrm{dyn}}(H_t)]\right).
+\]
+Here $H_t$ contains sensor embeddings, $M_t$ masks unavailable senders, and the gates are nonnegative. Test finite normalization and edge gradients. This routes information; it does not automatically identify a relocated sensor.
+\item \textbf{Produce preliminary evidence.} Compare fixed versus adaptive routing with identical inputs/training. Ablate graph branches; report validation macro-F1, placement degradation, and inference cost. Dynamic graphs alone are not the novelty claim~\cite{decompose}.
+\end{enumerate}
+\textbf{MTP-I deliverables:} Proposal/slides, literature matrix, split manifest, corrected baseline, working prototype, and preliminary results \emph{only when actually run}.
+
+\subsection*{MTP-II: validate robustness and finish one justified extension}
+\begin{enumerate}[itemsep=3pt]
+\item \textbf{Complete the locked evaluation.} Hold out test and validation subjects; fit normalization on training subjects only. Train on source ideal recordings; test unseen subjects' available real placements. Report matched folds, multiple seeds, ablations, uncertainty, and separate displacement/dropout results; add DSADS generalization tests.
+\item \textbf{Choose one extension from observed failures.} Prefer reliability-aware routing if present sensors mislead the graph. If unseen-user errors remain, alternatively test source-only subject-adversarial training: a GRL/user head trained on \emph{training users only}. Distinguish this from target-data DANN; universal physics and zero-shot gains are not guaranteed~\cite{dann}.
+\item \textbf{Measure feasibility and deliver the thesis.} Profile batch-one latency, memory, parameters, and window delay on a named device. Only if the main study is complete, simulate FedAvg with non-IID subject clients and compare against centralized/local controls~\cite{fedavg}. Simulation is not proof of smartwatch training or privacy.
+\end{enumerate}
+\textbf{MTP-II deliverables:} Final robustness and efficiency tables, extension ablations, reproducible code and configurations, thesis, and defense slides. FedAvg remains an optional feasibility study.
+
+\textbf{Paper guide:} \href{https://doi.org/10.1109/TETCI.2024.3378331}{GT-WHAR (2024)}: continuity; DynamicWHAR (2022): control; \href{https://arxiv.org/abs/1805.07694}{2s-AGCN (2019)}: graph-design inspiration; Ba\~nos et al. (2014): displacement protocol~\cite{banos}; DecomposeWHAR (2025): essential SSM/inter-sensor prior art~\cite{decompose}; Ganin et al. (2016) and McMahan et al. (2017): conditional MTP-II extensions~\cite{dann,fedavg}.
+
+\textbf{In one sentence:} MTP-I asks and prototypes; MTP-II verifies, improves one weakness, and completes the thesis---not three separate research projects.
+
+
+\newpage
+\begin{center}
+{\large\bfseries MTP-I: What to Prepare for the First and Second Presentations}\\[3pt]
+{\small Suggested review plan; confirm the supervisor's actual rubric and deadlines}
+\end{center}
+
+\textbf{Simple distinction:} \emph{First review: defend the problem, gap, and proposed experiment. Second review: show implementation, preliminary evidence, and remaining work.} Neither is the final MTP-II defense.
+
+\subsection*{1. First presentation: prepare the proposal, not a new model overnight}
+\begin{enumerate}[itemsep=3pt]
+\item \textbf{Explain the starting point in one slide.} Summarize GT-WHAR-inspired baseline $\rightarrow$ GAE--Mamba--WHAR. Explain the ideal-placement/sensor-drop tests; label historical results with their original protocol~\cite{report}.
+\item \textbf{State one problem and one question.} Ask whether adaptive routing reduces real-placement macro-F1 loss beyond fixed graphs and augmentation. Separate missing sensors, rotations, and physical displacement; do not promise automatic body-location identification.
+\item \textbf{Make a literature matrix and a bounded gap.} Record each paper's input, mechanism, split, placement evidence, and limitation. Gap: \emph{placement-aware routing needs matched evaluation against our corrected baseline and existing interaction models}. Graphs plus SSMs alone are not unprecedented~\cite{decompose}.
+\item \textbf{Show the proposed experiment clearly.} Draw: IMU windows $\rightarrow$ per-sensor features $\rightarrow$ adaptive graph $\rightarrow$ verified temporal block $\rightarrow$ classifier; show any reconstruction branch separately. Name REALDISP as primary and DSADS as secondary. Explain subject-held-out testing, train-only normalization, available placement scenarios, controls, macro-F1, and latency.
+\item \textbf{Prepare the report, slides, and answers.} Keep the problem/gap/diagram consistent; separate completed/proposed work. Rehearse why routing might help, what could fail, and how you will test it. Export PDFs/backups.
+\end{enumerate}
+\textbf{Deliverables now:} Proposal report/slides, cited literature matrix, diagram, dataset/protocol plan, and milestones. Prioritize these over overnight experiments; confirm panel requirements.
+
+\textbf{Suggested 10-slide order:} (1) Title; (2) summer work; (3) misplaced/missing sensors; (4) problem/objectives; (5--6) literature/gap; (7) proposed model; (8) datasets/protocol; (9) review milestones; (10) outputs/limitations. Keep references and traceable summer results as backup.
+
+\subsection*{2. Which papers to read: a priority order for the available day}
+\textbf{Read these three first:} Focus on abstract, architecture, dataset/split, and limitations; do not spend today reproducing their code.
+\begin{enumerate}[itemsep=2pt]
+\item \href{https://github.com/wdkhuans/DynamicWHAR}{\textbf{DynamicWHAR---Miao et al., IMWUT 2022}}: \emph{Towards a Dynamic Framework for Multi-Sensor-Based Wearable Human Activity Recognition}. Understand per-sensor features and dynamic interactions; identify the external control.
+\item \textbf{Ba\~nos et al., Sensors 2014}: \emph{Dealing with the Effects of Sensor Displacement in Wearable Activity Recognition}~\cite{banos}. Read placement scenarios, recording availability, and evaluation; justify REALDISP.
+\item \textbf{DecomposeWHAR---Xie et al., AAAI 2025}: read its SSM and cross-sensor attention components~\cite{decompose}. Use this prior art to narrow the claimed gap.
+\end{enumerate}
+\textbf{Then skim:} \href{https://doi.org/10.1109/TETCI.2024.3378331}{GT-WHAR (2024)} for continuity with the summer implementation; \href{https://arxiv.org/abs/1805.07694}{2s-AGCN (Shi et al., CVPR 2019)} for adaptive adjacency, noting its skeleton rather than IMU inputs.
+
+\textbf{Before the second review:} Read \href{https://arxiv.org/abs/2312.00752}{Mamba: Linear-Time Sequence Modeling with Selective State Spaces (Gu and Dao, 2023; COLM 2024)} to verify the temporal implementation. For O2, use the simple norm/dot-product alternatives in the appended objectives document; no advanced rotation-encoder paper is assigned. DAT/FedAvg papers can wait unless an extension is justified.
+
+\subsection*{3. Second presentation: bring a working pipeline and preliminary evidence}
+\textbf{Work between reviews:} Audit the baseline and splits; reproduce DynamicWHAR; implement/test weighted edges; compare fixed/adaptive/augmentation controls with the temporal backbone unchanged.
+
+\textbf{Show at the second review:} Runnable code, actual baseline/prototype results, graph/GAE ablations, failure analysis, latency/memory, and MTP-II plan. Keep validation separate from test tuning; disclose unfinished work.
+
+\clearpage
+\begingroup
+\newcommand{\roadmapobjectivesembedded}{}
+\input{objectives_methodology}
+\endgroup
+
+\end{document}

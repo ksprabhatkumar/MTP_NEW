@@ -1,0 +1,430 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usecolortheme{whale}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,graphicx}
+\usepackage{amsmath,amssymb,array,tabularx,booktabs,colortbl}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{bibliography item}[text]
+\setbeamerfont{frametitle}{size=\large,series=\bfseries}
+\setbeamerfont{block title}{size=\normalsize,series=\bfseries}
+\setbeamersize{text margin left=6mm,text margin right=6mm}
+\hypersetup{colorlinks=false}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\completedcell}{\cellcolor{blue!70}\rule{0pt}{1.35em}}
+\newcommand{\proposedcell}{\cellcolor{orange!45}\rule{0pt}{1.35em}}
+\newcommand{\projecttitle}{Placement-Aware Dynamic Graph Learning for Robust Wearable Human Activity Recognition}
+
+\title[MTP-I Mid-Sem Presentation]{\projecttitle}
+\subtitle{MTP-I Mid-Sem Major Project Presentation}
+\author[Prabhat Kumar]{\texorpdfstring{Prabhat Kumar \\ Roll No: 2022-IMT-086 \vspace{0.2cm} \\ \small Supervisor: Dr. Anjali}{Prabhat Kumar (2022-IMT-086)}}
+\institute[ABV-IIITM]{Department of Information Technology \\ ABV-Indian Institute of Information Technology and Management Gwalior}
+\date{7 October 2026}
+\titlegraphic{\includegraphics[height=1.0cm]{ABV_IIITM_Logo .jpeg}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}[t]{Introduction, Motivation and Problem}
+\begin{block}{Introduction and motivation}
+Wearable human activity recognition classifies a person's movement from body-worn inertial measurement units (IMUs). Acceleration and angular velocity from sensors on different body locations provide complementary views of an activity. In practice, an IMU may be missing, rotated, or physically displaced, changing its signal even when the activity is unchanged. This motivates models that use sensor relationships while remaining reliable under attachment variation.
+\end{block}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.31\textwidth}
+\begin{block}{Missing sensor}
+The stream is unavailable. An availability mask identifies the missing input.
+\end{block}
+\end{column}
+\begin{column}{0.31\textwidth}
+\begin{block}{Orientation change}
+The sensor axes change. Acceleration and angular velocity are expressed in a different frame.
+\end{block}
+\end{column}
+\begin{column}{0.31\textwidth}
+\begin{block}{Physical displacement}
+The attachment position changes. The device may observe different motion, not just rotated axes.
+\end{block}
+\end{column}
+\end{columns}
+\par\smallskip
+{\footnotesize Placement context: REALDISP displacement study~\cite{banos}.}
+\end{frame}
+
+\begin{frame}[t]{Starting Point: Summer Colloquium}
+\textbf{Reported prior work:} GT-WHAR-inspired graph modeling $\rightarrow$ GAE--Mamba--WHAR with reconstruction and sensor-drop training~\cite{gtwhar,summerreport}.
+\medskip
+\begin{center}
+\setlength{\unitlength}{\dimexpr\textwidth/420\relax}
+\begin{picture}(420,116)
+\put(0,72){\framebox(82,36){\parbox{0.18\textwidth}{\centering IMU windows\\Sensor-drop mask}}}
+\put(82,90){\vector(1,0){16}}
+\put(98,72){\framebox(98,36){\parbox{0.22\textwidth}{\centering GIN graph encoder\\Fixed anatomical edges}}}
+\put(196,90){\vector(1,0){16}}
+\put(212,72){\framebox(94,36){\parbox{0.21\textwidth}{\centering Temporal module\\Mamba-labelled}}}
+\put(306,90){\vector(1,0){16}}
+\put(322,72){\framebox(98,36){\parbox{0.22\textwidth}{\centering Average pooling\\Activity classifier}}}
+\put(147,72){\vector(0,-1){16}}
+\put(98,14){\framebox(98,42){\parbox{0.22\textwidth}{\centering Graph decoder\\Reconstruction loss}}}
+\put(371,72){\vector(0,-1){16}}
+\put(322,14){\framebox(98,42){\parbox{0.22\textwidth}{\centering Activity prediction\\Classification loss}}}
+\end{picture}
+\end{center}
+\begin{itemize}
+\item The baseline uses a fixed anatomical graph.
+\item Sensor-drop evidence does not establish robustness to an active displaced sensor.
+\item The inherited implementation and temporal operations will be verified before reuse.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Literature Survey}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|P{0.20\textwidth}|P{0.17\textwidth}|P{0.23\textwidth}|Y|}
+\hline
+\rowcolor{gray!20}
+\textbf{Paper} & \textbf{Method} & \textbf{Role here} & \textbf{Limitation for this study} \\
+\hline
+\textbf{GT-WHAR}~\cite{gtwhar}\newline IEEE TETCI, 2024 & Graph--temporal HAR. & Starting framework and baseline. & Fixed-graph baseline does not adapt connections to each window's placement effects. \\
+\hline
+\textbf{DynamicWHAR}~\cite{dynamicwhar}\newline ACM IMWUT, 2022 & Dynamic sensor interactions. & Adaptive comparator. & Does not by itself establish rotation robustness or federated placement robustness. \\
+\hline
+\textbf{2s-AGCN}~\cite{agcn}\newline IEEE/CVF CVPR, 2019 & Adaptive graph convolution. & Graph-design principle. & Developed for skeleton action recognition, so wearable-placement transfer needs validation. \\
+\hline
+\textbf{FedHealth 2}~\cite{fedhealth}\newline FTL-IJCAI workshop, 2021 & Weighted federation with local normalization. & Personalization direction. & Healthcare personalization does not directly test placement-aware IMU recognition. \\
+\hline
+\textbf{REALDISP study}~\cite{banos}\newline Sensors, 2014 & Recorded multi-IMU placements. & Dataset and placement protocol. & Incomplete subject--scenario coverage limits matched placement comparisons. \\
+\hline
+\end{tabularx}
+\end{frame}
+
+\begin{frame}[t]{Research Gaps and Objectives}
+\small
+\textbf{Research question:} Can adaptive sensor relationships and orientation-aware inputs improve activity recognition when wearable sensors are rotated or displaced, and do these gains persist when users train locally through federated learning?
+\smallskip
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.31\textwidth}
+\begin{block}{Adaptive sensor relationships}
+\textbf{Gap:} Fixed graphs do not adapt sensor connections to the activity window or placement condition.\par\smallskip
+\textbf{Objective 1:} To develop a wearable activity-recognition framework with adaptive inter-sensor relationships.
+\end{block}
+\end{column}
+\begin{column}{0.31\textwidth}
+\begin{block}{Orientation sensitivity}
+\textbf{Gap:} Raw-axis features and learned relationships can change when an active sensor is mounted at a different angle.\par\smallskip
+\textbf{Objective 2:} To improve the robustness of wearable activity recognition to sensor orientation changes.
+\end{block}
+\end{column}
+\begin{column}{0.31\textwidth}
+\begin{block}{User heterogeneity}
+\textbf{Gap:} Placement-robust learning is not sufficiently studied when users train locally with heterogeneous data.\par\smallskip
+\textbf{Objective 3:} To develop a federated learning framework for wearable activity recognition across heterogeneous users.
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+\textbf{One connected model:} information exchange $\rightarrow$ orientation robustness $\rightarrow$ collaborative training.
+\end{frame}
+
+\begin{frame}[t]{Proposed Architecture}
+\begin{center}
+\setlength{\unitlength}{\dimexpr\textwidth/420\relax}
+\begin{picture}(420,185)
+\put(0,112){\framebox(72,48){\parbox{0.16\textwidth}{\centering IMU windows\\Availability mask}}}
+\put(72,136){\vector(1,0){15}}
+\put(87,112){\framebox(96,48){\parbox{0.22\textwidth}{\centering\textbf{Objective 2}\\Rotation handling\\Per-IMU features}}}
+\put(183,136){\vector(1,0){15}}
+\put(198,112){\framebox(96,48){\parbox{0.22\textwidth}{\centering\textbf{Objective 1}\\Residual dynamic\\sensor graph}}}
+\put(294,136){\vector(1,0){15}}
+\put(309,112){\framebox(111,48){\parbox{0.25\textwidth}{\centering Temporal backbone\\Pooling and classifier\\Activity prediction}}}
+\put(87,20){\dashbox{3}(333,54){\parbox{0.75\textwidth}{\centering\textbf{Objective 3: federated training}\\Subject clients $\leftrightarrow$ server aggregation}}}
+\put(253,74){\vector(0,1){38}}
+\end{picture}
+\end{center}
+\end{frame}
+
+\begin{frame}[t]{Proposed Methodology: Objective 1}
+\begin{block}{Method}
+For each window, combine anatomical connections, globally learned connections and the sample-dependent affinity $C_t$ derived from that window's sensor features. Use the availability mask to exclude missing sensors and self-connections, then row-normalize the remaining weights to obtain the sensor-routing matrix $A_t$.
+\end{block}
+\vspace{-3pt}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.54\textwidth}
+\begin{block}{Graph mixture and routing}
+\footnotesize
+\[
+\begin{aligned}
+M_{ij}&=m_j(1-\mathbf 1_{i=j}),\\
+B_t&=\alpha A_{\mathrm{phys}}+\beta A_{\mathrm{global}}+\gamma C_t,\\
+A_t&=\operatorname{RowNorm}(M\odot B_t)
+\end{aligned}
+\]
+\end{block}
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{block}{Terms}
+\footnotesize
+$i,j$: sensor indices\\
+$m_j$: availability of sensor $j$\\
+$\mathbf 1_{i=j}$: self-connection indicator\\
+$M$: availability and self-edge mask\\
+$A_{\mathrm{phys}}$: anatomical graph\\
+$A_{\mathrm{global}}$: globally learned graph\\
+$C_t$: affinity for window $t$\\
+$B_t$: weighted graph mixture\\
+$A_t$: row-normalized routing matrix\\
+$\alpha,\beta,\gamma$: mixture weights\\
+$\odot$: element-wise product
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Proposed Methodology: Objective 2}
+\small
+\begin{block}{Method}
+Apply one sampled 3-D rotation to each IMU's acceleration and angular velocity. Train on original and rotated windows using the same activity label, with a consistency loss that encourages their predicted class probabilities to match.
+\end{block}
+\vspace{-2pt}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.56\textwidth}
+\begin{block}{Rotation-augmented input and training loss}
+\footnotesize
+\[
+\begin{aligned}
+\widetilde X_i&=\left[R_i a_i,\ R_i\omega_i\right],\\
+\mathcal L_{\mathrm{orient}}&=\operatorname{CE}(p(X),y)
+  +\operatorname{CE}(p(\widetilde X),y)\\
+&\quad+\lambda_{\mathrm{cons}}\|p(X)-p(\widetilde X)\|_2^2
+\end{aligned}
+\]
+\end{block}
+\end{column}
+\begin{column}{0.40\textwidth}
+\begin{block}{Terms}
+\footnotesize
+$i$: IMU index\\
+$X_i$: original IMU input\\
+$R_i$: sampled 3-D rotation\\
+$a_i$: acceleration vector\\
+$\omega_i$: angular-velocity vector\\
+$\widetilde X_i$: rotated input\\
+$p(\cdot)$: predicted class probabilities\\
+$y$: activity label\\
+$\mathcal L_{\mathrm{orient}}$: training loss\\
+$\operatorname{CE}$: cross-entropy loss\\
+$\lambda_{\mathrm{cons}}$: consistency weight
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Proposed Methodology: Objective 3}
+\begin{block}{Method}
+Assign each training subject to a client that updates the shared model using only its local recordings. After local updates, the server computes a sample-weighted average of client models and returns the shared parameters for the next round. Keep normalization statistics and parameters local to each client so they are not included in the shared model update.
+\end{block}
+\vspace{-1pt}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.60\textwidth}
+\begin{block}{Client update}
+\footnotesize
+\[
+\begin{aligned}
+\theta_{k}^{(r,e+1)}&=\theta_{k}^{(r,e)}
+-\eta\nabla_{\theta}F_k\!\left(\theta_{k}^{(r,e)}\right),\\
+\theta_k^{(r,0)}&=\theta^{(r)}
+\end{aligned}
+\]
+\end{block}
+\begin{block}{Server aggregation}
+\footnotesize
+\[
+\theta^{(r+1)}=
+\sum_{k=1}^{K}\frac{n_k}{\sum_{j=1}^{K}n_j}\,
+\theta_k^{(r,E)}
+\]
+\end{block}
+\end{column}
+\begin{column}{0.36\textwidth}
+\begin{block}{Terms}
+\footnotesize
+$k$: client index\\
+$K$: number of clients\\
+$n_k$: training examples at client $k$\\
+$r$: communication round\\
+$e$: local update index\\
+$E$: local updates per round\\
+$F_k$: client-local training loss\\
+$\eta$: learning rate\\
+$\theta$: shared model parameters\\
+$\theta_k$: client model parameters\\
+Normalization state remains local
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Dataset: REALDISP}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.55\textwidth}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\textwidth}{|P{0.36\textwidth}|Y|}
+\hline
+\rowcolor{gray!20}
+\textbf{Property} & \textbf{Details} \\
+\hline
+Participants & 17 subjects \\
+\hline
+Activity classes & 33 activities \\
+\hline
+Sensors & Nine IMUs on the arms, legs and back \\
+\hline
+Sampling rate & 50 Hz \\
+\hline
+Selected inputs & Acceleration and angular velocity, six channels per IMU \\
+\hline
+Windows & 50 samples, stride 25 \\
+\hline
+\end{tabularx}
+\end{column}
+\begin{column}{0.41\textwidth}
+\begin{block}{Recorded conditions}
+Ideal placement, self-placement and induced displacement.
+\end{block}
+\begin{itemize}
+\item One-second windows with a 0.5-second stride (50\% overlap).
+\item Subject--scenario coverage is incomplete.
+\item Induced displacement is documented for subjects 2, 5 and 15.
+\end{itemize}
+\end{column}
+\end{columns}
+\medskip
+{\footnotesize Sources: UCI REALDISP documentation~\cite{realdisp} and recorded-displacement study~\cite{banos}.}
+\end{frame}
+
+\begin{frame}[t]{Evaluation Methodology and Metrics}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.49\textwidth}
+\begin{block}{Evaluation protocol}
+\begin{itemize}
+\item One unseen test subject and a separate validation subject.
+\item Training on other subjects' ideal recordings.
+\item Use training-only normalization and common window rules.
+\item Score displacement, rotation and dropout separately.
+\end{itemize}
+\end{block}
+\textbf{Comparisons:} no graph, fixed graph, augmentation, DynamicWHAR, centralized, local-only and federated training.
+\end{column}
+\begin{column}{0.47\textwidth}
+\begin{block}{Recognition metrics}
+Macro-F1 is primary. Accuracy and class-wise errors provide supporting evidence.
+\[
+\Delta F_1=F_{1,\mathrm{ideal}}-F_{1,\mathrm{shift}}.
+\]
+Smaller $\Delta F_1$ indicates lower placement degradation on matched subjects and classes.
+\end{block}
+\textbf{Cost metrics:} latency, memory, parameters, communication bytes, convergence and mean/worst-client macro-F1.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]{Project Timeline: August 2026--March 2027}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{|Y|*{8}{c|}}
+\hline
+\rowcolor{gray!20}
+\textbf{Task} & \multicolumn{5}{c|}{\textbf{2026}} & \multicolumn{3}{c|}{\textbf{2027}} \\
+\hline
+\rowcolor{gray!10}
+& Aug & Sep & Oct & Nov & Dec & Jan & Feb & Mar \\
+\hline
+Selection and problem understanding & \completedcell & & & & & & & \\
+\hline
+Literature review and research gap & & \completedcell & & & & & & \\
+\hline
+Dataset verification and baselines & & & \proposedcell & & & & & \\
+\hline
+Objective 1: adaptive graph & & & & \proposedcell & \proposedcell & & & \\
+\hline
+Objective 2: orientation handling & & & & & \proposedcell & \proposedcell & & \\
+\hline
+Objective 3: federated learning & & & & & & \proposedcell & \proposedcell & \\
+\hline
+Final evaluation and analysis & & & & & & & \proposedcell & \proposedcell \\
+\hline
+Thesis and presentation & & & & & & & \proposedcell & \proposedcell \\
+\hline
+\end{tabularx}
+\medskip
+\fcolorbox{black}{blue!70}{\phantom{\rule{1.1em}{0.65em}}}~Completed
+\qquad
+\fcolorbox{black}{orange!45}{\phantom{\rule{1.1em}{0.65em}}}~To be completed
+\end{frame}
+
+\begin{frame}[t]{Summary: Current Work and Work to Be Done}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.49\textwidth}
+\begin{block}{Work completed: August--September 2026}
+\begin{itemize}
+\item Selected and refined the research problem.
+\item Reviewed the core papers and REALDISP documentation.
+\item Identified the research gap and three objectives.
+\item Documented the Summer Colloquium system as prior work.
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.47\textwidth}
+\begin{block}{Work to be done: October 2026--March 2027}
+\begin{itemize}
+\item Establish and compare the required baseline models.
+\item Implement and evaluate Objective 1.
+\item Implement and evaluate Objective 2.
+\item Build and evaluate the Objective 3 federated simulator.
+\item Complete final testing, cost analysis, thesis and presentation.
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\medskip
+\begin{block}{Project direction}
+The proposed thesis evaluates adaptive sensor relationships, orientation handling and federated training using one controlled REALDISP protocol.
+\end{block}
+\end{frame}
+
+\begin{frame}[t]{References }
+\scriptsize
+\begin{thebibliography}{8}
+\bibitem{gtwhar}
+\href{https://doi.org/10.1109/TETCI.2024.3378331}{H. Zou et al., ``GT-WHAR: A generic graph-based temporal framework for wearable human activity recognition with multiple sensors,'' \emph{IEEE Trans. Emerg. Topics Comput. Intell.}, 2024.}
+\bibitem{dynamicwhar}
+\href{https://doi.org/10.1145/3550331}{S. Miao, L. Chen, R. Hu, and Y. Luo, ``Towards a dynamic inter-sensor correlations learning framework for multi-sensor-based wearable human activity recognition,'' \emph{Proc. ACM IMWUT}, vol. 6, no. 3, 2022.}
+\bibitem{agcn}
+\href{https://openaccess.thecvf.com/content_CVPR_2019/html/Shi_Two-Stream_Adaptive_Graph_Convolutional_Networks_for_Skeleton-Based_Action_Recognition_CVPR_2019_paper.html}{L. Shi, Y. Zhang, J. Cheng, and H. Lu, ``Two-stream adaptive graph convolutional networks for skeleton-based action recognition,'' in \emph{Proc. IEEE/CVF CVPR}, 2019.}
+\bibitem{fedhealth}
+\href{https://federated-learning.org/fl-ijcai-2021/FTL-IJCAI21_paper_4.pdf}{Y. Chen, W. Lu, J. Wang, and X. Qin, ``FedHealth 2: Weighted federated transfer learning via batch normalization for personalized healthcare,'' in \emph{Proc. FTL-IJCAI Workshop}, 2021.}
+\bibitem{summerreport}
+\href{https://github.com/ksprabhatkumar/GAE_Mamba_WHAR/blob/main/report.pdf}{P. Kumar, \emph{GAE-Mamba-WHAR: Generative Kinematic Imputation and Causal State-Space Modeling for Robust Human Activity Recognition}, Summer Colloquium Report, ABV-IIITM Gwalior, Aug. 2026.}
+\bibitem{banos}
+\href{https://doi.org/10.3390/s140609995}{O. Ba\~nos et al., ``Dealing with the effects of sensor displacement in wearable activity recognition,'' \emph{Sensors}, vol. 14, pp. 9995--10023, 2014.}
+\bibitem{fedavg}
+\href{https://proceedings.mlr.press/v54/mcmahan17a.html}{H. B. McMahan et al., ``Communication-efficient learning of deep networks from decentralized data,'' in \emph{Proc. AISTATS}, PMLR 54, pp. 1273--1282, 2017.}
+\bibitem{realdisp}
+\href{https://doi.org/10.24432/C5GP6D}{O. Ba\~nos, M. Toth, and O. Amft, \emph{REALDISP Activity Recognition Dataset}, UCI Machine Learning Repository, 2012.}
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}[plain]
+\centering
+\vfill
+{\Huge\bfseries Thank You}\par
+\vfill
+\end{frame}
+
+\end{document}

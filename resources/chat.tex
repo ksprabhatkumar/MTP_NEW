@@ -1,0 +1,369 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\setlist{leftmargin=*,itemsep=3pt,topsep=3pt,parsep=0pt}
+
+\title{Conversation and Research Context Handoff}
+\author{Prabhat Kumar \\ 2022-IMT-086}
+\date{14 October 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Purpose and Current State}
+This is the single detailed handoff for continuing the conversations and research-planning work. It combines the important presentation-editing requests, file-transfer decisions, current research brief, and conflicts found across the project drafts. It intentionally omits repeated explanations, copied code, exploratory prompts, and unverified claims that do not guide the current proposal.
+
+\textbf{Current project:} Placement-Aware Dynamic Graph Learning for Robust Wearable Human Activity Recognition (WHAR).\\
+\textbf{Student:} Prabhat Kumar, 2022-IMT-086.\\
+\textbf{Supervisor:} Dr. Anjali.
+
+The three objectives and primary dataset in the concise proposal are the current project direction. All three objectives and their proposed experiments remain research work, not completed results. The summer colloquium is prior work and must be described separately from the new proposal.
+
+\section{Conversation History and Decisions}
+\subsection{Presentation formatting and wording}
+\begin{enumerate}[label=\textbf{Chat \arabic*.}]
+\item \textbf{Formula terms, 6 October 2026.} The methodology ``Terms'' blocks should put each symbol definition on its own line. Their text should match the formula font size.
+\item \textbf{Punctuation and motivation, 6 October 2026.} The presentation should avoid semicolons in slide prose, using commas or other suitable punctuation instead. The introduction/motivation and research question should be expanded slightly.
+\item \textbf{Research gap and objectives, 7 October 2026.} Combine the research-gap and objectives slides to save one slide. Keep the three objectives general and use report wording, not implementation details. The agreed formulations are: develop a wearable activity-recognition framework with adaptive inter-sensor relationships; improve robustness to sensor orientation changes; and develop federated wearable activity recognition across heterogeneous users.
+\end{enumerate}
+
+\subsection{Context-transfer file requests}
+\begin{enumerate}[label=\textbf{Chat \arabic*.},start=4]
+\item \textbf{Portable handoff, 14 October 2026.} Create a concise research handoff and numbered chat summaries after checking the project context, report and presentation. Include only important information and identify disagreements between drafts.
+\item \textbf{File location, 14 October 2026.} Put the handoff material in a visible project-root transfer folder after the first files were difficult to locate in Prism.
+\item \textbf{Context rewrite and LaTeX, 14 October 2026.} Rewrite the six context blocks, prepare chat and research handoff files, and create a LaTeX document. The compiled transfer document initially appeared to be one page because the root PDF was stale; rebuilding it from the current sources produced a three-page document.
+\end{enumerate}
+
+\subsection{Final requested handoff format}
+The requested deliverable has since changed: use one detailed, self-contained \path{chat.tex} at the project root, rather than separate numbered chat documents and a separate research brief. It should carry the important conversation decisions and consolidated research context in one place. This file supersedes the former numbered chat summaries and separate research brief. Keep the older \texttt{transfer.tex} only as a forwarding entry point if it is still used by the project.
+
+\clearpage
+\section{Expanded Step-by-Step Decision Log}
+This section records how the requested output and research handoff changed over the conversation. Later instructions supersede earlier file-format requests. The log distinguishes the original request, the reason for the next decision and the resulting project state, so a future reader does not mistake intermediate formats for the final requirement.
+
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+\item \textbf{Format methodology terms (6 October 2026, 18:21 UTC).}
+\textbf{Request:} Put each symbol or term explanation on its own line in the presentation's methodology ``Terms'' blocks, and make that text the same size as the formula.\\
+\textbf{Decision:} Keep term definitions line-separated and match formula/definition font sizes. This is a slide-layout requirement, not a research objective.
+
+\item \textbf{Edit presentation prose (6 October 2026, 18:31 UTC).}
+\textbf{Request:} Remove semicolons from presentation prose and slightly expand the introduction, motivation and research question.\\
+\textbf{Decision:} Use commas or suitable sentence punctuation in slide prose. Expand those sections without changing the research scope or adding implementation claims.
+
+\item \textbf{Combine gap and objectives (7 October 2026, 09:42 UTC).}
+\textbf{Request:} Save one slide by combining the research gap and objectives. Keep the objectives general and aligned to the report.\\
+\textbf{Decision:} State the three high-level objectives only: adaptive inter-sensor relationships; robustness to sensor orientation changes; and federated WHAR across heterogeneous users. Detailed graph, feature and aggregation choices belong in methodology, not in the objective statements.
+
+\item \textbf{Start a portable research handoff (14 October 2026, 05:47 UTC).}
+\textbf{Request:} Create a concise research file and numbered conversation summaries, checking the report, presentation and context. Retain important material and identify conflicts.\\
+\textbf{Decision:} Separate current proposal direction from historical context. Retain the bounded project gap and core papers; remove repeated code, speculative routes and unsupported claims. Keep alternate report scope visible as a conflict rather than merging it silently into the current proposal.
+
+\item \textbf{Fix file discoverability (14 October 2026, 05:57 UTC).}
+\textbf{Request:} Place the handoff files in a visible \texttt{transfer} folder at the Prism project root because the initial outputs were not found.\\
+\textbf{Decision:} Use project-root-relative locations, not temporary or absolute paths. This folder-based arrangement was an intermediate delivery choice and was later superseded by the request for one root-level \path{chat.tex}.
+
+\item \textbf{Rewrite context and create a LaTeX bundle (14 October 2026, about 06:00--06:05 UTC).}
+\textbf{Request:} Rewrite the six context blocks, make the chat summaries block-wise, update research material and create \texttt{transfer.tex}.\\
+\textbf{Decision:} Use a master LaTeX document to collect the handoff material. Keep baseline history distinct from proposed O1--O3 work, and do not turn old claims into current results.
+
+\item \textbf{Resolve the one-page PDF and completeness concern (14 October 2026, 06:15 UTC).}
+\textbf{Request:} The visible transfer document seemed to be only one page. Include the numbered chat files and research file as-is, and ensure the master also carries information absent from the context.\\
+\textbf{Finding:} The one-page root PDF was an outdated build made before the source handoff files had been updated. The newer build included the loaded sources and spanned multiple pages. The master needed to be rebuilt whenever included material changed; page count alone was not evidence that sections were absent.
+
+\item \textbf{Convert source text files into root LaTeX files (14 October 2026, 06:23 UTC).}
+\textbf{Request:} Create root-level \texttt{chat\_1.tex} through \texttt{chat\_6.tex} and \texttt{research.tex}, with necessary content inside the LaTeX files.\\
+\textbf{Decision:} Make the files standalone and update the master to reference them. This replaced the earlier idea of LaTeX wrappers that depended on separate \texttt{.text} inputs. At the time of the later consolidation, those original \texttt{.text} files were not present in the current project tree, so available handoff content and project sources had to be used.
+
+\item \textbf{Consolidate into one detailed file (14 October 2026, 06:31 UTC).}
+\textbf{Request:} Replace the multiple handoff files with one detailed \path{chat.tex}; merge the research versions, discard outdated or unnecessary material and cross-check what remains.\\
+\textbf{Decision:} This later requirement superseded the previous root-level multi-file format. Consolidate the chat decisions and research brief in \path{chat.tex}; use the concise proposal as the current scope; preserve disagreements as unresolved decisions; omit bulk copied source code and unverified numerical or novelty claims. Keep \texttt{transfer.tex} only as a one-line forwarding entry point.
+
+\item \textbf{Add the full reasoning trail (14 October 2026, 06:38 UTC).}
+\textbf{Request:} Check whether the logical discussion was all included and add the missing decisions in detail on a following page.\\
+\textbf{Decision:} Add this expanded chronological log, including the sequence of requests, intermediate output formats, findings and superseding final requirement. Keep the detailed research-method, dataset, evaluation and draft-conflict sections elsewhere in this same document rather than repeating them here.
+\end{enumerate}
+
+\subsection*{Why the research material was consolidated}
+Earlier handoff versions separated short chat summaries from a research brief. The current single-file request makes that separation unnecessary. The useful research information is retained in this document's problem statement, objectives, proposed methods, REALDISP protocol, evaluation metrics, prior-work caveats and open conflicts. The concise proposal is the authority for the present scope; the detailed roadmap supplies candidate methods; the broader report and six-block historical context are used only where they add relevant history or expose a conflict.
+
+\subsection*{Final handoff state}
+The requested single content-bearing handoff is the root-level \path{chat.tex}. The former numbered handoff \texttt{.tex} files and standalone \texttt{research.tex} were consolidated into it. The root-level \texttt{transfer.tex} is a one-line forwarder to \path{chat.tex}. The current project has \texttt{prev\_context.text} rather than a file named \texttt{context.text}; report and presentation source \texttt{.tex} files are present, but corresponding PDFs by those names are not. These availability limits are recorded in the source section below.
+\section{Research Problem}
+WHAR classifies movement from time windows recorded by body-worn inertial measurement units (IMUs), including accelerometers and gyroscopes. Multiple sensors provide complementary signals, but their signals can vary because a sensor is missing, its axes are rotated, or it is physically attached at a different location. These are distinct conditions:
+\begin{itemize}
+\item \textbf{Missing sensor:} its observation is unavailable and should be represented by an availability mask.
+\item \textbf{Orientation change:} vector components are expressed in a rotated coordinate frame. With the stated assumption, one fixed rotation applies to both acceleration and angular velocity for an IMU during a window.
+\item \textbf{Physical displacement:} the sensor may measure different body motion because its attachment point changed. Rotation invariance alone does not solve this.
+\end{itemize}
+
+\textbf{Presentation research question:} Can adaptive sensor relationships and orientation-aware inputs improve activity recognition when wearable sensors are rotated or displaced, and do these gains persist when users train locally through federated learning?
+
+\textbf{Focused Objective 1 question:} Does residual input-dependent and availability-aware routing reduce placement-induced macro-F1 degradation beyond a corrected fixed graph, simple augmentation and DynamicWHAR under a matched subject-independent protocol?
+
+\section{Exactly Three Research Objectives}
+Use these report-level formulations. Data auditing, baseline recovery, ablations, efficiency measurement and reproducibility are required work packages, not extra objectives.
+\begin{enumerate}[label=\textbf{O\arabic*.}]
+\item To develop a wearable activity-recognition framework with adaptive inter-sensor relationships.
+\item To improve the robustness of wearable activity recognition to sensor orientation changes.
+\item To develop a federated learning framework for wearable activity recognition across heterogeneous users.
+\end{enumerate}
+
+The objectives form one sequence: determine which sensors should exchange information; make that exchange less sensitive to arbitrary IMU axes; then test whether the system can be learned collaboratively across users with local data.
+
+\section{Prior Work and Evidence Status}
+The Summer Colloquium reports a progression from a GT-WHAR-inspired graph-temporal baseline to GAE--Mamba--WHAR, with reconstruction and sensor-drop training. The inherited graph is fixed. Treat this as the starting point, not as a verified reproduction of GT-WHAR. Audit its preprocessing, subject splits, graph implementation and temporal operations before using it as a comparison baseline.
+
+The earlier six-block context describes a BiGRU baseline, a Mamba temporal replacement, and a graph-autoencoder extension. It also contains accuracy, latency, parameter-count and dropped-sensor claims. Those are historical claims from the context, not new results for the current proposal; verify them against the relevant code, logs and report before quoting numbers. A pure-PyTorch Mamba approximation and an official Mamba implementation must not be presented as equivalent without a matched verification. Sensor-drop training tests missing inputs; by itself it does not demonstrate robustness to an active but displaced sensor.
+
+\textbf{Core literature roles:}
+\begin{itemize}
+\item \textbf{GT-WHAR:} graph-temporal starting framework and inherited baseline.
+\item \textbf{DynamicWHAR:} existing adaptive wearable sensor interactions and a required comparator. Do not claim that dynamic sensor graphs in WHAR are wholly new.
+\item \textbf{DecomposeWHAR:} relevant prior work combining state-space temporal modeling and cross-sensor attention, so graph-plus-SSM wearable modeling is not a defensible broad firstness claim.
+\item \textbf{TRI-HAR:} a direct O2 prior-art lead for rotation-invariant multi-IMU recognition. The supplied research note describes location-wise equivariant temporal encoding and invariant projections with fixed-order fusion. It informs O2 comparison but is not automatically an O1 cross-sensor-graph comparator; its evaluation protocol must be matched before comparing scores.
+\item \textbf{2s-AGCN:} physical, global-learned and input-dependent graph design principle from skeleton action recognition. Its transfer to IMU signals requires testing.
+\item \textbf{FedAvg and FedHealth 2:} federation baseline and client-local normalization/personalization motivation. Neither establishes placement robustness for this project.
+\item \textbf{Ba\~nos et al. and UCI REALDISP documentation:} recorded placement conditions and dataset protocol. Yurtman--Barshan and Um et al. are optional references for simple orientation features and augmentation.
+\end{itemize}
+
+State the gap as an untested combination under the declared dataset and evaluation protocol, not as ``no previous paper exists.'' Dynamic wearable graphs, graph-plus-SSM methods, and rotation-invariant multi-IMU recognition already have relevant precedents. Do not claim state of the art from results obtained with unmatched subject splits or preprocessing.
+
+\section{Review of the Supplied Research Notes}
+This section consolidates the important literature, dataset, design and implementation points in \path{prism-uploads/research_1 (1).txt} and \path{prism-uploads/research_2 (1).txt}. The notes are research leads, not a completed systematic review. Their reference lists mix primary papers, secondary summaries, preprints and unrelated results, and some equations are blank or malformed in the text copies. This handoff therefore retains relevant ideas while distinguishing background from claims that still need checking against primary papers and this project's protocol.
+
+\subsection{What the literature trail contributes}
+\begin{itemize}
+\item \textbf{Adaptive-graph design origin.} The notes trace the physical, globally learned and sample-dependent adjacency idea to 2s-AGCN for skeleton action recognition. CTR-GCN is a lead on channel-specific topology refinement, while Shift-GCN is a lead on efficient graph operations. These methods motivate candidate designs; their skeleton nodes and protocols do not establish results for IMU nodes, mounting changes or REALDISP.
+\item \textbf{Wearable graph and attention precedents.} The notes identify GT-WHAR, MhaGNN, TodyNet-Pro and STFNet as graph/attention or spatiotemporal wearable leads. DynamicWHAR and DecomposeWHAR are additional direct comparison leads. This body of work invalidates the draft claim that wearable graph interactions are uniformly fixed or that graph-plus-state-space modeling is absent. Check paper by paper whether the graph is within a sensor or across sensors, and whether it is static, learned or input-dependent.
+\item \textbf{Graph/state-space literature.} Graph Mamba, DyG-Mamba, GraMO, ActionMamba and PS-Mamba appear as graph/SSM combinations in general graph, dynamic-graph, simulation or skeleton/pose domains. They are architectural leads, not evidence of wearable displacement robustness or superiority. Verify the inherited temporal Mamba block against its implementation before attributing results to it.
+\item \textbf{Placement and invariance.} REALDISP's ideal-placement, self-placement and induced-displacement conditions motivate separate tests. Rotation, physical relocation/translation, sensor permutation and packet loss are different perturbations. The notes' claims that dynamic routing alone solves placement agnosticism, that every displaced sensor can be inferred from context, or that conventional models always fail are not adopted as conclusions.
+\item \textbf{TRI-HAR and O2.} Research note 2 lists \href{https://arxiv.org/abs/2608.15621}{TRI-HAR, ``Rotation-Invariant Multi-IMU Activity Recognition under Independent Rotations''}. The note describes invariant/equivariant per-location processing and reports a REALDISP displacement evaluation. It is important prior art for O2. Its location-wise temporal graph is described as operating within each location, unlike O1's proposed cross-sensor routing, so use it as an O2 comparator or reference rather than claiming it is the same model. Its reported setting differs from the proposed subject-held-out protocol and one-second windows, therefore reported scores are context only until a fair matched comparison is possible.
+\item \textbf{Other displacement leads.} Attend and Discriminate, GenHAR and WHAR Arena are named in the second note. Screen their original papers for dataset version, split, window, metric, target-data access and perturbation before using scores or calling them direct comparators. A benchmark or attention model is not automatically displacement-specific.
+\end{itemize}
+
+\subsection{Claims retained, narrowed or not accepted}
+\begin{itemize}
+\item \textbf{Retained as testable hypotheses:} preserving a physical prior while adding global and input-conditioned links may help; within-IMU rotation-invariant features may stabilize embeddings and cross-sensor affinities; federated learning may test whether these benefits survive user heterogeneity. None is a result until measured.
+\item \textbf{Narrowed novelty statement:} the notes' claim of an exhaustive 2019--2026 search proving that no paper applies the exact three-part graph formula to continuous IMU data is not established by the references supplied. Dynamic wearable graph/attention work, DecomposeWHAR and TRI-HAR make the broader novelty story unsafe. The defensible candidate gap is the measured value of this residual cross-sensor routing and lightweight invariant representation under the locked REALDISP subject-held-out protocol, against named prior methods and controls. Keep it labelled a candidate gap until a traceable literature matrix is checked.
+\item \textbf{Reported scores are not imported as baselines:} research note 2 lists approximately 0.6024 Macro-F1 for DeepConvLSTM and 0.4390--0.5913 for Attend and Discriminate, and describes TRI-HAR qualitatively as preserving Macro-F1 under rotations. The note does not establish enough matched protocol detail for comparison with planned results. Verify primary papers and harmonize subject/scenario folds, labels, windowing, preprocessing and metric definitions before using any number.
+\item \textbf{No claimed performance ceiling:} the note's assertion that REALDISP models have converged to a narrow ceiling and that this graph will break through it is not demonstrated for this project. A benchmark result does not establish a universal ceiling or guarantee a gain.
+\item \textbf{Rotation is not displacement:} SO(3) invariance addresses rotations under its assumptions. It does not undo translation to another body segment, unknown sensor-slot swaps, time-varying attachment or unavailable observations. Evaluate these conditions separately.
+\end{itemize}
+
+\subsection{Engineering review and implementation decisions}
+\begin{enumerate}
+\item \textbf{Keep the current graph as a reference design, not a settled theorem.} The updated objectives methodology proposes nonnegative physical, global and dynamic branches, prior-favoring initialization, availability masking, removal of graph self-edges, a separate residual self-path and row normalization. One research note instead recommends zero-initializing the global branch and different branch-weight choices. These are competing variants, not simultaneously established facts. Start from the more recent objective-methodology design and test alternatives only as controlled ablations.
+\item \textbf{Use dense weighted operations where appropriate.} A continuous learned adjacency is not a binary sparse edge list. With nine REALDISP sensors, dense batched multiplication or a compatible dense layer is a reasonable first implementation; the roadmap notes PyG's \texttt{DenseGINConv}. Profile actual peak memory and latency before optimizing. Sparse, top-$k$ or shift-style routing is optional if profiling identifies a bottleneck, not a required fix inferred from a general warning.
+\item \textbf{Use numerical safeguards without predicting failure.} Scaled query--key logits, correct masking, explicit handling of rows with no available senders, finite-value/gradient checks and logged edge/gate statistics are prudent. Standard framework softmax uses stable implementations; the note's assertion that ordinary softmax inevitably produces NaNs from IMU spikes is not adopted. Test the actual implementation and precision mode.
+\item \textbf{Do not adopt Softplus as a claimed cure for over-smoothing.} The note attributes over-smoothing directly to row softmax and proposes Softplus. That does not establish that replacing normalized adjacency solves over-smoothing, and unnormalized positive weights change message scale. Retain the declared normalization for the controlled baseline; test alternatives only with scale-matched ablations and explicit stability measures.
+\item \textbf{Do not detach temporal state by default.} The note recommends detaching hidden histories to limit autograd memory. Detachment changes gradient flow and may truncate learning; it is not a harmless optimization and is not required for independent fixed-length windows. Consider activation checkpointing or truncated backpropagation only after profiling shows a need and document altered training semantics. Do not assume irregular-time handling unless timestamps and a specific method support it.
+\item \textbf{Treat channel-wise graphs and attention heads as optional.} CTR-GCN does not prove that separate adjacency per raw axis is appropriate for correlated accelerometer/gyroscope vectors. First test one well-defined sensor-node representation; add channel-wise or multi-head variants only if compute and sample size support a controlled ablation.
+\end{enumerate}
+
+\subsection{How the reviews affect the objectives}
+The objectives remain exactly three. O1 is a controlled test of residual cross-sensor routing versus fixed/static graphs, augmentation and existing dynamic wearable interaction models. O2 tests lightweight per-IMU invariant features, but its novelty claim is narrowed in light of TRI-HAR and established orientation-invariant features. O3 remains subject-client federated evaluation because the updated objectives file superseded the older roadmap's optional-FedAvg framing; it follows O1/O2 and tests robustness retention, not the novelty of federation itself. Detailed rationale, implementation order, controls, decision gates and unresolved choices follow in the existing objective sections.
+
+\subsection{What each source contributes}
+\begin{itemize}
+\item \texttt{objectives\_methodology.tex} supplies the current three-objective formulation, graph/O2 equations, method sequence, ablations, deliverables and GAE compatibility discussion. These are proposals and tests, not completed results.
+\item \texttt{roadmap\_review.tex} supplies corrections to broad novelty claims, summer-result caveats, REALDISP coverage, matched-baseline requirements and staged MTP-I/MTP-II work. Its earlier optional-FedAvg scope is superseded by the later O3 objective.
+\item \path{prism-uploads/research_1 (1).txt} supplies graph/SSM literature leads and proposed engineering tactics. Treat cross-domain analogies as leads and strong displacement, stability, memory and novelty claims as unverified without primary-source support.
+\item \path{prism-uploads/research_2 (1).txt} supplies wearable graph/attention, placement and TRI-HAR leads plus reported baseline values. Treat ``exhaustive'' and ``state of the art'' wording as unsupported until independently audited; do not compare its scores without protocol matching.
+\end{itemize}
+
+\section{Proposed Method by Objective}
+\subsection{O1: Placement-aware residual dynamic graph}
+The candidate graph combines three sources of sensor relationships: an anatomical prior, a globally learned adjacency and an input-dependent affinity estimated for the current window. A gated, nonnegative mixture, availability masking, self-loops and row normalization are proposed to keep routing interpretable and stable. Because learned edge weights are dense and continuous, dense batched matrix multiplication or a compatible dense message-passing layer is appropriate; sparse binary-edge operations alone do not implement the proposed weighted graph.
+
+Mask unavailable senders explicitly. Include numerical safeguards for attention (such as scaled logits), finite-value checks and logged branch weights. These are implementation precautions, not evidence of performance.
+
+\textbf{Matched comparisons:} no graph; corrected fixed physical graph; normalized static graph; global-only and dynamic-only branches; full physical/global/dynamic mixture; availability-mask ablation; optional GAE reconstruction on/off; rotation augmentation; and DynamicWHAR. Hold the temporal backbone, classifier, training budget and splits fixed when attributing a change to graph routing.
+
+\subsection{O2: Rotation-stable representation}
+Compare simple per-IMU invariant features against rotation-augmented raw acceleration and angular-velocity inputs. A magnitude baseline uses vector norms. A richer candidate adds selected within-IMU dot products, including temporal products at a declared lag. For an orthogonal rotation $R$, $\|Rv\|_2=\|v\|_2$ and $(Rv)^T(Rw)=v^Tw$. These properties require the same rotation for the vectors being compared. A cross-IMU product $(R_i v)^T(R_j w)$ is not generally invariant when IMUs have independent rotations.
+
+The alternative raw-input method samples a consistent rotation per IMU, applies it to both vector streams and retains the activity label. A prediction-consistency term is optional. Compare raw axes, invariant features and augmentation under matched fixed and dynamic fusion, with the same splits and training budget. Test numerical feature/edge invariance separately from activity accuracy. TRI-HAR is an O2 prior-art comparator to assess when a matched implementation is feasible. Rotation is not a substitute for recorded physical-displacement evaluation.
+
+The detailed roadmap favors magnitudes plus selected within-IMU dot products. The concise report presents magnitudes and rotation-augmented raw inputs as alternatives, while the presentation methodology slide specifically demonstrates rotation augmentation with optional consistency loss. TRI-HAR should be screened as an O2 comparator, subject to compatible code, input and split availability. Its reported REALDISP results use a different protocol and are not directly comparable. The final primary feature set remains a freeze decision: compare raw axes, magnitude-only, magnitude-plus-selected-dot-products, rotation augmentation, and a TRI-HAR-style baseline where feasible, then lock the comparison before test evaluation.
+
+\subsection{O3: Federated placement-robust learning}
+Assign training subjects to clients. Client recordings stay local during each round; the server performs sample-size-weighted model aggregation. Test client-local normalization as a declared adaptation. Compare centralized, local-only and federated training, and report known-client personalization separately from unseen-user generalization. Record participants, rounds, local epochs, training time and upload/download bytes.
+
+Federated training reduces the need to pool raw recordings but does not, by itself, guarantee privacy. Do not claim formal privacy or on-device smartwatch training unless separately implemented and evaluated.
+
+\section{Dataset and Evaluation Protocol}
+\textbf{Current concise scope: REALDISP only.} The presentation and concise report describe 17 subjects, 33 activities, nine IMUs and 50 Hz recordings. The selected model input uses six acceleration/angular-velocity channels per IMU, 50-sample windows and stride 25 (one-second windows with a half-second stride). Recorded conditions include ideal placement, self-placement and induced displacement. Coverage is incomplete; the current materials identify induced displacement for subjects 2, 5 and 15. Audit the files and report the exact subject--scenario--class coverage used in every comparison.
+
+Use subject-independent evaluation: an outer held-out test subject and a separate validation subject, with normalization fitted on training subjects only. The exact folds, available classes and any scenario-specific restrictions must be locked before test evaluation. Training uses declared source-subject data and synthetic corruptions; test subjects and scenarios must not influence normalization, tuning or checkpoint selection.
+
+Evaluate these conditions separately: ideal placement, available recorded placement displacement, synthetic per-IMU rotation, and one- or multi-sensor dropout. Combined stress is supplementary. Use identical matched subject/scenario/class pairs across methods where possible. Distinguish client-personalized and unseen-user federated tracks.
+
+\textbf{Metrics and reporting:}
+\begin{itemize}
+\item Subject-level macro-F1 is primary; accuracy, weighted F1 and class-wise errors are supporting metrics.
+\item Report both ideal and shifted absolute scores and $\Delta F_1=F_{1,\mathrm{ideal}}-F_{1,\mathrm{shift}}$ on matched subjects/classes. Include subject variation, seed variation, worst-subject/client behavior and uncertainty. Overlapping windows are not independent subjects.
+\item Report batch-one median and p95 latency, parameters, peak memory, device, precision and timing method. Include feature extraction and graph construction in the timed path; do not equate GPU throughput with edge-device latency.
+\item For federation, report communication rounds, client participation, local epochs, upload/download bytes, convergence and mean/worst-client performance.
+\end{itemize}
+
+\section{Draft Conflicts to Resolve}
+The concise proposal in \path{main.tex} and \path{mtp1_presentation.tex} is the current direction. The broader \path{mtp1_a_full_report.tex} and older six-block context are background drafts, not equal-authority versions.
+\begin{itemize}
+\item \textbf{Dataset scope:} current proposal uses REALDISP only; older context and alternate report also discuss DSADS and OPPORTUNITY. Do not add those datasets to the final scope without an explicit decision and matched protocol.
+\item \textbf{Channels:} current proposal uses six acceleration/angular-velocity channels per IMU; older preprocessing/context uses nine channels including magnetometer. Verify preprocessing and state the selected representation consistently.
+\item \textbf{Objectives:} the current thesis has exactly three general research objectives. Six implementation work packages in the alternate report are not six additional research objectives.
+\item \textbf{O2 method:} magnitude/dot-product features and raw-input rotation augmentation are alternatives/controls until the final experiment is locked.
+\item \textbf{Federation:} specify local normalization, participating clients, known-client versus unseen-user evaluation and the privacy boundary. Label imbalance alone is not a test of placement shift.
+\item \textbf{Split wording:} ``LOSO with a separate validation subject'' needs an explicit fold construction and coverage rule, especially for induced displacement, before results are reported.
+\end{itemize}
+
+\section{Status and Indicative Work Plan}
+The concise report records problem selection, literature review, gap/objective definition and planning as the completed MTP-I work. O1--O3 placement-robustness and federation experiments remain proposed; no new result should be implied.
+\begin{enumerate}
+\item \textbf{October 2026:} audit REALDISP files, freeze subject/scenario splits and preprocessing, recover no-graph/fixed-graph baselines and verify DynamicWHAR comparison feasibility.
+\item \textbf{November--December 2026:} implement and ablate O1; assess ideal placement, recorded displacement and sensor dropout.
+\item \textbf{December 2026--January 2027:} implement O2 magnitude features and rotation-augmented raw inputs, then compare accuracy, robustness and cost.
+\item \textbf{January--February 2027:} implement subject-client federation and compare local-only, centralized and federated training, including local normalization.
+\item \textbf{February--March 2027:} complete repeated evaluation, uncertainty and cost reporting, reproducibility materials, thesis and presentation.
+\end{enumerate}
+Treat these dates as the report's proposed schedule; update them if the project plan changes.
+
+\section{Source Files and Use by the Next Assistant}
+Relevant project sources checked:
+\begin{itemize}
+\item \path{main.tex}: concise current proposal.
+\item \path{mtp1_presentation.tex}: current presentation source.
+\item \path{mtp1_a_full_report.tex}: broader alternate report.
+\item \texttt{objectives\_methodology.tex}: detailed methodology roadmap.
+\item \texttt{prev\_context.text}: six-block historical context available in the project tree.
+\item \texttt{colloquium\_report.pdf}: prior summer report.
+\end{itemize}
+
+\subsection{Files to Attach}
+\begin{itemize}
+\item \path{chat.tex}
+\item \path{prev_context.text}
+\item \path{objectives_methodology.tex}
+\item \path{roadmap_review.tex}
+\item \path{prism-uploads/research_1 (1).txt}
+\item \path{prism-uploads/research_2 (1).txt}
+\item \path{main.tex}
+\item \path{mtp1_presentation.tex}
+\item \path{mtp1_a_full_report.tex}
+\item \path{colloquium_report.pdf}
+\end{itemize}
+
+The requested name \texttt{context.text} is not present in the current tree; \texttt{prev\_context.text} is the available six-block context. The corresponding MTP report and presentation \texttt{.tex} sources are available, but PDFs with those matching names are not. Do not use the unrelated \path{MTP_Report_Bhuvesh_Raina_2022IMT-031.pdf} as a source for this project.
+
+Use this document as the consolidated handoff. Preserve the three objectives, separate real displacement from rotation and dropout, reconcile the scope conflicts before experiments, and mark old results as unverified until checked against primary project records.
+
+\clearpage
+\section{Detailed Objective Rationale and Research Decision Trail}
+This section expands the objective-selection and implementation logic in \texttt{objectives\_methodology.tex} and \texttt{roadmap\_review.tex}. It records the reasoning that supports the decisions, the evidence needed to test them, and the conditions that remain unresolved. A proposed method or a rationale for testing it is not a claim that it works.
+
+\subsection{How the project moved from prior work to three objectives}
+\begin{enumerate}
+\item \textbf{Identify what the summer work actually establishes.} The earlier project is described as a GT-WHAR-inspired fixed-graph system extended with a graph autoencoder, a Mamba-labelled temporal block, and sensor-drop training. Its sensor-drop experiments address unavailable inputs. They do not, by themselves, establish robustness when an active IMU has rotated or moved to another body location. The inherited physical graph also motivates asking whether sensor-to-sensor information flow should remain fixed.
+\item \textbf{Separate the deployment failure modes before choosing methods.} Missingness means a stream is unavailable and can be represented with an availability mask. Rotation changes the coordinate frame of an active sensor. Physical displacement changes the body location and can change the motion being measured, not just the numerical axes. A sensor permutation, an incorrectly labelled sensor, or time-varying attachment is another condition and is not automatically solved by a learned graph. These conditions therefore require separate tests and separate claims.
+\item \textbf{Check what prior work already covers.} DynamicWHAR is an existing dynamic wearable-interaction method, and DecomposeWHAR is cited in the roadmap as combining state-space temporal modeling with cross-sensor attention. 2s-AGCN contributes a physical/global/sample-adaptive graph design principle, but its skeleton input is not evidence of IMU placement robustness. Orientation-invariant wearable features, FedAvg, and FedHealth~2 also predate this project. Thus the defensible question is whether the proposed combination improves a specified placement-aware evaluation, not whether dynamic graphs, rotation invariance, or wearable federation were invented here.
+\item \textbf{Reduce the earlier broad objective list to three connected questions.} The detailed methodology says it replaces an eight-objective draft. Auditing, preprocessing, baseline recovery, ablations, efficiency measurement, and reproducibility remain necessary work packages, but are not separate research objectives. The project sequence is: (O1) determine how sensors should exchange information, (O2) test whether that exchange can be made stable to arbitrary sensor axes, and (O3) test whether the resulting model retains its value when training is distributed across users.
+\item \textbf{Treat federation as a dated scope decision, not silently merge drafts.} The 4 October roadmap review described FedAvg as an optional MTP-II feasibility extension. The updated 5 October objectives methodology explicitly replaced that optional-FedAvg framing and made federated placement-robust learning O3. The current three-objective proposal follows the updated framing. The older roadmap remains useful as a feasibility warning: O3 follows O1/O2, and any reduction to a smaller FL study should be an explicit scope decision rather than an accidental omission.
+\item \textbf{Bound the novelty and evidence claims.} The candidate contribution is a controlled, matched study of placement-aware routing, rotation-stable features, and their federated behavior. The adjacency formula alone is not sufficient novelty. A negative result is scientifically useful if the protocol is sound, the comparison is fair, and the result is reproducible.
+\end{enumerate}
+
+\subsection{O1 decision rationale and step-by-step plan: placement-aware routing}
+\textbf{Why O1 comes first.} The inherited model supplies a fixed anatomical topology, whereas placement changes may make fixed sensor relationships suboptimal. A sample-dependent graph is a plausible response, but dynamic wearable interactions already exist. O1 therefore asks whether a residual mixture that retains the physical prior adds value beyond existing dynamic methods under recorded placement changes. It does not assume that a graph can identify where a sensor has been relocated.
+
+\textbf{Proposed mechanism.} Let $H_t$ be the encoded sensor features at time $t$, and let $m_j$ indicate whether sender sensor $j$ is available. A sample-dependent affinity can be computed with scaled query--key scores,
+\[
+C_t=\mathrm{softmax}_{\mathrm{row}}\!\left(\frac{(\widehat H_tW_Q)(\widehat H_tW_K)^\top}{\tau\sqrt{d_a}}\right),
+\]
+where $\widehat H_t$ has unavailable senders masked, $W_Q,W_K$ are learned projections, $d_a$ is their width, and $\tau>0$ is a temperature. Combine that affinity with a nonnegative physical adjacency and a nonnegative globally learned adjacency. The proposed mixture weights $\alpha,\beta,\gamma$ are nonnegative, sum to one, and initially favor the physical prior. Remove self-neighbour edges, mask unavailable senders, and row-normalize with an $\varepsilon$ safeguard. Keep a separate residual self-path in the message-passing layer. An empty neighbourhood produces no neighbour message; an all-missing input needs an explicit abstention or invalid-input policy. A binary availability mask cannot identify a present-but-displaced sensor.
+
+\textbf{Execution steps and reasons.}
+\begin{enumerate}
+\item \textbf{Audit the inherited experiment before changing the graph.} Verify the actual checkpoint, code path, sensor order, class mapping, normalization, subject split, temporal implementation, and metric script. Establish whether the summer model is a faithful reproduction or only GT-WHAR-inspired. This prevents graph changes from being confused with preprocessing, leakage, or an unverified temporal-block change.
+\item \textbf{Create the data manifest and freeze the evaluation unit.} For each REALDISP file, record subject, scenario, activity coverage, usable rows, sensor order, missing values, and exclusions. The dataset documentation describes 17 subjects, nine IMUs, 33 activities and 50 Hz sampling, but the induced-displacement study covers only subjects 2, 5 and 15, with other subject/scenario/class coverage also incomplete. Do not manufacture 17 induced-placement test folds from the subject count alone.
+
+\textbf{REALDISP schema to preserve:} The nominal sensor order is S1 left calf, S2 left thigh, S3 right calf, S4 right thigh, S5 back, S6 left lower arm, S7 left upper arm, S8 right lower arm, and S9 right upper arm. The documented raw row has two timestamps, nine 13-value IMU blocks, and one activity label (120 columns total). Each IMU block is described as three acceleration, three gyroscope, three magnetic-field, and four quaternion values. The current matched O1/O2 input is proposed as six acceleration/gyroscope channels per sensor, $[T,N,F]=[50,9,6]$, stride 25. Check the downloaded release, units, labels, and the documentation's noted column-range inconsistencies against sample rows before parsing. Filenames containing ``mutual'' should be mapped to the documented induced-displacement scenario, not treated as a fourth placement condition. Published coverage notes also identify missing self-placement activities for subjects 6 and 13 and very little ideal-placement activity data for subject 7. File totals do not guarantee usable subject--scenario--class coverage.
+\item \textbf{Freeze leakage-free splits and preprocessing.} Assign outer test and separate validation subjects before creating overlapping windows or fitting any statistics. Fit normalization only on the permitted training subjects. For unseen-user evaluation, do not use held-out test-subject data to tune thresholds, fit normalization, choose a checkpoint, or tune against its placement scenarios. Report the actual eligible subject--scenario--class intersection for each paired comparison.
+\item \textbf{Recover matched controls.} Train a no-graph model, corrected physical/static graph, normalized-static graph, and augmentation-only model. Reproduce or carefully document DynamicWHAR as the external dynamic-interaction comparator. Hold sensor channels, windowing, temporal backbone, classifier, optimizer, training budget, and split fixed wherever possible. This separates the value of adaptive connectivity from added capacity or training changes.
+\item \textbf{Implement and test graph branches separately.} Build physical-only, global-only, input-dependent-only, and full-mixture variants. Unit-test sender masks, self-edge handling, row normalization, finite outputs, and gradients through dense continuous edge weights. Dense batched matrix multiplication or an appropriate dense message-passing layer is suitable; the roadmap notes that PyG provides \texttt{DenseGINConv}, so dense adjacency is not a universal PyG limitation.
+\item \textbf{Run ablations and inspect behavior.} Compare with and without availability masks and, if retained, with and without the GAE auxiliary loss. Log branch/gate weights and attention diagnostics, but do not treat interpretable-looking weights as proof that the model found true body locations. Report clean and recorded-placement macro-F1, class-wise failures, seed/subject variation, and batch-one cost.
+\item \textbf{Apply the predeclared decision rule.} Claim a routing benefit only if it is larger than seed variation and augmentation-only gains, and it meets a validation-defined clean-performance and cost tolerance. Keep a well-supported negative result; do not tune a tolerance after seeing the test set.
+\end{enumerate}
+
+\subsection{O2 decision rationale and step-by-step plan: rotation-stable features}
+\textbf{Why O2 follows O1.} O1 derives affinities from sensor features. If an IMU rotates while the activity stays the same, its raw component values can change and therefore change the learned edges. O2 tests the representation before routing, rather than assuming attention will discover orientation invariance. TRI-HAR is a direct prior-art lead for invariant multi-IMU processing, so O2 is not the invention of orientation-invariant activity recognition. The remaining candidate question is whether lightweight per-IMU magnitude/dot-product features stabilize this project's cross-sensor affinities and offer a useful robustness--accuracy--cost trade-off beyond raw axes, augmentation, invariant fixed fusion and a fair TRI-HAR-style comparator.
+
+\textbf{Assumption and candidate features.} For IMU $i$, acceleration $a_i(t)$ and angular velocity $\omega_i(t)$ are vectors in $\mathbb R^3$. During the modeled mounting change, one fixed orthogonal rotation $R_i$ applies to both streams for that IMU throughout the window; different IMUs may have different rotations. Candidate inputs are
+\[
+u_i(t)=\left[\|a_i(t)\|_2,\|\omega_i(t)\|_2,
+a_i(t)^\top\omega_i(t),
+a_i(t)^\top a_i(t-\ell),
+\omega_i(t)^\top\omega_i(t-\ell)\right],
+\]
+for a declared lag $\ell$ with valid preceding samples. Norms and within-IMU dot products are unchanged by the same orthogonal rotation because $R_i^\top R_i=I$. A raw cross-IMU dot product is not generally invariant when $R_i\ne R_j$. This construction preserves nominal sensor identity and does not require a quaternion or specialized equivariant network. It models axis rotation, not translation, arbitrary relocation, or a sensor whose orientation changes within a window.
+
+\textbf{Alternatives and current choice.} Approach A uses acceleration and angular-velocity magnitudes only. It is the simplest exact invariant baseline, but discards direction. Approach B adds selected within-IMU dot products to preserve some relative and temporal information; the detailed methodology recommends this as the starting candidate, with a short declared lag and consistent boundary handling. Approach C keeps raw six-channel accelerometer/gyroscope input and applies independent per-IMU rotation augmentation during training, optionally adding prediction-consistency loss. C encourages robustness but does not guarantee exact invariance. The proposal should compare raw input, A, B, and C as compute permits; freeze the primary feature set before the main evaluation rather than changing it after test results.
+
+\textbf{Execution steps and reasons.}
+\begin{enumerate}
+\item \textbf{Verify the physical rotation assumption.} Apply the same sampled rotation to acceleration and gyroscope vectors for one IMU, and a separately sampled rotation to each other IMU. Do not use rotation augmentation to represent a sensor moved to another body part.
+\item \textbf{Implement the scalar feature options.} Produce magnitude-only and magnitude-plus-selected-dot-product streams, with an unchanged raw-axis control. Fit any feature normalization on training data only. To preserve the invariance proof, avoid independent axis-wise centering/scaling within a vector triplet; use common scaling for the modality or fixed physical units.
+\item \textbf{Check invariance before measuring accuracy.} Numerically compare features, adjacency matrices, and predictions before and after independent fixed rotations. A stable feature or adjacency is a mechanistic check, not evidence by itself of higher macro-F1.
+\item \textbf{Use a matched factorial comparison.} Cross raw-axis versus invariant features with fixed versus dynamic fusion, and include magnitude-only and augmentation controls. Keep data, encoded width where feasible, temporal backbone, splits, training schedule, and evaluation budget matched. Record parameter and latency differences if feature dimensions change.
+\item \textbf{Report distinct stress conditions separately.} Measure clean activity recognition, synthetic independent rotations, recorded self/induced displacement, and sensor dropout separately. Rotation success cannot stand in for recorded displacement success.
+\end{enumerate}
+
+\textbf{GAE compatibility decision.} The summer GAE and sensor-drop work answer a different question and should remain a baseline/control, not be described as O2. A strictly invariant representation maps $X$ and $R\cdot X$ to the same code. A decoder that receives only that code cannot reconstruct both distinct raw-axis windows exactly. Therefore the principal O2 comparison can be classification-only; an auxiliary reconstruction experiment should reconstruct invariant targets, or use a separate orientation-sensitive raw-input decoder path. Check the actual summer decoder target before claiming compatibility. Ideal and displaced REALDISP recordings are not assumed to be aligned pairs.
+
+\subsection{O3 decision rationale and step-by-step plan: federated learning}
+\textbf{Why O3 follows O1/O2.} The first objectives define a candidate placement-robust model under a common training procedure. O3 changes the training organization by assigning training subjects to clients and retaining their raw records locally during federated rounds. FedAvg is the plain aggregation baseline. FedHealth~2 motivates client-local normalization/personalization, but its reported label-partition setting is not evidence of robustness to recorded placement-induced feature shift. The bounded question is whether O1/O2 gains persist under subject-based federation, not whether federated wearable HAR is new or automatically more accurate.
+
+\textbf{Execution steps and reasons.}
+\begin{enumerate}
+\item \textbf{Set compatible clients.} Create one client per training subject within one dataset, with consistent sensor ordering, activity labels, architecture and preprocessing. Keep validation/test subjects out of client training. Do not pool incompatible dataset schemas into one federated model without an explicit mapping and study design.
+\item \textbf{Implement plain FedAvg first.} At each communication round, selected clients start from shared parameters, train locally for a fixed number of epochs, and return updates. The server averages client parameters weighted by each client's number of training windows. Record client participation, random seeds, rounds, local epochs and aggregation details.
+\item \textbf{Add only a controlled personalization adaptation.} Compare shared normalization with one FedHealth-2-inspired client-local-normalization variant. Keep normalization layers otherwise identical and place them after invariant scalar projection, not on raw vector axes. Describe this as an adaptation, not a faithful FedHealth~2 reproduction unless its other components are also implemented.
+\item \textbf{Keep two evaluation questions separate.} For unseen users, validation/test subjects never participate in training and no target statistics are learned. For known-client personalization, train on that client's authorized ideal-placement data and evaluate disjoint recordings or time blocks, with a window-length exclusion gap and frozen client state. These are not interchangeable generalization results.
+\item \textbf{Use matched learning controls.} Compare local-only, centralized, plain FedAvg, and FedAvg with local normalization for the same O1/O2 model variants. Report client macro-F1, worst-client behavior, convergence, communication bytes, and local training cost, in addition to placement robustness.
+\end{enumerate}
+Federated learning is not a formal privacy guarantee. Unless separately implemented and evaluated, do not claim differential privacy, immunity to gradient leakage, on-device smartwatch training, or that sending updates alone protects every sensitive attribute.
+
+\subsection{Shared experiment logic and stage gates}
+\begin{enumerate}
+\item \textbf{MTP-I proposal gate:} present the prior-work trail, bounded research gap, three objectives, architecture diagram, dataset coverage limits, split plan, matched controls, metrics, risks, and milestones. Clearly distinguish completed summer work from proposed thesis experiments.
+\item \textbf{MTP-I prototype gate:} audit the code and data, freeze a leakage-free manifest, recover the no-graph/fixed-graph baselines, verify the temporal block, and build the first O1 prototype. Show preliminary results only if actually run and reproducible.
+\item \textbf{O1 evidence gate:} evaluate adaptive routing against fixed/static graphs, augmentation, and DynamicWHAR with the temporal backbone unchanged. Complete branch and mask ablations before attributing a gain to the full graph.
+\item \textbf{O2 extension gate:} after O1 is stable, add the invariant representation, prove feature/edge consistency numerically, then run matched recognition and cost comparisons. Keep the GAE reconstruction target compatible with the invariant bottleneck.
+\item \textbf{O3 federation gate:} after O1/O2 choices are frozen, simulate subject clients and evaluate both unseen-user and known-client tracks. The earlier roadmap makes FL conditional on feasibility; the updated objective document makes it O3. Resolve any final scope reduction explicitly with the supervisor.
+\item \textbf{MTP-II completion gate:} report the locked test protocol, negative and positive findings, per-subject uncertainty, class failures, efficiency, communication costs, limitations, reproducible configurations, thesis and defense materials. Choose a further extension only in response to observed failures.
+\end{enumerate}
+
+\textbf{Common reporting rule:} use subject/client macro-F1 as the primary metric. Report ideal and shifted absolute scores plus paired degradation on the same eligible subjects/classes, per-class errors, seed and subject variation, and uncertainty. Report latency with batch size, device, precision and timing path stated; include feature extraction and graph construction. For federation, add rounds, participation, bytes and local training time. Overlapping windows are not independent test subjects.
+
+\subsection{Decisions still requiring an explicit freeze}
+\begin{itemize}
+\item \textbf{Dataset scope:} the concise proposal presents REALDISP as the primary/current dataset. The methodology and review roadmap mention DSADS as a secondary dataset, while older context includes OPPORTUNITY. Start with REALDISP; add DSADS only if approved and feasible. Treat OPPORTUNITY as historical/optional, not silently part of the current main experiment.
+\item \textbf{Input channels:} the current concise study uses six acceleration/gyroscope channels per IMU. Historical processing uses nine channels including magnetometer. Audit all scripts and checkpoints, then state one matched input protocol; do not give one model an unreported modality advantage.
+\item \textbf{O2 primary variant:} the methods document recommends magnitude-plus-selected-dot-product features, with magnitude-only and raw-input rotation augmentation as controls. Research note 2 adds TRI-HAR as prior art to screen. Compare protocols fairly, then freeze the primary variant and wording; do not claim rotation invariance as novel.
+\item \textbf{O3 scope and timing:} the updated objective list includes federated learning, while the earlier roadmap made FedAvg optional. Keep O3 in the research plan, execute it after O1/O2, and report any feasibility-driven reduction honestly.
+\item \textbf{Split construction:} specify which subject is validation for each outer test subject, which scenarios/classes are eligible, how windows are labeled, and how limited induced-displacement coverage affects paired analysis. Do not use the generic phrase ``LOSO'' as a substitute for this manifest.
+\item \textbf{Temporal implementation and prior numbers:} historical context and reports include differing latency/model-size figures. The MTP report gives 13.39 ms for a GPU batch-128 run and 1,042,975 parameters, while the roadmap review warns against describing that as batch-one/edge latency or repeating a roughly 250k parameter claim. Earlier context also gives a separate 11.45 ms figure for another phase. Reconcile code, checkpoint, device, batch size and timing method before quoting any number or claiming edge readiness.
+\item \textbf{Optional adversarial extension:} the earlier roadmap discusses a GRL/domain-adversarial option if unseen-user errors persist. It is not a fourth objective and does not guarantee identity-free or universal features. Keep held-out subjects out of adversarial training; distinguish source-only subject-adversarial training from DANN protocols that use unlabeled target data.
+\end{itemize}
+
+\subsection{Source coverage and context handoff limits}
+The workspace contains \texttt{objectives\_methodology.tex}, \texttt{roadmap\_review.tex}, \texttt{prev\_context.text}, and both supplied files \path{prism-uploads/research_1 (1).txt} and \path{prism-uploads/research_2 (1).txt}. This handoff refers to \texttt{prev\_context.text} as the historical six-block context that will accompany the transfer; use it for project history and verify its code/results against primary project records before treating them as established evidence. The two research notes have now been reviewed and their relevant findings, caveats and conflicts are consolidated above. Their citations and reported scores still require primary-paper/protocol checks before being used as evidence. No project files were deleted or renamed.
+
+\end{document}

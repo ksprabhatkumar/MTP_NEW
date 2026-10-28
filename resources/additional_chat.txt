@@ -1,0 +1,387 @@
+OBJECTIVE 1 DEVELOPMENT HANDOFF
+Updated: 16 October 2026
+
+PURPOSE OF THIS FILE
+This is a self-contained handoff for a new chat/session with no access to the
+previous conversation. It records what was requested, what was implemented,
+why the decisions were made, what was actually run, and what remains to be
+done. The repository files should be treated as the source of truth if this
+note and the code ever disagree.
+
+
+1. PROJECT OBJECTIVE UNDER WORK
+
+The project is wearable human-activity recognition (WHAR) using multiple IMUs.
+The current research plan has three staged objectives. Only Objective 1 was
+implemented in this work:
+
+  Develop and evaluate placement-aware residual dynamic inter-sensor routing.
+
+The intended graph has three branches:
+
+  1. a fixed physical/anatomical sensor graph;
+  2. a dataset-wide learned global graph; and
+  3. an input-dependent dynamic graph computed for each window.
+
+The research question is whether this residual graph improves recognition
+under recorded REALDISP placement changes without unacceptable loss on ideal
+placement or excessive inference cost. This is a controlled evaluation claim,
+not a claim that dynamic wearable graphs are new.
+
+The authoritative research description is in:
+
+  resources/objectives_methodology.tex
+  resources/roadmap_review.tex
+  resources/mtp_1_a_report.tex
+  resources/mtp1_a_full_report.tex
+  resources/mtp1_presentation.tex
+  resources/research_1.txt
+  resources/research_2.txt
+
+steps.md contains the implementation checklist agreed during the chat.
+
+
+2. IMPORTANT DECISIONS AND THEIR LOGIC
+
+Dataset scope
+-------------
+REALDISP is the primary and only dataset for Objective 1. It contains actual
+placement conditions, whereas DSADS and the selected OPPORTUNITY configuration
+do not supply the same recorded displacement evidence. Objective 2 rotation
+features and Objective 3 federated learning were intentionally kept out of
+scope.
+
+Input representation
+--------------------
+Each window is [T, N, F] = [50, 9, 6]: 50 samples, nine IMUs, and six channels
+per IMU (three acceleration plus three gyroscope axes). Window stride is 25.
+Magnetometer channels were removed from the principal O1 comparison so all
+variants use the input declared in the updated methodology.
+
+Scenario terminology
+--------------------
+Raw files named "mutual" are recorded as scenario "induced" in the manifest.
+This follows the terminology in the REALDISP documentation. Ideal, self, and
+induced placement are kept distinct. Self-placement data are preserved in the
+manifest but the current experiment runner evaluates ideal and induced only.
+
+Leakage prevention
+------------------
+Preprocessing saves raw, unnormalised windows. For every held-out fold, mean
+and standard deviation are fitted only on ideal-placement training subjects,
+then applied unchanged to validation, ideal-test, and induced-test windows.
+This replaced earlier global preprocessing, which could leak test statistics.
+
+Subject split
+-------------
+The loader implements a nested subject split: one outer test subject, the next
+available distinct subject for validation, and all remaining ideal subjects
+for training. Model selection uses validation macro-F1 only. Test data do not
+select the best epoch.
+
+Graph contract
+--------------
+The earlier partial graph implementation used unconstrained branch scalars,
+an unconstrained learned adjacency, self-edges, and no availability mask. It
+was replaced with:
+
+  - nonnegative physical and global branches;
+  - row-softmax query/key dynamic affinity;
+  - nonnegative branch weights that sum to one and initially favour anatomy;
+  - removal of graph self-edges;
+  - explicit missing-sender masking;
+  - safe zero-message behavior for empty rows;
+  - row-normalized final adjacency; and
+  - a separate learned residual self-feature path.
+
+This design follows the declared O1 equation while preventing message scale
+from changing arbitrarily across variants.
+
+Primary loss and GAE
+--------------------
+Cross-entropy classification is the primary study. The graph-autoencoder
+decoder remains optional through --gae. When enabled, reconstruction loss is
+applied only to sensor entries deliberately hidden during training. No GAE run
+has yet been included in the current full results.
+
+Comparators
+-----------
+The internal variants share the same encoder, temporal block, classifier,
+training budget, splits, and inputs:
+
+  none      - no cross-sensor message; residual self path remains
+  physical  - fixed anatomical graph only
+  global    - learned dataset-wide graph only
+  dynamic   - input-dependent query/key graph only
+  residual  - weighted physical + global + dynamic graph
+
+The official DynamicWHAR repository was cloned into baselines/DynamicWHAR and
+an adapter was added. It must be reported separately because it is a different
+published architecture, not a strictly component-matched ablation.
+
+
+3. FILES CREATED OR MODIFIED FOR OBJECTIVE 1
+
+models/mamba_whar.py
+  Implements ResidualDynamicGraph, the weighted encoder/decoder, the pure
+  PyTorch temporal block, all graph variants, sensor availability handling,
+  and optional routing diagnostics.
+
+process_all_data.py
+  Parses REALDISP, selects acc/gyro columns, maps mutual to induced, builds
+  50-sample windows, saves raw tensors, and writes the per-window manifest.
+  process_realdisp(subjects=None) supports either the full dataset or a subset.
+
+run_objective1_preprocess.py
+  Small CLI wrapper for preprocessing. --subjects accepts a comma-separated
+  subset for smoke/provisional runs.
+
+dataset/data_loader.py
+  Adds Objective1Dataset and get_objective1_loso_loaders(). It creates the
+  nested subject split and fits normalization on training data only.
+
+objective1.py
+  Main O1 runner. It trains a requested variant and seed, selects the best
+  in-memory state by validation macro-F1, evaluates ideal/induced recordings,
+  measures parameters/latency/memory, writes detailed JSON predictions, and
+  appends completed folds to results_log.txt.
+
+tests/test_objective1.py
+  Tests graph shape, nonnegativity, zero diagonal, row sums, availability
+  masking, empty-row safety, finite gradients, deterministic diagnostics, and
+  REALDISP scenario-name parsing.
+
+baselines/dynamicwhar_adapter.py
+  Adapts O1 tensors [B,T,N,F] to the official DynamicWHAR implementation and
+  constructs its directed no-self-edge relation matrices.
+
+baselines/DynamicWHAR/
+  Unmodified nested checkout of the official DynamicWHAR repository. It has
+  its own .git directory and GPL-3.0 license. Preserve its attribution/license.
+
+steps.md
+  The agreed O1 plan/checklist.
+
+results_log.txt
+  Contains a short local-run declaration followed by completed-fold summaries.
+
+results/*/*_results.json
+  Full predictions, metrics, split summaries, and efficiency measurements for
+  each completed experiment group.
+
+
+4. ENVIRONMENT CREATED
+
+The Windows system Python installation was incomplete. A project-local Python
+3.11 runtime was installed with uv under .python, and the requested virtual
+environment was created as pr.
+
+The environment now contains PyTorch 2.5.1+cu121 and detects:
+
+  CUDA available: True
+  GPU: NVIDIA GeForce RTX 2050
+
+In Git Bash, activate it with:
+
+  source pr/Scripts/activate
+
+Verify with:
+
+  python --version
+  python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+
+The local .python, .uv-cache, and pr directories are large generated
+environment artifacts. They should normally be excluded from version control.
+
+
+5. PREPROCESSING ACTUALLY COMPLETED
+
+The current processed O1 data are NOT the full 17-subject dataset. They were
+generated as a bounded local run for subjects 2, 5, and 15, because these are
+the subjects with documented induced-placement recordings.
+
+Current manifest total: 33,888 windows.
+
+  Subject 2:  ideal 1,820; self 1,974; induced 8,531
+  Subject 5:  ideal 1,859; self 1,891; induced 7,184
+  Subject 15: ideal 1,485; self 1,737; induced 7,407
+
+Generated files:
+
+  dataset/processed/realdisp_o1_x.pt          365,992,019 bytes
+  dataset/processed/realdisp_o1_y.pt              272,723 bytes
+  dataset/processed/realdisp_o1_p.pt              272,723 bytes
+  dataset/processed/realdisp_o1_manifest.json   10,233,926 bytes
+
+objective1_preprocess.err.log contains an older Unicode console-print failure
+caused by a checkmark character under cp1252. The tensors had already been
+written in that failed attempt. A later run completed successfully, as shown
+by objective1_preprocess.log and the current manifest. Do not treat the stale
+error log as evidence that the present tensors are invalid.
+
+
+6. TEST STATUS
+
+The following command currently passes all four tests:
+
+  python -m unittest tests.test_objective1 -v
+
+Last verified result on 16 October 2026: 4 tests passed.
+
+
+7. TRAINING THAT WAS ACTUALLY RUN
+
+The main completed comparison used:
+
+  held-out subjects: 2, 5, 15
+  seeds: 13, 29, 47
+  epochs: 50
+  batch size: 256
+  GPU: NVIDIA GeForce RTX 2050
+  loss: cross-entropy
+  GAE: disabled
+
+Each "full" result therefore contains nine runs (three subjects x three
+seeds). These are not full 17-subject LOSO results.
+
+Mean results across the nine runs:
+
+  Variant            Ideal macro-F1   Induced macro-F1   F1 degradation
+  none                    72.10%             16.03%           56.07 pp
+  physical                70.31%             12.77%           57.54 pp
+  global                  69.67%             12.45%           57.22 pp
+  dynamic                 69.31%             12.57%           56.74 pp
+  residual                69.67%             12.74%           56.93 pp
+  physical + dropout      71.08%             13.06%           58.02 pp
+
+"physical + dropout" used --sensor-dropout 0.1. The other full comparisons
+used sensor dropout 0.0.
+
+Important interpretation:
+
+  - Recorded induced placement is extremely difficult in the current setup.
+  - The no-graph control currently has the best mean ideal and induced F1.
+  - The residual model does not outperform the no-graph control in these runs.
+  - Sensor-dropout augmentation does not solve active-sensor displacement.
+  - Therefore the current evidence does NOT support the proposed O1 benefit.
+  - This is a useful negative/provisional result, not a reason to hide or alter
+    metrics. Investigate protocol/model causes before making conclusions.
+
+Relevant result directories:
+
+  results/gpu_full/                       residual, 9 runs
+  results/gpu_none_full/                  no-graph, 9 runs
+  results/gpu_physical_full/              physical, 9 runs
+  results/gpu_global_full/                global, 9 runs
+  results/gpu_dynamic_full/               dynamic, 9 runs
+  results/gpu_physical_dropout_full/      physical + dropout, 9 runs
+
+Smoke directories contain only short two-epoch checks and must not be used for
+research conclusions.
+
+
+8. LIMITATIONS AND ITEMS STILL NOT COMPLETED
+
+1. Current preprocessing includes only subjects 2, 5, and 15. With only three
+   subjects, each fold has one validation subject and only one training subject.
+   This is much weaker than the planned 17-subject nested LOSO protocol.
+
+2. Do not run objective1.py --subjects all against the current tensors; folds
+   for absent subjects will fail. First rerun full preprocessing on the
+   workstation.
+
+3. DynamicWHAR was cloned and adapted but has not yet been included in the
+   completed result matrix.
+
+4. The optional GAE on/off ablation has not been run.
+
+5. The current runner does not save checkpoints to disk. It retains the best
+   validation state in memory and saves metrics/predictions only. Interrupted
+   folds must be rerun.
+
+6. There is no early stopping; all requested epochs run. The best validation
+   epoch is retained, but the epoch number is not currently stored.
+
+7. Self-placement windows are preprocessed but not evaluated by objective1.py.
+
+8. Availability in the raw manifest is currently all ones. Sensor dropout
+   creates artificial missing-sender masks during training. A present but
+   displaced sensor is not marked unavailable, which is intentional.
+
+9. Results are window-level macro-F1 for each held-out subject. For a thesis
+   table, aggregate carefully across subject/seed runs and report subject
+   variation; overlapping windows are not independent subjects.
+
+10. The temporal class is named PurePyTorchMambaBlock but is a simplified
+    gated convolution/projection block, not the official selective-scan Mamba
+    implementation. Avoid claiming official Mamba equivalence until this is
+    audited or replaced.
+
+11. The worktree was already dirty before this implementation. It contains
+    modified logs and deletions unrelated to O1. Do not use git reset/checkout
+    to clean it without reviewing and preserving the user's work.
+
+12. main.py is the older experiment path and is not the authoritative O1
+    runner. Use objective1.py for this study.
+
+
+9. RECOMMENDED NEXT STEPS ON THE WORKSTATION
+
+Step A - activate and verify the environment:
+
+  source pr/Scripts/activate
+  python -c "import torch; print(torch.__version__, torch.cuda.is_available())"
+
+Step B - run the tests:
+
+  python -m unittest tests.test_objective1 -v
+
+Step C - rebuild the FULL processed dataset (all available subjects):
+
+  python run_objective1_preprocess.py
+
+This needs several GB of memory while consolidating windows. Afterward inspect
+the manifest and confirm all expected ideal subjects plus induced subjects
+2, 5, and 15 before training.
+
+Step D - perform a one-fold smoke check on the full preprocessing:
+
+  python objective1.py --variant residual --subjects 2 --seeds 13 --epochs 2 --batch-size 256 --output results/workstation_smoke
+
+Step E - run the matched internal comparison. Use distinct output folders:
+
+  python objective1.py --variant none     --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_none
+  python objective1.py --variant physical --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_physical
+  python objective1.py --variant global   --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_global
+  python objective1.py --variant dynamic  --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_dynamic
+  python objective1.py --variant residual --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_residual
+
+Important protocol decision for the next session:
+
+  The full preprocessing makes 17-subject training data available, but recorded
+  induced tests still exist only for subjects 2, 5, and 15. The recommended
+  primary displacement comparison is therefore to test those three subjects
+  while training/validating from all other ideal subjects. Separately report
+  ideal-placement LOSO across all 17 subjects if compute permits.
+
+Step F - after internal controls are stable, run DynamicWHAR separately:
+
+  python objective1.py --variant dynamicwhar --subjects 2,5,15 --seeds 13,29,47 --epochs 50 --batch-size 256 --output results/ws_dynamicwhar
+
+Because DynamicWHAR is not architecturally matched, document input and training
+adaptations and do not describe it as an exact reproduction unless its original
+protocol is also reproduced.
+
+
+10. FINAL RESEARCH CAUTION
+
+The old results_log.txt contains very high REALDISP scores from an earlier
+pipeline. Those results used a different implementation/input/protocol and
+must not be compared directly with the new leakage-controlled O1 experiment.
+Use the JSON result files and the "OBJECTIVE 1 COMPLETE" log entries for the
+current study.
+
+The current negative result should be preserved. The next session should first
+verify full preprocessing, class/scenario coverage, and the split composition;
+then rerun matched controls. Do not tune on induced test subjects or use test
+performance for checkpoint selection.

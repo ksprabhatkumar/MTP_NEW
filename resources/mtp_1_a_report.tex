@@ -1,0 +1,635 @@
+\documentclass[10pt,a4paper,oneside,openany]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{top=1.2in,bottom=1.5in,left=1.5in,right=1in,footskip=0.5in}
+\usepackage{lmodern,graphicx,setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,tabularx,array}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+\usepackage{enumitem,microtype,titlesec,caption,hyperref}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\raggedbottom
+\setlength{\emergencystretch}{2em}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+\setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\setlist[enumerate]{leftmargin=*,itemsep=3pt,topsep=3pt}
+\hypersetup{colorlinks=true,linkcolor=black,filecolor=black,urlcolor=black,citecolor=black}
+\captionsetup{font=normalsize,labelfont=bf}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\raggedleft}
+  {\fontsize{100}{110}\selectfont\thechapter}
+  {-15pt}
+  {\Huge}
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\bfseries\Huge\centering}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\chapter}{0pt}{10pt}{16pt}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcommand{\projecttitle}{Placement-Aware Dynamic Graph Learning for Robust Wearable Human Activity Recognition}
+\newcommand{\studentname}{Prabhat Kumar}
+\newcommand{\rollnumber}{2022-IMT-086}
+\newcommand{\supervisorname}{Dr. Anjali}
+\newcommand{\institutelogo}{ABV_IIITM_Logo .jpeg}
+\newcommand{\ganttcompleted}{\cellcolor{black!70}\rule{0pt}{1.4em}}
+\newcommand{\ganttproposedlegend}{\tikz[baseline=-0.55ex]{\path[draw=black,line width=0.45pt,pattern=north east lines,pattern color=black] (0,0) rectangle (0.62,0.34);}}
+\makeatletter
+\newcommand{\ganttproposed}{%
+  \makebox[\linewidth][l]{%
+    \makebox[0pt][l]{%
+      \hspace*{-\tabcolsep}%
+      \raisebox{-\dp\@arstrutbox}[0pt][0pt]{%
+        \tikz{\path[draw=none,pattern=north east lines,pattern color=black]
+          (0,0) rectangle
+          (\dimexpr\linewidth+2\tabcolsep\relax,\dimexpr1.4em+\dp\@arstrutbox\relax);}%
+      }%
+    }%
+    \rule{0pt}{1.4em}%
+  }%
+}
+\makeatother
+\renewcommand{\bibname}{References}
+
+\begin{document}
+\setstretch{1.5}
+
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\begin{center}
+\setstretch{1.15}
+\fontsize{15.8pt}{19pt}\selectfont
+\textbf{\projecttitle}\par
+\vspace*{0.15in}
+{\large MTP-I : Mid-Sem Major Project Report\par}
+\vspace*{0.24in}
+{\large A report submitted in partial fulfilment of the requirements for the degree of\par}
+{\large Integrated Post Graduate (M.Tech.) in Information Technology\par}
+\vspace*{0.24in}
+{\large Submitted by\par}
+{\large\textbf{\studentname\ : \rollnumber}\par}
+\vspace*{0.20in}
+{\large Under the Supervision of\par}
+{\large\textbf{\supervisorname}\par}
+\vspace*{0.18in}
+{\large Department of Information Technology\par}
+\vspace*{1.16in}
+\begin{minipage}[c][2.8cm][c]{3cm}
+\centering
+\includegraphics[width=4.5cm,height=4.5cm,keepaspectratio]{\institutelogo}
+\end{minipage}\par
+\vfill
+{\large ATAL BIHARI VAJPAYEE INDIAN INSTITUTE OF INFORMATION\par}
+{\large TECHNOLOGY AND MANAGEMENT GWALIOR\par}
+\vspace*{0.05in}
+{\large GWALIOR, MADHYA PRADESH, INDIA\par}
+\vspace*{0.05in}
+{\large ACADEMIC YEAR 2026--2027\par}
+\end{center}
+\end{titlepage}
+
+\cleardoublepage
+\pagenumbering{roman}
+\hypersetup{pageanchor=true}
+\chapter*{Declaration}
+\addcontentsline{toc}{chapter}{Declaration}
+
+I hereby certify that the work presented in this report, entitled \emph{\projecttitle}, is submitted to ABV-Indian Institute of Information Technology and Management Gwalior in partial fulfilment of the requirements for the award of the Integrated Post Graduate (M.Tech.) degree in Information Technology. This report is an authentic record of my own work carried out from August 2026 to September 2026 under the supervision of \supervisorname. The proposed thesis period extends from August 2026 to March 2027. Work scheduled after September 2026, including the three research objectives and their experiments, is identified as proposed work and is not presented as a completed result. I have cited the references for all text, figures, tables, methods, datasets and earlier project material taken or adapted from other sources.
+
+\vspace{1cm}
+\begin{center}
+\begin{tabular}{p{0.52\textwidth}p{0.40\textwidth}}
+Date: & \textbf{Signature of Candidate} \\[0.5cm]
+& \studentname\ (\rollnumber)  \\
+\end{tabular}
+\end{center}
+\vspace{1.4cm}
+\noindent This is to certify that the above statement made by the candidate is correct to the best of my knowledge.
+\vspace{1.2cm}
+\begin{center}
+\begin{tabular}{p{0.52\textwidth}p{0.40\textwidth}}
+Date: & \textbf{Signature of Supervisor} \\[0.5cm]
+& \supervisorname \\
+\end{tabular}
+\end{center}
+
+\cleardoublepage
+\chapter*{Acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgements}
+
+I thank \supervisorname\ for her guidance in shaping this continuation of the Summer Colloquium. I am grateful to the Department of Information Technology at ABV-IIITM Gwalior for its academic support. I also acknowledge the researchers whose publications, datasets and implementations inform this proposal, and thank my family and friends for their encouragement.
+
+\vspace{1cm}
+\begin{flushright}
+\textit{\textbf{\studentname}}\\
+\textit{\textbf{\rollnumber}}
+\end{flushright}
+
+\cleardoublepage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Body-worn sensors observe an activity from different locations. Their measurements can become harder to interpret when a device is mounted at a new angle, shifted locally or unavailable. The earlier Summer Colloquium explored graph-based recognition with reconstruction and simulated sensor removal. The present proposal extends that starting point to placement variability and collaborative training.
+
+Three objectives organize the study. Objective 1 develops adaptive sensor relationships through anatomical, globally learned and input-dependent graph branches. Objective 2 compares vector magnitudes with rotation-augmented raw inputs, optionally adding prediction consistency. Objective 3 evaluates federated training with subject-based clients and a client-local-normalization adaptation. A common temporal backbone and classifier support controlled comparisons.
+
+The literature survey focuses on GT-WHAR, DynamicWHAR, 2s-AGCN and FedHealth 2. REALDISP is the sole dataset for recorded-placement, synthetic-rotation and sensor-dropout evaluation. Planned measurements include macro-F1, placement degradation, inference cost and federated communication cost. The expected contribution is an assessment of whether adaptive relationships and orientation handling retain their benefits under heterogeneous local training. New recognition results, deployment readiness and formal privacy guarantees remain outside the evidence available at this proposal stage.
+
+\noindent\textbf{Keywords:} wearable activity recognition, adaptive graph, sensor orientation, federated learning, REALDISP.
+
+\cleardoublepage
+\tableofcontents
+
+\cleardoublepage
+\chapter*{List of Figures and Tables}
+\addcontentsline{toc}{chapter}{List of Figures and Tables}
+\section*{Figures}
+\makeatletter
+\@starttoc{lof}
+\section*{Tables}
+\@starttoc{lot}
+\makeatother
+
+\cleardoublepage
+\pagenumbering{arabic}
+\chapter{Introduction}
+\label{chap:introduction}
+
+\section{Motivation and Background}
+
+Wearable human activity recognition identifies activities from short windows of body-worn measurements. Inertial measurement units, or IMUs, provide acceleration and angular-velocity vectors. Multiple IMUs capture complementary movement, making their information exchange relevant to recognition.
+
+The Summer Colloquium extended a GT-WHAR-inspired graph-temporal model with reconstruction and sensor-drop training in GAE--Mamba--WHAR~\cite{gtwhar,summerreport}. This reported work provides the baseline. Its preprocessing, subject splits and temporal operations will be verified before earlier results are reused.
+
+An attachment change can affect an active sensor without removing its stream. A residual graph combines nominal anatomical structure with input-dependent interactions to address this variability. Orientation handling and federated training extend the same recognition model to changed axes and heterogeneous users.
+
+\section{Problem Formulation}
+
+\subsection{Placement, Orientation and Availability}
+
+An input window is represented by $X\in\mathbb{R}^{T\times N\times F}$, where $T$ is its number of samples, $N$ is the number of sensors and $F$ is the number of features per sensor. The symbol $\mathbb{R}$ denotes real-valued measurements. The classifier predicts an activity from $X$ and the binary availability vector $m$. Its entry $m_i$ indicates whether sensor $i$ is available. A missing IMU has $m_i=0$, while a displaced but active IMU has $m_i=1$. Availability therefore differs from measurement reliability.
+
+A mounting-orientation change rotates the coordinate axes in which acceleration and angular velocity are expressed. One rotation is shared by both streams of an IMU and remains fixed within a window, while different IMUs may have different rotations. Physical displacement can also change the motion measured at the device, so orientation robustness alone does not cover every placement effect~\cite{banos}.
+
+\subsection{User Differences and Learning Setting}
+
+Users can differ in movement, activity coverage and recording volume. The centralized study evaluates subjects excluded from training. The federated study assigns training subjects to clients that keep their recordings locally. Known-client personalization and unseen-user generalization are evaluated separately because they describe different learning settings.
+
+\begin{quote}
+The research problem is to develop a wearable activity-recognition framework with adaptive sensor relationships, reduced sensitivity to mounting orientation and collaborative learning across heterogeneous users. Its effectiveness is assessed under held-out-user and recorded-placement conditions together with its computational and communication requirements.
+\end{quote}
+
+Synthetic rotation, recorded displacement and sensor dropout are separate test conditions. The scope excludes arbitrary body-location identification, on-device training claims and formal privacy guarantees.
+
+\section{Problem Objectives}
+
+Baseline recovery, preprocessing and experimental analysis support the three objectives. Their methods and evaluation are presented in Chapters~\ref{chap:methodology} and~\ref{chap:evaluation}.
+
+\begin{enumerate}[label=\textbf{Objective~\arabic*.}]
+\item \textbf{To develop a wearable activity-recognition framework with adaptive inter-sensor relationships.}
+\item \textbf{To improve the robustness of wearable activity recognition to sensor orientation changes.}
+\item \textbf{To develop a federated learning framework for wearable activity recognition across heterogeneous users.}
+\end{enumerate}
+
+\cleardoublepage
+\chapter{Literature Review}
+\label{chap:literature}
+
+The literature review examines GT-WHAR, DynamicWHAR, 2s-AGCN and FedHealth 2. Together, these papers establish the graph-temporal starting point, existing adaptive sensor interactions, a residual graph-design principle and a federated personalization direction. Dataset documentation and the aggregation foundation support the experimental methodology in later chapters.
+
+\section{Related Work}
+
+\subsection{GT-WHAR: Starting Framework}
+
+GT-WHAR places multiple wearable sensors in a graph-based temporal recognition framework~\cite{gtwhar}. It supplies the architectural starting point for the Summer Colloquium and the present extension. The inherited implementation is treated as GT-WHAR-inspired rather than as an independently verified reproduction of the published model.
+
+The fixed-graph reference will be established from verified inputs, subject splits and model operations. This reference allows the effect of adaptive connectivity to be assessed independently of changes in preprocessing or temporal modeling.
+
+\subsection{DynamicWHAR: Existing Adaptive Interaction}
+
+DynamicWHAR learns interactions between wearable sensor streams and provides author code~\cite{dynamicwhar}. It is the closest external comparator for the proposed adaptive relationships. The paper establishes that input-dependent wearable interaction is an existing research direction.
+
+The comparison will use matching channels, subject splits and placement conditions. The remaining question is whether an anatomical-prior residual mixture improves robustness under this common protocol beyond an existing dynamic wearable model.
+
+\subsection{2s-AGCN: Graph-Design Principle}
+
+2s-AGCN combines physical, globally learned and sample-adaptive connectivity for skeleton action recognition~\cite{agcn}. The three branches motivate the proposed sensor graph. The physical prior can retain nominal body relationships while learned branches adjust information flow.
+
+Skeleton joints and wearable IMUs are different inputs. The skeleton-action results therefore motivate a design principle rather than establish misplaced-IMU performance. Branch ablations will assess how the physical, global and input-dependent components contribute in the wearable setting.
+
+\subsection{FedHealth 2: User-Specific Learning}
+
+FedHealth 2 addresses personalized healthcare learning through feature alignment, client-local batch normalization and similarity weighting~\cite{fedhealth}. It motivates examining user-specific feature distributions instead of assuming that shared training removes them.
+
+The proposed federation uses subjects as clients. A client-local-normalization variant is compared with plain federated averaging. This variant adopts one component inspired by FedHealth 2 rather than reproducing its complete feature-alignment and similarity-weighting method. The study examines whether recognition under placement changes remains robust after heterogeneous local training.
+
+\section{Related Research Summary}
+
+Table~\ref{tab:research} summarizes the related research, identifying each paper's publication, method, main contribution and relevance to the proposed study. The established methods provide a basis for the objectives rather than evidence of superiority under the proposed evaluation protocol.
+
+\begin{table}[htbp]
+\centering
+\caption{Related research: methods, contributions and relevance to the objectives.}
+\label{tab:research}
+\begingroup
+\setstretch{1.05}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|P{0.32\textwidth}|P{0.20\textwidth}|P{0.22\textwidth}|Y|}
+\hline
+\textbf{Paper and publication} & \textbf{Method used} & \textbf{Key contribution} & \textbf{Relevance} \\
+\hline
+\textbf{GT-WHAR}~\cite{gtwhar}\newline \{IEEE TETCI\} (2024) & Graph--temporal modeling. & Combines multiple wearable sensor streams. & Baseline for Objective 1. \\
+\hline
+\textbf{DynamicWHAR}~\cite{dynamicwhar}\newline \{ACM IMWUT\} (2022) & Dynamic inter-sensor interaction. & Learns input-dependent sensor relationships. & Adaptive comparator for Objective 1. \\
+\hline
+\textbf{2s-AGCN}~\cite{agcn}\newline \{IEEE/CVF CVPR\} (2019) & Adaptive graph convolution. & Physical, global and sample-specific graph branches. & Graph design for Objective 1. \\
+\hline
+\textbf{FedHealth 2}~\cite{fedhealth}\newline \{FTL-IJCAI workshop\}\newline (2021) & Weighted federation with local batch normalization. & Local normalization and user-specific weighting. & Federation for Objective 3. \\
+\hline
+\textbf{REALDISP displacement study}~\cite{banos}\newline \{Sensors\} (2014) & Recorded multi-IMU placement evaluation. & Provides ideal, self-placement and induced-displacement recordings. & Dataset and placement protocol for Objectives 1--3. \\
+\hline
+\end{tabularx}
+\endgroup
+\end{table}
+
+\section{Research Gap}
+
+The research gap is stated as three connected, testable questions.
+\begin{enumerate}
+\item \textbf{Adaptive relationships.} Does an anatomical-prior residual graph improve the inherited system under held-out-subject placement tests beyond corrected static graphs and DynamicWHAR?
+\item \textbf{Orientation handling.} Do vector magnitudes or augmented raw inputs make routing more useful under orientation changes without an unacceptable loss of activity information?
+\item \textbf{Federated retention.} Do the resulting recognition benefits persist under subject-based federation, and does local normalization help known clients?
+\end{enumerate}
+
+Objective 2 follows from the dependence of learned affinities on input features. Magnitudes remove a specified axis rotation algebraically, while augmentation encourages the raw-input model to tolerate it. These are established mathematical/training choices, not claimed inventions.
+
+The reviewed papers motivate the model components, but do not establish their joint benefit for the inherited implementation under the specified REALDISP protocol. This defines a bounded project gap. Matched experiments will determine whether the extensions improve recognition, introduce unacceptable costs or produce no consistent benefit.
+
+\cleardoublepage
+\chapter{Proposed Methodology}
+\label{chap:methodology}
+
+The proposed methodology extends the reported Summer Colloquium architecture rather than replacing the whole recognition system. Figure~\ref{fig:pipeline} shows its graph encoder, reconstruction branch and temporal classification branch~\cite{summerreport}. Dashed panels identify the proposed improvements. Objective 1 changes spatial routing, Objective 2 changes the orientation treatment before encoding and Objective 3 changes the organization of training. The temporal module is retained after verification of its implemented operations.
+
+\begin{figure}[htbp]
+\centering
+\begingroup
+\setstretch{1.0}
+\normalsize
+\setlength{\unitlength}{\dimexpr\textwidth/420\relax}
+\begin{picture}(420,502)
+\put(0,456){\framebox(240,38){\parbox{0.54\textwidth}{\centering\textbf{Clean multi-IMU recordings}\\Acceleration and angular velocity}}}
+\put(120,456){\vector(0,-1){18}}
+\put(0,400){\framebox(240,38){\parbox{0.54\textwidth}{\centering\textbf{Input preparation}\\Windowing and normalization}}}
+\put(268,386){\dashbox{3}(152,66){\parbox{0.34\textwidth}{\centering\textbf{Objective 2}\\Magnitudes or training\\rotations before\\normalization}}}
+\put(268,419){\vector(-1,0){28}}
+\put(120,400){\vector(0,-1){18}}
+\put(0,344){\framebox(240,38){\parbox{0.54\textwidth}{\centering\textbf{Sensor-drop simulation}\\Training-time corruption and mask}}}
+\put(120,344){\vector(0,-1){18}}
+\put(0,288){\framebox(240,38){\parbox{0.54\textwidth}{\centering\textbf{Kinematic graph encoder (GIN)}\\Fixed anatomical connectivity}}}
+\put(268,274){\dashbox{3}(152,66){\parbox{0.34\textwidth}{\centering\textbf{Objective 1}\\Replace fixed edges\\with residual\\adaptive routing}}}
+\put(268,307){\vector(-1,0){28}}
+\put(120,288){\vector(0,-1){16}}
+\put(0,240){\framebox(240,32){\parbox{0.54\textwidth}{\centering\textbf{Latent sensor representation}}}}
+\put(120,240){\line(0,-1){12}}
+\put(77,228){\line(1,0){223}}
+\put(77,228){\vector(0,-1){12}}
+\put(300,228){\vector(0,-1){12}}
+\put(0,168){\framebox(155,48){\parbox{0.34\textwidth}{\centering\textbf{Reconstruction branch}\\Kinematic graph\\decoder (GIN)}}}
+\put(180,168){\framebox(240,48){\parbox{0.54\textwidth}{\centering\textbf{Classification branch}\\1D temporal block\\Summer Mamba-labelled module}}}
+\put(77,168){\vector(0,-1){18}}
+\put(300,168){\vector(0,-1){18}}
+\put(0,102){\framebox(155,48){\parbox{0.34\textwidth}{\centering Reconstructed signals\\Mean squared error\\against clean input}}}
+\put(180,102){\framebox(240,48){\parbox{0.54\textwidth}{\centering Global average pooling\\Classifier and activity prediction\\Focal classification loss}}}
+\put(77,102){\line(0,-1){10}}
+\put(300,102){\line(0,-1){10}}
+\put(77,92){\line(1,0){223}}
+\put(210,92){\vector(0,-1){8}}
+\put(0,52){\framebox(420,32){\parbox{0.94\textwidth}{\centering\textbf{Summer joint-loss optimization}\\Classification loss and weighted reconstruction loss}}}
+\put(0,0){\dashbox{3}(420,40){\parbox{0.94\textwidth}{\centering\textbf{Objective 3: federated training of the extended model}\\Subject clients retain recordings and exchange model updates with a server}}}
+\end{picture}
+\endgroup
+\caption[Summer architecture and proposed objective-specific improvements]{Reported summer architecture and proposed objective-specific improvements, adapted from the Summer Colloquium report~\cite{summerreport}. Solid boxes show the baseline data flow and training losses. Dashed boxes mark proposed changes. Reconstruction is a summer training branch, while federated aggregation is a training arrangement rather than an inference block.}
+\label{fig:pipeline}
+\end{figure}
+
+\section{Methodology for Objective 1: Adaptive Sensor Relationships}
+
+\subsection{Baseline and Feature Extraction}
+
+The Summer Colloquium implementation will provide the starting model after an audit of its preprocessing, graph operations and temporal block. The study includes corrected fixed-graph and no-graph references alongside a matched DynamicWHAR implementation. Graph variants retain the same temporal architecture and classifier, with each variant trained under a common validation rule and training budget. This isolates the contribution of spatial connectivity.
+
+At encoded time index $t$, the matrix $H_t\in\mathbb{R}^{N\times d}$ contains the embeddings of the $N$ sensors, each with $d$ learned features. The encoder maps the selected inputs to this common width. The masked matrix $\widehat H_t$ is obtained by setting unavailable sensor rows to zero according to $m$. Nominal sensor identities remain separate from local axis values.
+
+\subsection{Residual Graph and Weighted Messages}
+
+The graph combines a nonnegative anatomical prior $A_{\mathrm{phys}}$, a nonnegative globally learned matrix $A_{\mathrm{global}}$ and an input-dependent affinity matrix $C_t$. Each matrix contains one entry for every ordered sensor pair. The branch design follows the physical/global/sample-adaptive principle of 2s-AGCN~\cite{agcn}. The affinity is
+\[
+C_t=\operatorname{softmax}_{\mathrm{row}}\!\left(
+\frac{(\widehat H_tW_Q)(\widehat H_tW_K)^{\top}}{\tau\sqrt{d_a}}\right),
+\]
+Here $W_Q$ and $W_K$ are learned query and key projections from embedding width $d$ to affinity width $d_a$. The positive temperature $\tau$ controls concentration of the weights, the superscript $\top$ denotes transpose and $\operatorname{softmax}_{\mathrm{row}}$ converts each row of scores to nonnegative weights summing to one. Receiver $i$ obtains a weight from sender $j$ through
+\[
+S_{t,ij}=m_j(1-\mathbf{1}_{i=j})
+\left(\alpha A_{\mathrm{phys},ij}+\beta A_{\mathrm{global},ij}+\gamma C_{t,ij}\right),
+\]
+\[
+A_{t,ij}=\frac{S_{t,ij}}{\max\!\left(\varepsilon,\sum_kS_{t,ik}\right)}.
+\]
+The scalar $S_{t,ij}$ is an unnormalized edge weight and $A_{t,ij}$ its row-normalized value. The nonnegative branch gates $\alpha$, $\beta$ and $\gamma$ sum to one and initially favor the physical prior. The mask entry $m_j$ excludes unavailable senders. The indicator $\mathbf{1}_{i=j}$ equals one for a self-edge and zero otherwise. The index $k$ ranges over the $N$ possible senders in the row sum, and the positive constant $\varepsilon$ protects a zero denominator. A separate residual self-path gives
+\[
+Z_{t,i}=m_i\left[\sigma\!\left(\sum_j A_{t,ij}\widehat H_{t,j}W_g+b_g\right)
++\widehat H_{t,i}W_r\right].
+\]
+Here $Z_{t,i}$ is the updated embedding of receiver $i$, $\widehat H_{t,j}$ is the masked embedding of sender $j$ and the sum covers all senders. The learned matrices $W_g$ and $W_r$ map neighboring and self embeddings to the output width, $b_g$ is a bias vector and $\sigma$ is an elementwise activation. The outer factor $m_i$ keeps unavailable outputs zero. Empty neighborhoods contribute no neighbor messages. An all-sensors-unavailable input produces an unavailable status rather than an activity prediction.
+
+\subsection{Graph Validation and Expected Outcomes}
+
+Numerical checks will examine finite outputs, gradients through weighted edges, availability masks and empty neighborhoods. Physical-only, global-only, dynamic-only and mixed branches will be evaluated. A row-normalized static reference separates adaptive connectivity from changes in aggregation scale. The learned weights express model interactions, not verified estimates of anatomical relocation or sensor reliability.
+
+The expected outputs are an adaptive graph module and evidence of its contribution under matched placement tests. Its usefulness will be judged against fixed and dynamic references, considering clean recognition, variation across runs and inference cost.
+
+\section{Methodology for Objective 2: Orientation Robustness}
+
+The orientation treatment uses two complementary ideas: rotation-invariant magnitudes and rotation-augmented training. The magnitude representation replaces the three axes of each vector modality with one scalar. For sensor $i$ at sample $t$, the resulting feature vector is
+\[
+u_i(t)=\left[\|a_i(t)\|_2,\ \|\omega_i(t)\|_2\right],\qquad
+\|v\|_2=\sqrt{v_x^2+v_y^2+v_z^2}.
+\]
+Here $u_i(t)$ contains acceleration and angular-velocity magnitudes. The vectors $a_i(t)$ and $\omega_i(t)$ are the corresponding three-axis measurements. For an arbitrary vector $v$, the entries $v_x$, $v_y$ and $v_z$ are its Cartesian components and $\|v\|_2$ is its Euclidean length. The mounting rotation $R_i$ is an orthogonal three-dimensional rotation matrix for sensor $i$, so the squared length satisfies
+\[
+\|R_iv\|_2^2=v^{\top}R_i^{\top}R_iv=v^{\top}v=\|v\|_2^2.
+\]
+In this identity, $v^{\top}$ is the transpose of the vector, $R_i^{\top}$ is the transpose of the rotation matrix and $v^{\top}v$ is the squared Euclidean length. Magnitudes are calculated before normalization and inter-sensor routing, then processed by a standard per-IMU encoder. With fixed masks, sensor identities and deterministic model parameters, the magnitude-based affinities are unchanged by the specified independent axis rotations. The benefit is a transparent invariance property without a specialized equivariant encoder. The limitation is loss of direction, which may reduce discrimination between activities with similar movement intensity. Consequently, the magnitude-based classification path contains no additional raw-axis input.
+
+Rotation-augmented training instead retains the six acceleration and gyroscope channels. An independently sampled proper rotation is applied to each IMU before axis-dependent preprocessing. Both modalities use the same rotation throughout a window, and the activity label remains unchanged. This exposes the model to multiple coordinate frames while preserving directional information within each frame. Augmentation encourages robustness but does not establish exact invariance to every rotation.
+
+An optional prediction-consistency term encourages agreement between the original and rotated versions of a training window. The orientation-training loss is
+\[
+\begin{aligned}
+\mathcal L_{\mathrm{orient}}={}&\operatorname{CE}(p(X),y)
++\operatorname{CE}(p(\widetilde X),y)\\
+&+\lambda_{\mathrm{cons}}\|p(X)-p(\widetilde X)\|_2^2.
+\end{aligned}
+\]
+Here $\mathcal L_{\mathrm{orient}}$ is the training objective, $X$ is the original window, $\widetilde X$ is its rotated version and $y$ is the activity label. The function $p$ returns the predicted class-probability vector, $\operatorname{CE}$ denotes cross-entropy with label $y$, and the squared Euclidean difference penalizes prediction disagreement. The nonnegative coefficient $\lambda_{\mathrm{cons}}$ controls that penalty. A value of zero gives supervised rotation augmentation without consistency regularization, while any positive value is selected using validation data. The additional forward passes affect training cost rather than the number of inference blocks.
+
+Objective 2 will assess whether these representations reduce orientation-related recognition degradation and stabilize inter-sensor affinities. Numerical rotation checks and class-level performance will distinguish the exact property of magnitudes from the learned robustness of augmentation. Neither mechanism is expected to solve arbitrary physical displacement, which changes the motion observed at the sensor rather than only its coordinate axes.
+
+\section{Methodology for Objective 3: Federated Learning}
+
+\subsection{Clients and Aggregation}
+
+The federated setting assigns one REALDISP training subject to each client. Clients share sensor ordering, activity labels and model architecture, but their recordings remain local. Each communication round broadcasts shared parameters to participating clients, whose local training produces updated models. Federated averaging supplies the aggregation baseline~\cite{fedavg}
+\[
+\theta^{(r+1)}=\sum_{k\in\mathcal S_r}
+\frac{n_k}{\sum_{u\in\mathcal S_r}n_u}\theta_k^{(r+1)}.
+\]
+Here $r$ is the communication-round index, $\mathcal S_r$ is the set of participating clients and $k$ identifies a client in that set. The quantity $n_k$ is the number of its training windows, while $u$ is a summation index over participating clients. The vector $\theta_k^{(r+1)}$ contains client $k$'s updated shared parameters, and $\theta^{(r+1)}$ is the next server model. Sample counts determine the aggregation weights. Selection seeds, local epochs and round counts will be recorded, and centralized and federated conditions will use the same model variants.
+
+\subsection{Local Normalization and Evaluation Tracks}
+
+The study compares plain federated averaging with a FedHealth-2-inspired local-normalization adaptation~\cite{fedhealth}. Encoder, graph, temporal and classifier parameters are shared, while normalization state remains client-local in the adapted condition. Layer locations remain identical between the conditions. The adaptation addresses user-specific feature distributions without claiming to reproduce the full FedHealth 2 method.
+
+Known-client evaluation uses disjoint recordings and frozen training-derived local state. Unseen-user evaluation excludes the test subject from client training and uses a source-only normalization policy selected before testing. The two tracks are reported separately, with target-user adaptation excluded from the unseen-user setting.
+
+The expected outputs include a subject-client simulator, a parameter-sharing specification and client-level recognition and cost results. Local-only, centralized, federated averaging and local-normalization conditions will establish the effect of collaborative training. Retaining recordings locally does not, by itself, provide a differential-privacy guarantee.
+
+\section{Training Configuration}
+
+Hyperparameters and checkpoints will be selected from validation performance, with model choices fixed before final test scoring. The principal proposed extensions are evaluated through classification. The summer reconstruction branch remains part of the reported baseline rather than an additional orientation module. Any baseline reconstruction targets come from artificially masked training windows, not from separate placement recordings.
+
+Split manifests, configurations, seeds, checkpoints and logs will support reproducibility. Result tables will be generated from recorded runs. Differences from author implementations will be documented so that reproduced scores remain distinguishable from published results obtained under other protocols.
+
+\section{Project Timeline}
+
+Figure-like Table~\ref{tab:timeline} presents the August 2026--March 2027 schedule as a Gantt chart. The graph and orientation stages precede federated training so that decentralization can be evaluated using established model choices. The schedule remains subject to the institute's review calendar and data availability.
+
+\begin{table}[htbp]
+\centering
+\caption{The project timeline from August 2026 to March 2027.}
+\label{tab:timeline}
+\begingroup
+\setstretch{1.0}
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|P{0.36\textwidth}|*{8}{>{\centering\arraybackslash}X|}}
+\hline
+\rowcolor{black!12}
+\textbf{Task} & \multicolumn{5}{c|}{\textbf{2026}} & \multicolumn{3}{c|}{\textbf{2027}} \\
+\hline
+\rowcolor{black!6}
+& Aug & Sep & Oct & Nov & Dec & Jan & Feb & Mar \\
+\hline
+Project selection and initiation & \ganttcompleted & & & & & & & \\
+\hline
+Understanding the problem & \ganttcompleted & & & & & & & \\
+\hline
+Literature review and research gap & & \ganttcompleted & & & & & & \\
+\hline
+Data audit and baselines & & & \ganttproposed & & & & & \\
+\hline
+Objective 1: adaptive graph & & & & \ganttproposed & \ganttproposed & & & \\
+\hline
+Objective 2: orientation robustness & & & & & \ganttproposed & \ganttproposed & & \\
+\hline
+Objective 3: federated learning & & & & & & \ganttproposed & \ganttproposed & \\
+\hline
+Final evaluation and analysis & & & & & & & \ganttproposed & \ganttproposed \\
+\hline
+Thesis and presentation & & & & & & & \ganttproposed & \ganttproposed \\
+\hline
+\end{tabularx}
+\endgroup
+\par\medskip
+\tikz[baseline=-0.55ex]{\fill[black!70] (0,0) rectangle (0.62,0.34);\draw[black] (0,0) rectangle (0.62,0.34);}~\textbf{Completed}
+\qquad
+\ganttproposedlegend~\textbf{Proposed}
+\end{table}
+
+The final phase combines held-out testing, analysis and thesis preparation. Milestone review will determine whether the planned experiments remain feasible within the available period.
+
+\cleardoublepage
+\chapter{Dataset and Evaluation Metrics}
+\label{chap:evaluation}
+
+\section{Dataset and Preprocessing}
+
+\subsection{REALDISP Dataset Description}
+
+REALDISP is the sole dataset in the proposed study. Its recordings cover ideal placement, self-placement and induced displacement, providing a direct connection between the research problem and observed attachment changes~\cite{realdisp,banos}. Table~\ref{tab:realdisp} summarizes the dataset and the input configuration adopted in this proposal. Dataset attributes are distinguished from the window and channel choices made for the model.
+
+\begin{table}[htbp]
+\centering
+\caption{REALDISP dataset information and proposed input configuration.}
+\label{tab:realdisp}
+\begingroup
+\setstretch{1.15}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}P{0.29\textwidth}Y@{}}
+\toprule
+\textbf{Property} & \textbf{Dataset information / study choice} \\
+\midrule
+Repository & UCI Machine Learning Repository, REALDISP Activity Recognition Dataset~\cite{realdisp}. \\
+Participants & 17 subjects, with incomplete subject--scenario coverage. \\
+Activity classes & 33 physical activities. \\
+Sampling frequency & 50 Hz. \\
+Wearable sensors & Nine IMUs on the back, both arms and both legs. \\
+Placement conditions & Ideal placement, self-placement and induced displacement. \\
+Channels per IMU & Three acceleration, three angular-velocity, three magnetic-field and four quaternion channels. \\
+Raw row format & 120 columns: two timestamp fields, 117 sensor channels and one activity label. \\
+Selected model inputs & Six channels per IMU: acceleration and angular velocity. \\
+Magnitude representation & Two derived scalar features per IMU, calculated from the selected vector modalities. \\
+Window configuration & 50 samples per window and a stride of 25 samples, giving one-second windows at half-second steps. \\
+Induced-displacement coverage & Subjects 2, 5 and 15, according to the recorded-displacement study~\cite{banos}. \\
+\bottomrule
+\end{tabularx}
+\endgroup
+\end{table}
+
+The nominal node order is left calf, left thigh, right calf, right thigh, back, left lower arm, left upper arm, right lower arm and right upper arm. Raw input windows have shape $[T,N,F]=[50,9,6]$, where $T$ denotes samples, $N$ denotes IMUs and $F$ denotes selected features per IMU. Magnitude features are derived from these same windows, preserving the activity and subject assignments.
+
+A subject--scenario manifest will establish the available recordings and supported activities before fold selection. Limited induced-displacement coverage constrains the number of paired subject comparisons. Separate scenario recordings are not synchronized clean/corrupted pairs and therefore do not supply paired reconstruction targets.
+
+\subsection{Leakage-Free Preparation}
+
+Data preparation will document subjects, recordings, scenarios, labels and exclusions. Checks cover row structure, units and invalid values. Timestamps and activity labels are excluded from the input features. Background and transition handling will follow a documented rule common to all methods.
+
+Subject assignment precedes normalization and window generation. Preprocessing statistics are fitted only to training data. Known-client tests use disjoint recordings or non-overlapping time blocks separated by a window-length exclusion gap. Common window and labeling rules prevent overlapping observations from crossing training and test boundaries.
+
+\section{Experimental Protocol}
+
+The centralized evaluation follows an outer leave-one-subject-out protocol with a separate validation subject. Training uses the remaining subjects' ideal recordings and the specified augmentation. Validation determines model selection, after which the available placement recordings of the unseen test subject are scored. All paired comparisons use identical subject--scenario and class sets.
+
+Recorded displacement, synthetic rotation and sensor dropout form separate test conditions. Combined stress provides supplementary evidence rather than replacing these tests. Federated evaluation additionally distinguishes known-client personalization from unseen-user performance. Validation and test subjects are excluded from local training in the unseen-user track.
+
+The reference models include no graph, a corrected fixed graph, a row-normalized static graph, rotation augmentation and DynamicWHAR. Graph-branch ablations establish the contribution of each connectivity component. Centralized, local-only and federated conditions establish the effect of training organization. Model parameters, optimizers, training updates and seeds will document any differences in inputs or budgets.
+
+\section{Recognition and Robustness Metrics}
+
+Macro-F1 is the primary recognition metric because each evaluated activity contributes equally to the class average. For activity class $c$, the counts $\mathrm{TP}_c$, $\mathrm{FP}_c$ and $\mathrm{FN}_c$ denote true positives, false positives and false negatives. Class-wise and macro-averaged F1 are
+\[
+F_{1,c}=\frac{2\mathrm{TP}_c}{2\mathrm{TP}_c+\mathrm{FP}_c+\mathrm{FN}_c},\qquad
+F_{1,\mathrm{macro}}=\frac{1}{|\mathcal C|}\sum_{c\in\mathcal C}F_{1,c}.
+\]
+Here $F_{1,c}$ is the F1 score for class $c$, $\mathcal C$ is the evaluated class set and $|\mathcal C|$ is its number of classes. The value $F_{1,\mathrm{macro}}$ averages these class scores. Zero-denominator terms are assigned zero. The class-set rule is fixed before score inspection, and paired placement comparisons use identical supported classes with their coverage reported.
+
+Subject-level macro-F1, accuracy and per-class errors describe recognition performance. Federated results also include mean and worst-client macro-F1. Placement degradation on matched subjects and classes is defined as
+\[
+\Delta F_1=F_{1,\mathrm{ideal}}-F_{1,\mathrm{shift}}.
+\]
+Here $F_{1,\mathrm{ideal}}$ is macro-F1 under ideal placement, $F_{1,\mathrm{shift}}$ is macro-F1 under the selected shifted condition and $\Delta F_1$ is their difference. Both absolute scores will accompany the degradation value, since a small drop can coexist with poor recognition. For magnitude inputs, differences between original and rotated features and adjacency matrices will be measured under deterministic evaluation with identical masks. These checks assess the stated axis-rotation property separately from recorded-displacement accuracy.
+
+Repeated seeds and paired subject-level uncertainty will describe variation in the results. Overlapping windows are not treated as independent subjects. The limited induced-displacement coverage restricts the strength of generalization claims and will be included in the interpretation of the findings.
+
+\section{Inference and Federated Cost}
+
+Inference profiling will measure batch-one median and 95th-percentile latency, peak memory and parameter count on a specified device. The record will include numerical precision, software, warm-up and timing boundaries. Feature extraction and graph construction are included in the measured path. Window duration and stride are reported separately from computation time, and GPU batch measurements are not interpreted as smartwatch latency.
+
+Federated profiling will record communication rounds, participating clients, local epochs, local training time and upload/download bytes. Total communication includes the model and normalization payloads exchanged across participating clients and rounds. Cost will be interpreted alongside recognition and worst-client behavior, rather than treating fewer rounds as sufficient evidence of a better model.
+
+\cleardoublepage
+\chapter{Summary and Work to Be Done}
+\label{chap:summary-work}
+
+\section{Summary of Work Completed}
+
+As of 6 October 2026, the formally documented completed work covers the MTP-I activities carried out during August and September 2026. The completed planning and study-definition work includes:
+
+\begin{itemize}
+\item selecting and refining the research problem around placement-aware wearable human activity recognition
+\item reviewing GT-WHAR, DynamicWHAR, 2s-AGCN and FedHealth 2 together with the REALDISP dataset documentation
+\item identifying the research gap concerning adaptive sensor relationships, orientation changes and heterogeneous user training
+\item defining the three connected research objectives and their common model architecture
+\item preparing the dataset protocol, comparison baselines, evaluation metrics, ablation plan and project schedule
+\end{itemize}
+
+The Summer Colloquium model provides prior work on graph-based recognition, reconstruction and sensor-drop training. It is treated as the starting baseline for this project. The new adaptive-graph, orientation-handling and federated-learning experiments have not yet been presented as completed results.
+
+\section{Work to Be Done}
+
+The remaining proposed thesis work from October 2026 to March 2027 is organized as follows:
+
+\begin{enumerate}
+\item \textbf{October 2026: Data audit and baseline verification.} Audit REALDISP recordings, finalize subject splits, verify preprocessing and recover the no-graph, fixed-graph and DynamicWHAR comparison baselines.
+
+\item \textbf{November--December 2026: Objective 1.} Implement the physical, globally learned and input-dependent graph branches. Conduct branch ablations and evaluate recognition under ideal placement, recorded displacement and sensor dropout.
+
+\item \textbf{December 2026--January 2027: Objective 2.} Implement magnitude features and rotation-augmented raw inputs with optional prediction consistency. Compare their recognition, robustness and computational cost using the common backbone.
+
+\item \textbf{January--February 2027: Objective 3.} Build the subject-client federated simulator. Compare local-only training, centralized training, federated averaging and client-local normalization for known-client and unseen-user evaluation.
+
+\item \textbf{February--March 2027: Final evaluation and documentation.} Complete repeated runs, placement-degradation analysis, inference profiling, federated communication measurements and uncertainty reporting. Prepare the final thesis, result tables, reproducibility material and presentation.
+\end{enumerate}
+
+The final outcome will be a controlled assessment of whether adaptive relationships and orientation handling improve wearable activity recognition and whether those benefits remain under federated training. Conclusions will be limited to the available REALDISP subjects, placement conditions and simulated federation protocol.
+
+\cleardoublepage
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{References}
+\raggedright
+\setlength{\itemsep}{4pt}
+
+\bibitem{gtwhar}
+\href{https://doi.org/10.1109/TETCI.2024.3378331}{%
+H. Zou et al.,
+``GT-WHAR: A Generic Graph-Based Temporal Framework for Wearable Human Activity Recognition With Multiple Sensors,''
+\emph{IEEE Transactions on Emerging Topics in Computational Intelligence}, 2024.
+doi:10.1109/TETCI.2024.3378331.}
+
+\bibitem{dynamicwhar}
+\href{https://doi.org/10.1145/3550331}{%
+S. Miao, L. Chen, R. Hu and Y. Luo,
+``Towards a Dynamic Inter-Sensor Correlations Learning Framework for Multi-Sensor-Based Wearable Human Activity Recognition,''
+\emph{ACM IMWUT}, vol. 6, no. 3, art. 130, 2022.
+doi:10.1145/3550331.}
+
+\bibitem{agcn}
+\href{https://openaccess.thecvf.com/content_CVPR_2019/html/Shi_Two-Stream_Adaptive_Graph_Convolutional_Networks_for_Skeleton-Based_Action_Recognition_CVPR_2019_paper.html}{%
+L. Shi, Y. Zhang, J. Cheng and H. Lu,
+``Two-Stream Adaptive Graph Convolutional Networks for Skeleton-Based Action Recognition,''
+\emph{IEEE/CVF Conference on Computer Vision and Pattern Recognition}, 2019.}
+
+\bibitem{fedhealth}
+\href{https://federated-learning.org/fl-ijcai-2021/FTL-IJCAI21_paper_4.pdf}{%
+Y. Chen, W. Lu, J. Wang and X. Qin,
+``FedHealth 2: Weighted Federated Transfer Learning via Batch Normalization for Personalized Healthcare,''
+\emph{International Workshop on Federated and Transfer Learning for Data Sparsity and Confidentiality, in conjunction with IJCAI}, 2021.}
+
+\bibitem{summerreport}
+\href{https://github.com/ksprabhatkumar/GAE_Mamba_WHAR/blob/main/report.pdf}{%
+P. Kumar,
+\emph{GAE-Mamba-WHAR: Generative Kinematic Imputation and Causal State-Space Modeling for Robust Human Activity Recognition},
+Summer Colloquium Report, ABV-IIITM Gwalior, August 2026.}
+
+\bibitem{banos}
+\href{https://doi.org/10.3390/s140609995}{%
+O. Ba\~nos et al.,
+``Dealing with the Effects of Sensor Displacement in Wearable Activity Recognition,''
+\emph{Sensors}, vol. 14, pp. 9995--10023, 2014.
+doi:10.3390/s140609995.}
+
+\bibitem{fedavg}
+\href{https://proceedings.mlr.press/v54/mcmahan17a.html}{%
+H. B. McMahan et al.,
+``Communication-Efficient Learning of Deep Networks from Decentralized Data,''
+\emph{AISTATS}, PMLR 54, pp. 1273--1282, 2017.}
+
+\bibitem{realdisp}
+\href{https://doi.org/10.24432/C5GP6D}{%
+O. Ba\~nos, M. Toth and O. Amft,
+\emph{REALDISP Activity Recognition Dataset}, UCI Machine Learning Repository, 2012.
+doi:10.24432/C5GP6D.}
+
+\end{thebibliography}
+\end{document}

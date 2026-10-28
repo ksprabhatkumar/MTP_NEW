@@ -1,0 +1,202 @@
+Wearable Human Activity Recognition Utilizing Residual Dynamic Graphs and 1D Causal State-Space Models
+The transition from visual skeleton-based action recognition to Wearable Human Activity Recognition (WHAR) utilizing one-dimensional Inertial Measurement Unit (IMU) time-series data presents substantial biomechanical and computational challenges. Traditional spatial-temporal graph convolutional networks (ST-GCNs) rely on rigid, predefined topologies derived from physical human anatomy. However, continuous 1D IMU data streams, particularly those corrupted by asynchronous sampling or severe sensor displacement, fail to map cleanly to fixed adjacency matrices.
+To address the sensor displacement and placement agnosticism problems, current research indicates a paradigm shift toward dynamic, learnable topological connections. Formulating a dense adjacency matrix as a residual combination—specifically   —allows deep learning architectures to dynamically route information across varied sensor locations. Furthermore, processing these extracted dynamic spatial graphs through a 1D Causal Mamba (State-Space Model) block theoretically circumvents the quadratic temporal complexity of Transformer architectures, enabling linear-time sequence modeling for high-frequency continuous data.
+The following exhaustive literature review synthesizes recent advancements across IEEE, ACM, arXiv, and MDPI (2019–2026), systematically categorizing the research into Dynamic Graph Kinematics, Sensor Displacement Mitigation, Visual-to-1D Translation, and the intersection of Graph Neural Networks with State-Space Models.
+1. Dynamic Graph Kinematics (Adaptive Graphs, DGNNs, AGCNs) Applied to Human Motion
+The foundation of dynamic graph kinematics lies in the decomposition of fixed physical structures into learnable, data-driven connections. Early skeletal models relied on unweighted, static Laplacian matrices. However, human motion is intrinsically correlated across non-adjacent nodes (e.g., the synchronized movement of the left wrist and right ankle during walking). The evolution of Adaptive Graph Convolutional Networks (AGCNs) establishes the mathematical precedent for constructing the    matrix.
+[Two-Stream Adaptive Graph Convolutional Networks for Skeleton-Based Action Recognition]
+* Published Year: 2019
+* Methodology Used: The 2s-AGCN framework pioneered the factorization of the graph adjacency matrix into three distinct components to eliminate the strict reliance on physical human anatomy. The spatial graph convolution is defined as   . Here,    is the normalized physical structure,    is a globally learnable, unconstrained parameter matrix, and    is a dynamic matrix computed on the fly via a normalized Gaussian embedding of input features:   1. The network utilizes a two-stream architecture to process first-order joint data and second-order bone data simultaneously2.
+* Dataset Used: NTU-RGB+D 60, NTU-RGB+D 120, Kinetics-Skeleton
+* How this can be applied to our project: The    decomposition mathematically validates the proposed    formulation; the    dot-product attention can be directly ported to PyTorch to dynamically calculate similarity between 1D IMU sensor streams.
+[Channel-wise Topology Refinement Graph Convolution for Skeleton-Based Action Recognition (CTR-GCN)]
+   * Published Year: 2021
+   * Methodology Used: CTR-GCN abandons the assumption that spatial topology should be shared uniformly across all feature channels. Instead of generating a single global dynamic graph, it introduces a Channel-wise Topology Refinement Graph Convolution (CTR-GC). The aggregation is mathematically formulated as   , where    generates channel-specific dynamic topologies via temporal-gated pooling3. This allows independent    convolutions to infer correlations between non-adjacent nodes separately for each dimensional channel, drastically enhancing correlation modeling for complex, asynchronous movements3.
+   * Dataset Used: NTU RGB+D, NTU RGB+D 120, NW-UCLA
+   * How this can be applied to our project: The temporal-gated pooling mechanism dictates that the    term should be computed channel-wise (e.g., separating accelerometer X-axis features from gyroscope Z-axis features), rather than forcing a uniform adjacency matrix across diverse sensor modalities.
+[Skeleton-Based Action Recognition with Shift Graph Convolutional Network (Shift-GCN)]
+      * Published Year: 2020
+      * Methodology Used: Shift-GCN addresses the massive computational overhead associated with dense matrix multiplications in heavy spatial-temporal GCNs. It replaces conventional spatial feature aggregation with spatial shift operations combined with lightweight point-wise convolutions6. The topology modeling is decoupled: node features are geometrically shifted to neighboring nodes according to a predefined graph, followed by    convolutions to mix the features. For temporal context, 1D convolution kernels process the shifted embeddings via residual connections:   , severely reducing required floating-point operations (FLOPs)6.
+      * Dataset Used: NTU RGB+D, NTU RGB+D 120, Northwestern-UCLA
+      * How this can be applied to our project: To alleviate VRAM memory bottlenecks during the processing of the dense    matrix in a high-frequency IMU environment, the spatial shift operation theory can construct sparse attention masks, bounding the matrix multiplication strictly to nearest-neighbor sensor nodes.
+[Adaptive Local-Component-aware Graph Convolutional Network (ALCA-GCN)]
+         * Published Year: 2022
+         * Methodology Used: ALCA-GCN is a metric-based architecture engineered for one-shot learning in skeleton sequences. The model decomposes instance-level similarity matching into an adaptive, selective sum of embedding distances between aligned local body-part units spanning temporal and spatial dimensions10. During similarity aggregation, the network applies a self-learning attention mechanism to dynamically emphasize or suppress the decision impact from specific units. This mechanism isolates action-critical nodes (e.g., a swinging arm) while mathematically penalizing noisy, irrelevant nodes based on their measured embedding distance10.
+         * Dataset Used: NTU-RGB+D 120
+         * How this can be applied to our project: The metric-based emphasis/suppression logic can dynamically update the scalar multiplier    during continuous training, throttling the weight of the    term automatically if the Euclidean distance between successive IMU feature vectors suggests high noise.
+[Multi-Head Adaptive Graph Convolution Network for Sparse Point Cloud-Based Human Activity Recognition]
+            * Published Year: 2025
+            * Methodology Used: This architecture extracts graph representations using a dual-stage, multi-head dynamic filtering methodology. Given a sparse input, a shared neighborhood structure computes adjacency indices using squared Euclidean distances. The network then generates two complementary graph representations:    (encoding intrinsic learned feature differences) and    (encoding raw spatial geometry). These inputs are processed via an asymmetric update strategy where the feature representations are progressively refined through max-pooling across the neighborhood dimension, while the global spatial context provided by    remains permanently anchored to the original geometry12.
+            * Dataset Used: Unspecified Sparse Point Cloud Datasets
+            * How this can be applied to our project: The segregation of spatial geometry and learned features mathematically validates the absolute separation of    and   ; the PyTorch implementation must define    as a non-updating constant tensor (requires_grad=False) to preserve global context while    receives gradient updates.
+
+
+Kinematic Graph Concept
+	Mechanism
+	Impact on Afinal​ Formulation
+	Residual Topology
+	Decomposition of Laplacian into    matrices2.
+	Defines the core three-term equation: Physical + Learnable + Dynamic.
+	Channel-wise Refinement
+	Independent adjacency mapping for separated feature channels3.
+	Forces    to be calculated per-axis (Accel vs. Gyro).
+	Spatial Shifting
+	Bounding dense matrices to nearest-neighbor shifts6.
+	Introduces sparsity constraints to prevent    memory explosion.
+	Asymmetric Updating
+	Freezing raw geometry while updating learned features12.
+	Dictates requires_grad boolean flags for    vs    parameters.
+	2. Models Tackling Sensor Displacement and Placement Agnosticism
+In wearable computing, sensor displacement—where IMUs shift on the user's body, rotate out of axial alignment, or suffer packet loss—causes severe spatial distribution shifts. Traditional machine learning models trained on highly calibrated, strictly placed sensors suffer catastrophic performance drops when deployed in real-world scenarios. Addressing placement agnosticism requires networks capable of dynamically rerouting physical topologies on the fly, rendering the model invariant to localized coordinate frame mismatches.
+[Dealing with the Effects of Sensor Displacement in Wearable Activity Recognition]
+               * Published Year: 2024
+               * Methodology Used: This framework treats multi-node wearable sensing systems as physically interconnected network topologies to combat missing or displaced modalities. It introduces a graph recovery module based on GNNs that relies on a spatial locality assumption to explicitly map data correlations between interconnected sensors13. The methodology utilizes a neural message-passing mechanism mirroring the physical network. Crucially, a Gated Recurrent Unit (GRU)-inspired gating mechanism automatically controls the information flow between available, stable sensors and displaced/missing sensors, mathematically reconstructing corrupted feature spaces prior to classification13.
+               * Dataset Used: REALDISP, OPPORTUNITY
+               * How this can be applied to our project: The GRU-based missing-sensor gating mechanism can be injected into the    matrix formulation via a binary missing-modality mask, ensuring that gradients for non-responsive IMU nodes are routed to adjacent stable nodes.
+[MhaGNN: A Novel Framework for Wearable Sensor-Based Human Activity Recognition Combining Multi-Head Attention and Graph Neural Networks]
+                  * Published Year: 2023
+                  * Methodology Used: MhaGNN is engineered to extract robust feature representations from multi-position wearable sensory data, explicitly mitigating displacement degradation. The methodology cascades a continuous GNN with a Multi-Head Attention (MHA) module16. The GNN acts directly on raw continuous time-series data to extract inherent spatial relationships across diverse sensor placements. Subsequently, the MHA mechanism computes attention weights across the spatial graph node embeddings to learn cross-sensor dependencies. This hybrid configuration allows the network to adaptively shift its feature extraction focus to the most reliable sensor streams, yielding embeddings highly resilient to positional artifacts16.
+                  * Dataset Used: MEx, PAMAP2, UTD-MHAD
+                  * How this can be applied to our project: The cascading of MHA and GNN dictates that    must be computed using a multi-head scaled dot-product attention formulation   , allowing IMU sensor nodes to independently attend to multiple rotational displacement shifts simultaneously.
+[An Adaptive TimeGAN-Augmented Attention for Multi-IMU Human Activity Recognition]
+                     * Published Year: 2026
+                     * Methodology Used: To overcome the dual challenges of limited labeled data and severe multi-IMU sensor instability, this architecture utilizes a Time-series Generative Adversarial Network (TimeGAN). The TimeGAN synthesizes high-fidelity IMU data streams representing varying degrees of rotational and translational sensor displacement. These synthesized sequences expand the training manifold18. An adaptive attention block is then trained over this augmented distribution, learning to detect, penalize, and mathematically smooth anomalous frequency spikes and localized motion artifacts caused by transient sensor shifts during physical execution18.
+                     * Dataset Used: Multiple Unspecified IMU Datasets
+                     * How this can be applied to our project: The TimeGAN-augmented instability modeling can serve as a pre-training objective to initialize the    matrix, forcing the learnable adjacency parameters to achieve robust stability against simulated sensor rotations before fine-tuning.
+3. Translation of Visual Skeleton Adaptive Graphs to Continuous 1D IMU Sensor Data
+The vast majority of dynamic graph kinematics research is built upon 3D visual skeleton data (e.g.,    spatial joint coordinates extracted from RGB-D cameras). Translating these theories to 1D IMU data requires converting continuous, high-frequency signals (accelerometer, gyroscope, and magnetometer readings) into structural nodes. IMU data is not natively graph-structured; it consists of multivariate time-series arrays. Establishing an isomorphic relationship between camera-based joints and IMU-based time-series channels is paramount.
+[Activity Graph based Convolutional Neural Network for Human Activity Recognition using Acceleration and Gyroscope Data]
+                        * Published Year: 2022
+                        * Methodology Used: This paper generates highly optimized "activity graphs" directly from 1D multi-axis acceleration and gyroscope data. The underlying assumption is that latent physical correlations exist between human movement and the phase alignments of multiple sensing signals19. The methodology employs a specialized three-step sorting algorithm to convert unordered, multi-axis 1D time-series data into a structured 2D spatial graph. By sorting and stacking the signals along their width and height dynamically based on signal extension characteristics, the network produces a mathematically optimized baseline activity graph, which is then traversed by a deep CNN to extract discriminative features5.
+                        * Dataset Used: UCI HAR, WISDM, Local Smartphone Datasets
+                        * How this can be applied to our project: The three-step sorting algorithm for stacking multi-axis signals provides a definitive mathematical blueprint for constructing the    matrix, ensuring that the initial topology correctly maps the physical proximity of IMU X, Y, and Z axes.
+[Integrating Features for Recognizing Human Activities through Optimized Parameters in Graph Convolutional Networks and Transformer Architectures]
+                           * Published Year: 2024
+                           * Methodology Used: This architecture, termed PO-GCN (Parameter-Optimized Graph Convolutional Network), focuses on recognizing activities over continuous time sequences. The methodology extracts spatial and temporal convolutions at every stage from raw continuous streams, transferring revised feature mappings into a graph pooling phase that reduces the dimensional size of the graph11. The features extracted from the terminal layers of the PO-GCN are then fused (via flattening and concatenation) with embeddings generated by a parallel Transformer architecture. The combined cross-entropy (CE) and mean squared error (MSE) loss functions generate predictions with minimized over-recognition mistakes on continuous data11.
+                           * Dataset Used: Four unspecified multimodal HAR datasets
+                           * How this can be applied to our project: The fusion of PO-GCN structural pooling with Transformer-based sequential modeling validates the transition from the Residual Dynamic Graph directly into the 1D Causal Mamba block, establishing the required tensor reshaping operations (flattening spatial nodes into sequence tokens).
+
+
+Data Modality
+	Native Dimensionality
+	Graph Node Representation
+	Topology Extraction Method
+	RGB-D Skeleton
+	  
+ (Joints, XYZ, Time)
+	Anatomical joint coordinates in 3D space.
+	Direct extraction from physical skeleton trees2.
+	1D IMU Sensors
+	  
+ (Sensors, Acc/Gyro, Time)
+	Time-series signal segments mapped as vertices.
+	Signal phase alignment and three-step sorting algorithms19.
+	4. Intersection of Dynamic Graphs and State-Space Models (Mamba) for Time-Series
+While Graph Neural Networks (GNNs) achieve state-of-the-art performance in modeling spatial topology, their ability to model long-range temporal dependencies is computationally bottlenecked. Traditional approaches utilize Temporal Convolutional Networks (TCNs) or Transformers. However, Transformers suffer from quadratic computational complexity    regarding sequence length. State-Space Models (SSMs)—specifically the Mamba architecture—utilize an input-dependent selective scanning mechanism that allows for linear-time    sequential processing. Integrating Mamba with Dynamic Graphs creates a highly efficient Spatio-Temporal framework ideal for continuous, high-frequency WHAR streams.
+The fundamental continuous-time state-space representation is defined as:    
+To apply this to discrete IMU data, Mamba employs a Zero-Order Hold (ZOH) discretization method, transforming the continuous matrices    and    into discrete parameters    and   .
+[Graph Mamba: Towards Learning on Graphs with State Space Models]
+                           * Published Year: 2024
+                           * Methodology Used: Graph Mamba represents a foundational translation of Selective State Space Models (S6) into graph-based learning tasks, directly circumventing the    constraints of classical dense GNNs. The architecture maps sequence transformations through consecutive Conv and SSM blocks20. It utilizes an input-dependent selection mechanism to execute parallel scan optimizations. By recurrently treating data via parameterized state updates and extracting latent representations, the network efficiently captures long-term node interactions across massive topologies without relying on computationally expensive Transformer self-attention layers20.
+                           * Dataset Used: Peptides-func, Peptides-struct, Cora, Citeseer
+                           * How this can be applied to our project: The sequence transformation block logic can be ported to wrap the output of the    matrix; treating the spatially aggregated IMU node features as a 1D sequence input allows the Causal Mamba block to apply state updates linearly over the temporal axis.
+[DyG-Mamba: Continuous State Space Modeling on Dynamic Graphs]
+                              * Published Year: 2025
+                              * Methodology Used: DyG-Mamba is specifically engineered for continuous-time dynamic graph modeling. It introduces an input-adaptive update and a learnable exponential memory decay mechanism to model irregular temporal dynamics20. The core discrete parameter   , which governs historical forgetting, is implemented as an element-wise exponential decay parameterized through a scalar-wise Multi-Layer Perceptron (MLP)24. This allows the model to dynamically adjust to irregular timespans between consecutive graph interactions. Spectral norm constraints guarantee Lipschitz continuity, ensuring projection matrices remain completely stable against severe input perturbations24.
+                              * Dataset Used: Wikipedia, Reddit, Mooc
+                              * How this can be applied to our project: The learnable exponential memory decay driven by the MLP can be implemented inside the 1D Causal Mamba block to handle asynchronous IMU sampling rates, preventing the state space from accumulating corrupt data during sensor packet loss.
+[GraMO: Graph-structured Latent Simulator]
+                                 * Published Year: 2024
+                                 * Methodology Used: GraMO unifies graph-based interaction learning with continuous state-space evolution inside a singular neural operator framework. The architecture is mathematically motivated by Koopman operator theory, where non-linear physical dynamics are lifted into a higher-dimensional space of observables25. The model relies on a learned latent state utilizing a structured HiPPO-initialized (High-order Polynomial Projection Operator) dynamic system to enforce rigorous long-range memory stability. Input node features are processed via ZOH discretization, converting continuous-time physical signals into a discrete dynamical update matrix over the interval   25.
+                                 * Dataset Used: Complex Physical Dynamics Simulation Datasets
+                                 * How this can be applied to our project: The HiPPO initialization matrix can be used to explicitly initialize the hidden states of the Causal Mamba block, mathematically guaranteeing that the temporal sequences outputted by the    graph maintain stability and avoid gradient vanishing over extended windows.
+[ActionMamba: Action Spatial-Temporal Aggregation Network Based on Mamba and GCN for Skeleton-Based Action Recognition]
+                                    * Published Year: 2024
+                                    * Methodology Used: ActionMamba fuses traditional GCNs with SSMs to circumvent the limited local receptive fields inherent to standard spatial convolutions. The network strictly isolates spatial modeling from temporal modeling. It utilizes the topology-extracting capabilities of GCNs for localized joint connections, while deploying Mamba’s global information modeling capabilities to act as an Action Spatio-temporal Aggregation Network26. By systematically combining these modules, the architecture selectively filters anomalous information from varied kinematic points and models hidden temporal connections between non-adjacent joints over long sequences, heavily outperforming 3D-CNN baselines26.
+                                    * Dataset Used: NTU-RGB+D 60, NTU-RGB+D 120, UAV-Human
+                                    * How this can be applied to our project: The sequential separation of spatial topology extraction followed by temporal aggregation validates the architectural flow of passing the 1D IMU tensor through the    mapping, and subsequently reshaping the output    into the causal SSM layer.
+[PS-Mamba: Spatial-Temporal Graph Mamba for Pose Sequence Refinement]
+                                       * Published Year: 2025
+                                       * Methodology Used: Designed to eradicate temporal jitter and spatial inaccuracies in continuous sequential pose data, PS-Mamba integrates a Spatial-Temporal Graph (ST-Graph) with Mamba state spaces. The architecture links a standard GCN to a dynamic graph routing mechanism27. These spatial embeddings are subsequently fed into a Spatial-Temporal Graph Mamba framework that treats pose trajectories strictly as continuous sequences. The integration refines corrupted joint trajectories by exploiting continuous temporal constraints and selective state matrices, effectively smoothing out high-frequency noise caused by upstream detection errors without relying on heavy temporal convolutions27.
+                                       * Dataset Used: Large-Scale 3D Human Pose Estimation Datasets
+                                       * How this can be applied to our project: The pose sequence refinement architecture dictates that the PyTorch implementation should utilize residual skip connections around the Causal Mamba block (  ) to preserve raw high-frequency IMU jerk signals that might otherwise be smoothed out.
+[IoT Data Imputation Accuracy Enhancement: A Spatiotemporal Causal Mamba-Diffusion Imputation Model]
+                                          * Published Year: 2025
+                                          * Methodology Used: This architecture targets severe missing data anomalies in multi-sensor Internet of Things (IoT) environments by merging diffusion models with state-space frameworks. The methodology utilizes a purely causal Mamba prior within a cross-attention framework. Highly corrupted spatial features are mapped into a fixed number of learnable queries, and the causal Mamba sequence constraints guarantee that missing data points are imputed strictly based on historical (non-future) observations28. The selective scan mechanism filters redundant spatiotemporal noise while accurately regenerating multi-variate time-series trajectories31.
+                                          * Dataset Used: Multivariate IoT Time-Series Datasets
+                                          * How this can be applied to our project: The causal Mamba prior ensures unidirectional temporal flow; the implementation must configure causal=True in the PyTorch Mamba kernel to prevent future data leakage during real-time, non-anticipatory IMU classification tasks.
+5. Theoretical Synthesis: Implementing    and Stabilizing PyTorch Dense Graphs
+The transition from rigid topological assumptions to a dynamically parameterized graph space introduces severe complexities regarding numerical stability, gradient propagation, and VRAM memory footprint. Translating the theoretical formulations of AGCNs and State-Space Models into a functional PyTorch MTP-2 architecture necessitates a highly rigorous approach to constructing and optimizing the dense adjacency matrix   .
+5.1. Adjacency Matrix Formulation Strategy
+The construction of    requires deliberate initialization strategies for the scalars   ,   , and   , as well as parameter segregation, to prevent catastrophic topological collapse during the early epochs of stochastic gradient descent.
+                                          1.    (Structural Prior): Based on the theories established by Activity Graph CNNs19 and 2s-AGCN2,    must act as a rigid, non-updating anchor representing the literal physical placement of the wearable sensors. For 1D IMU sensors placed on distinct anatomical limbs (e.g., wrist, chest, ankle), this is defined as an    binary or inverse-distance normalized matrix. The scalar    should be initialized at    (with requires_grad=True to allow eventual scaling), forcing the network to rely on physical reality during initial optimization.
+                                          2.    (Global Parameterization): Representing the    matrix from adaptive frameworks1, this matrix is parameterized via nn.Parameter of shape    without physical constraints. To ensure stability,    should be initialized to entirely zeros. This allows backpropagation to slowly reveal global, non-obvious sensor relationships only when    fails to further minimize the loss landscape. The    scalar controls the integration rate of this matrix.
+                                          3.    (Data-Driven Routing): Extrapolating from CTR-GCN3 and MhaGNN16,    must be generated per-batch based on incoming continuous embeddings. Utilizing a multi-head scaled dot-product attention function   , the output acts as an input-adaptive routing mechanism.
+5.2. Numerical Stability: Softmax vs. Softplus and Gradient Explosion
+When computing   , the network is susceptible to exponential overflow and vanishing gradients.
+                                             * Maximum Value Subtraction: When generating    via standard torch.softmax(), large logit values generated by sudden, high-energy IMU kinematic spikes (e.g., jumping or falling) will result in numerical instability (NaN outputs)32. The literature explicitly dictates that mathematical stability is preserved by subtracting the maximum logit value prior to exponentiation:   32.
+                                             * Softmax Over-smoothing vs. Softplus Normalization: Standard Softmax forces the summation of adjacent nodes to exactly   . In highly dense graphs (   where every IMU axis attends to every other axis), this inherently squashes attention weights to   , leading to the notorious GNN over-smoothing dilemma where distinct nodal features become indistinguishable34. To circumvent this, the activation function for    can be substituted with Softplus (  ). Softplus ensures that graph edges remain strictly positive—mimicking a probability distribution—without forcing a zero-sum game across the adjacency matrix row, thereby preserving the original unscaled magnitude of critical high-energy IMU anomalies36.
+5.3. PyTorch Memory Optimization and Autograd Dynamics
+The memory footprint in PyTorch’s autograd engine scales severely with the depth and density of the dynamic computation graph. Every intermediate tensor generated by the continuous    updates must be retained in VRAM for the backward pass38.
+                                                * Dense vs. Sparse Processing: A standard torch.matmul() for a dense adjacency matrix with batch size   , channels   , and temporal sequence length    rapidly exceeds hardware memory constraints. According to PyTorch documentation on semi-structured sparsity, replacing standard dense multiplications with torch.sparse.addmm() or masked shifting algorithms (as demonstrated in Shift-GCN6) bounds the computational overhead strictly to non-zero interactions, bypassing unnecessary computations for physically impossible IMU alignments40.
+                                                * Detaching Latent Histories in Causal SSMs: When routing the Residual Dynamic Graph output directly into the Causal Mamba block, the state-space equation    creates massive recurrent unrolling graphs in PyTorch. Incorporating activation checkpointing and utilizing tensor.detach() on historical hidden states during long overlapping temporal activity windows ensures the model bypasses memory leaks while strictly maintaining the causal sequence integrity demanded by real-time WHAR forecasting38.
+
+
+PyTorch Stabilization Tactic
+	Mathematical/Code Implementation
+	Target Problem Solved
+	Max-Value Subtraction
+	exp_z = torch.exp(z - torch.max(z))
+	Prevents NaN generation from exponential overflow during high-energy kinematic spikes32.
+	Softplus Substitution
+	F.softplus(A_dynamic)
+	Mitigates GNN over-smoothing by removing the strict    summation constraint of Softmax35.
+	Semi-Structured Sparsity
+	torch.sparse.addmm(bias, dense, sparse.t())
+	Prevents    VRAM explosion during dense matrix multiplication of long sequences40.
+	Latent State Detachment
+	h_t = h_t.detach()
+	Stops the Autograd engine from tracking infinite recursive loops in continuous Mamba state updates38.
+	By meticulously combining the spatial adaptivity of    with the linear-time sequential processing of the Causal Mamba block, the resulting architecture is theoretically equipped to overcome the fundamental bottlenecks of sensor displacement and temporal complexity in Wearable Human Activity Recognition.
+Works cited
+                                                   1. Skeleton-based Action Recognition Models, https://mmaction2.readthedocs.io/en/dev-1.x/model_zoo/skeleton.html
+                                                   2. Two-Stream Adaptive Graph Convolutional Networks for Skeleton, https://openaccess.thecvf.com/content_CVPR_2019/papers/Shi_Two-Stream_Adaptive_Graph_Convolutional_Networks_for_Skeleton-Based_Action_Recognition_CVPR_2019_paper.pdf
+                                                   3. Channel-wise Topology Refinement Graph Convolution for Skeleton, https://www.computer.org/csdl/proceedings-article/iccv/2021/281200n3339/1BmGFqMcFvW
+                                                   4. DSTSA-GCN: Advancing Skeleton-Based Gesture Recognition with, https://arxiv.org/html/2501.12086v1
+                                                   5. Human Activity Recognition in the Deep Learning Era - Preprints.org, https://www.preprints.org/manuscript/202512.0906
+                                                   6. MADS-GCN: A Robust Interactive Memory-Augmented Dual-Stream, https://www.mdpi.com/2076-3417/16/11/5408
+                                                   7. Sequence Segmentation Attention Network for Skeleton-Based, https://www.mdpi.com/2079-9292/12/7/1549
+                                                   8. Adaptive Channel-Enhanced Graph Convolution for Skeleton-Based, https://pdfs.semanticscholar.org/6ece/08ae1bb745d93a129b10a3a44134ddcb0fa7.pdf
+                                                   9. DPCA-GCN: Dual-Path Cross-Attention Graph Convolutional ... - MDPI, https://www.mdpi.com/2079-3197/13/12/293
+                                                   10. Adaptive Local-Component-aware Graph Convolutional Network for, https://arxiv.org/pdf/2209.10073
+                                                   11. Integrating Features for Recognizing Human Activities ... - arXiv, https://arxiv.org/pdf/2408.16442
+                                                   12. (PDF) Multi-Head Adaptive Graph Convolution Network for Sparse, https://www.researchgate.net/publication/390467291_Multi-Head_Adaptive_Graph_Convolution_Network_for_Sparse_Point_Cloud-Based_Human_Activity_Recognition
+                                                   13. © 2021 Shengzhong Liu - IDEALS, https://www.ideals.illinois.edu/items/123243/bitstreams/405983/data.pdf
+                                                   14. Deep Multimodal Learning with Missing Modality: A Survey - arXiv, https://arxiv.org/pdf/2409.07825
+                                                   15. Speeding up deep neural architecture search for wearable activity, https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2022.914330/full
+                                                   16. Hierarchical deep Q-network for anomaly detection and ... - PMC, https://pmc.ncbi.nlm.nih.gov/articles/PMC13314886/
+                                                   17. MhaGNN: A Novel Framework for Wearable Sensor-Based Human, https://www.researchgate.net/publication/374047946_MhaGNN_A_Novel_Framework_for_Wearable_Sensor-Based_Human_Activity_Recognition_Combining_Multi-Head_Attention_and_Graph_Neural_Networks
+                                                   18. An Adaptive TimeGAN-Augmented Attention for Multi-IMU Human, https://pubmed.ncbi.nlm.nih.gov/42647703/
+                                                   19. Activity graph based convolutional neural network for physical, https://eprints.whiterose.ac.uk/id/eprint/182071/1/TII-Deep-Learning-PA-Accepted.pdf
+                                                   20. A Comprehensive Survey on State-Space Models for Graph Learning, https://arxiv.org/html/2412.18322v1
+                                                   21. Graph Mamba: Towards Learning on Graphs with State Space Models, https://huggingface.co/papers/2402.08678
+                                                   22. Exploring Graph Mamba: A Comprehensive Survey on State-Space, https://www.researchgate.net/publication/387382038_Exploring_Graph_Mamba_A_Comprehensive_Survey_on_State-Space_Models_for_Graph_Learning
+                                                   23. Multi-Objective Optimization and Federated Learning for Agri-Food, https://www.mdpi.com/2071-1050/18/3/1426
+                                                   24. DyG-Mamba: Continuous State Space Modeling on Dynamic Graphs, https://neurips.cc/virtual/2025/poster/116449
+                                                   25. Graph Mamba Operator: A Latent Simulator for Interacting Particle, https://arxiv.org/pdf/2606.09432
+                                                   26. (PDF) ActionMamba: Action Spatial–Temporal Aggregation Network, https://www.researchgate.net/publication/395433599_ActionMamba_Action_Spatial-Temporal_Aggregation_Network_Based_on_Mamba_and_GCN_for_Skeleton-Based_Action_Recognition
+                                                   27. Spatial-Temporal Graph Mamba for Pose Sequence Refinement, https://openaccess.thecvf.com/content/ICCV2025/papers/Dong_PS-Mamba_Spatial-Temporal_Graph_Mamba_for_Pose_Sequence_Refinement_ICCV_2025_paper.pdf
+                                                   28. A Survey of Connectors in Multi-modal Large Language Models - arXiv, https://arxiv.org/html/2502.11453v1
+                                                   29. A Survey of Connectors in Multi-modal Large Language Models, https://www.ijcai.org/proceedings/2025/1202.pdf
+                                                   30. Diffusion Model for Time Series and Spatio-Temporal Data - GitHub, https://github.com/yyysjz1997/awesome-timeseries-spatiotemporal-diffusion-model
+                                                   31. Mamba for Time Series Analysis: A Contemporary Survey, https://www.preprints.org/manuscript/202605.0995
+                                                   32. Softmax Uncovered: Balancing Precision with Numerical Stability in, https://medium.com/@harrietfiagbor/softmax-uncovered-balancing-precision-with-numerical-stability-in-deep-learning-b8876490d411
+                                                   33. Numerical stability of softmax - aderylo: field-report, https://aderylo.com/Projects/Machine-Learning-@-TUM/Assignments/Numerical-stability-of-softmax
+                                                   34. Sigmoid vs Softmax Functions Explained | PDF - Scribd, https://www.scribd.com/presentation/900321224/Sigmoid-and-Softmax-layer
+                                                   35. Sigmoid and SoftMax Functions in 5 minutes - Towards Data Science, https://towardsdatascience.com/sigmoid-and-softmax-functions-in-5-minutes-f516c80ea1f9/
+                                                   36. Sigmoid vs Softmax in Binary vs Multi-class Tasks - Patsnap Eureka, https://eureka.patsnap.com/report-sigmoid-vs-softmax-in-binary-vs-multi-class-tasks-when-to-use-which-activation
+                                                   37. Softmax vs Sigmoid Activation function - GeeksforGeeks, https://www.geeksforgeeks.org/deep-learning/softmax-vs-sigmoid-activation-function/
+                                                   38. Understanding PyTorch's Dynamic Computational Graphs - Medium, https://medium.com/@StackGpu/understanding-pytorchs-dynamic-computational-graphs-92c42f41e334
+                                                   39. Computational graphs in PyTorch and TensorFlow, https://towardsdatascience.com/computational-graphs-in-pytorch-and-tensorflow-c25cc40bdcd1/
+                                                   40. torch.sparse — PyTorch 2.14 documentation, https://docs.pytorch.org/docs/stable/sparse.html
+                                                   41. Optimize PyTorch training with the autograd engine, https://developers.redhat.com/articles/2026/03/03/optimize-pytorch-training-autograd-engine
