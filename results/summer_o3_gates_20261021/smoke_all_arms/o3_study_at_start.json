@@ -1,0 +1,36 @@
+{
+  "name": "Summer-based O3 subject-client federation",
+  "status": "ready_for_o3_preflight_and_smoke",
+  "selected_invariant": "mag_dot",
+  "selection_rule": "Choose magnitude or mag_dot from source-validation evidence only; record choice before O3 held-out evaluation.",
+  "summer_o2_run": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o2_session_20261021_173341",
+  "client_manifest": "results/o3_cpu_client_manifest_20261018.json",
+  "subjects": [
+    2,
+    5,
+    15
+  ],
+  "seeds": [
+    13,
+    29,
+    47
+  ],
+  "model_arms": [
+    "raw_residual",
+    "selected_invariant_physical",
+    "selected_invariant_residual",
+    "selected_invariant_none"
+  ],
+  "methods": [
+    "centralized",
+    "local_only",
+    "fedavg",
+    "fedbn"
+  ],
+  "epochs_or_rounds": 31,
+  "participation": "all 15 source clients each round",
+  "batch_size": 64,
+  "main_loss": "cross_entropy",
+  "note": "This is a blocked scientific launch config, not a training result. Finalize only after O1 and O2 analysis.",
+  "selection_evidence": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o2_session_20261021_173341\\o3_selection.json"
+}

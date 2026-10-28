@@ -1,0 +1,104 @@
+{
+  "test_subject": 8,
+  "validation_subject": 9,
+  "train_subjects": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "feature_mode": "mag_dot",
+  "feature_width": 5,
+  "excluded_recordings": [
+    "subject13_self.log",
+    "subject15_mutual4.log",
+    "subject6_self.log"
+  ],
+  "common_validation_classes": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32
+  ],
+  "counts": {
+    "train": 24912,
+    "val_ideal": 1879,
+    "val_self": 1901,
+    "ideal": 1674,
+    "self": 1688,
+    "induced": 0
+  },
+  "recordings": {
+    "train": [
+      "subject10_ideal.log",
+      "subject11_ideal.log",
+      "subject12_ideal.log",
+      "subject13_ideal.log",
+      "subject14_ideal.log",
+      "subject15_ideal.log",
+      "subject16_ideal.log",
+      "subject17_ideal.log",
+      "subject1_ideal.log",
+      "subject2_ideal.log",
+      "subject3_ideal.log",
+      "subject4_ideal.log",
+      "subject5_ideal.log",
+      "subject6_ideal.log",
+      "subject7_ideal.log"
+    ],
+    "val_ideal": [
+      "subject9_ideal.log"
+    ],
+    "val_self": [
+      "subject9_self.log"
+    ],
+    "ideal": [
+      "subject8_ideal.log"
+    ],
+    "self": [
+      "subject8_self.log"
+    ],
+    "induced": []
+  },
+  "normalization": "feature transform before train-only mean/std by sensor/feature"
+}

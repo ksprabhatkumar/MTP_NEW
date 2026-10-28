@@ -1,0 +1,65 @@
+{
+  "name": "Summer-based Objective 2: invariant features with fixed and residual routing",
+  "ready": true,
+  "entry_gate": "O1 outer status complete, 126 training results and O1 analysis. Enforced by run_summer_o2.py before every GPU stage.",
+  "authority": ["resources/colloquium_report.pdf", "resources/objectives_methodology.tex"],
+  "main_loss": "cross_entropy",
+  "subjects": [2, 5, 15],
+  "seeds": [13, 29, 47],
+  "new_conditions": 7,
+  "new_jobs": 63,
+  "epochs": "reuse locked O1 schedule: 31",
+  "source_files": [
+    "run_summer_o2.py", "summer_o2_experiments.py",
+    "check_summer_o2_invariance.py", "verify_summer_o2_bridge.py",
+    "analyze_summer_o2.py", "run_summer_o2_clean_analysis.py",
+    "models/summer_dynamic.py",
+    "summer_o1_experiments.py", "o2_features.py", "o2_experiments.py",
+    "workstation_experiments.py", "run_long_training.py"
+  ],
+  "unresolved": [],
+  "tasks": [
+    {
+      "id": "cpu_invariance",
+      "plan_step": "P5.3",
+      "command": ["{python}", "check_summer_o2_invariance.py", "--output", "{run_dir}/cpu_invariance.json"],
+      "artifacts": ["{run_dir}/cpu_invariance.json"]
+    },
+    {
+      "id": "preflight",
+      "plan_step": "P5.1",
+      "command": ["{python}", "-u", "run_summer_o2.py", "--mode", "preflight", "--output", "{run_dir}/preflight"],
+      "artifacts": ["{run_dir}/preflight/passed.json"]
+    },
+    {
+      "id": "smoke",
+      "plan_step": "P5.3",
+      "command": ["{python}", "-u", "run_summer_o2.py", "--mode", "smoke", "--output", "{run_dir}/smoke"],
+      "artifacts": ["{run_dir}/smoke/passed.json"]
+    },
+    {
+      "id": "bridge",
+      "plan_step": "P5.1",
+      "command": ["{python}", "-u", "run_summer_o2.py", "--mode", "bridge", "--output", "{run_dir}/bridge"],
+      "artifacts": ["{run_dir}/bridge/raw_physical/result.json"]
+    },
+    {
+      "id": "bridge_review",
+      "plan_step": "P5.1",
+      "command": ["{python}", "verify_summer_o2_bridge.py", "--bridge", "{run_dir}/bridge/raw_physical"],
+      "artifacts": ["{run_dir}/bridge/bridge_review.json"]
+    },
+    {
+      "id": "training",
+      "plan_step": "P5.5",
+      "command": ["{python}", "-u", "run_summer_o2.py", "--mode", "full", "--bridge", "{run_dir}/bridge", "--output", "{run_dir}/training"],
+      "artifacts": ["{run_dir}/training/completed.json", "{run_dir}/training/summary.json"]
+    },
+    {
+      "id": "analysis",
+      "plan_step": "P5.4",
+      "command": ["{python}", "run_summer_o2_clean_analysis.py", "--run", "{run_dir}/training"],
+      "artifacts": ["{run_dir}/training/ANALYSIS.md", "{run_dir}/training/figures/placement.png"]
+    }
+  ]
+}

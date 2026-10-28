@@ -1,0 +1,734 @@
+{
+  "source_only": true,
+  "rows": [
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\residual\\subject_02\\seed_13\\best.pt",
+      "subject": 2,
+      "seed": 13,
+      "graph": "residual",
+      "validation_subject": 3,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 2.1936016891821453e-10,
+      "raw_affinity_logit_max_abs": 1.360530244021163e-09,
+      "encoded_descriptor_rms": 0.014393872581422329,
+      "query_weight_norm": 0.005581604316830635,
+      "key_weight_norm": 0.005294428206980228,
+      "raw_affinity_probability_std": 0.0,
+      "masked_dynamic_row_sum_mean": 0.8888890743255615,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.7361218929290771,
+        0.1335306316614151,
+        0.13034752011299133
+      ],
+      "effective_branch_mass": [
+        0.5711545944213867,
+        0.3711492121219635,
+        0.057696182280778885
+      ],
+      "self_message_rms": 1.0887013673782349,
+      "neighbor_message_rms": 0.5847433805465698,
+      "fp32_bf16_logit_rms_delta": 0.009405000135302544,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 8.563267428485233e-09,
+          "message_rms_delta": 3.449457608439843e-08,
+          "centered_logit_rms_delta": 2.3341681298916228e-07,
+          "probability_kl_mean": -8.3799100991655e-10,
+          "loss_delta": 1.4901161193847656e-08,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 3.285136429553859e-08,
+          "message_rms_delta": 1.0273792838688678e-07,
+          "centered_logit_rms_delta": 3.390446181583684e-07,
+          "probability_kl_mean": 5.8350742015989e-09,
+          "loss_delta": 2.9802322387695312e-08,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13194935023784637,
+          "message_rms_delta": 0.38135266304016113,
+          "centered_logit_rms_delta": 0.8020573854446411,
+          "probability_kl_mean": 0.04200030490756035,
+          "loss_delta": 0.02586248517036438,
+          "prediction_flip_fraction": 0.0416666679084301
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.12332179397344589,
+          "message_rms_delta": 0.3592846691608429,
+          "centered_logit_rms_delta": 0.6955124735832214,
+          "probability_kl_mean": 0.12362486124038696,
+          "loss_delta": 0.1349116861820221,
+          "prediction_flip_fraction": 0.09375
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\residual_balanced\\subject_02\\seed_13\\best.pt",
+      "subject": 2,
+      "seed": 13,
+      "graph": "residual_balanced",
+      "validation_subject": 3,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 2.3964374928908683e-10,
+      "raw_affinity_logit_max_abs": 1.4344399001942065e-09,
+      "encoded_descriptor_rms": 0.01444893330335617,
+      "query_weight_norm": 0.005611190106719732,
+      "key_weight_norm": 0.005350877996534109,
+      "raw_affinity_probability_std": 0.0,
+      "masked_dynamic_row_sum_mean": 0.8888890743255615,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.713690459728241,
+        0.1432611346244812,
+        0.14304839074611664
+      ],
+      "effective_branch_mass": [
+        0.7136905193328857,
+        0.14326117932796478,
+        0.14304834604263306
+      ],
+      "self_message_rms": 1.1198482513427734,
+      "neighbor_message_rms": 0.6801871061325073,
+      "fp32_bf16_logit_rms_delta": 0.00960703194141388,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 1.1137478495015785e-08,
+          "message_rms_delta": 4.038892242874681e-08,
+          "centered_logit_rms_delta": 2.3484635391923803e-07,
+          "probability_kl_mean": -3.0743592116522223e-09,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 3.0568575226652683e-08,
+          "message_rms_delta": 9.814919366135655e-08,
+          "centered_logit_rms_delta": 3.074329129049147e-07,
+          "probability_kl_mean": 2.272935395453146e-09,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.17946317791938782,
+          "message_rms_delta": 0.5210886597633362,
+          "centered_logit_rms_delta": 1.01101815700531,
+          "probability_kl_mean": 0.10330915451049805,
+          "loss_delta": 0.10135120898485184,
+          "prediction_flip_fraction": 0.03125
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.07207542657852173,
+          "message_rms_delta": 0.20929314196109772,
+          "centered_logit_rms_delta": 0.39755141735076904,
+          "probability_kl_mean": 0.03398273512721062,
+          "loss_delta": 0.038347356021404266,
+          "prediction_flip_fraction": 0.03125
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\physical\\subject_02\\seed_13\\best.pt",
+      "subject": 2,
+      "seed": 13,
+      "graph": "physical",
+      "validation_subject": 3,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 6.179638489811623e-08,
+      "raw_affinity_logit_max_abs": 4.823652375307574e-07,
+      "encoded_descriptor_rms": 0.029716137796640396,
+      "query_weight_norm": 0.04388973116874695,
+      "key_weight_norm": 0.04121358320116997,
+      "raw_affinity_probability_std": 1.1507472308380784e-08,
+      "masked_dynamic_row_sum_mean": 0.8888890743255615,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.7869859933853149,
+        0.10650697350502014,
+        0.10650697350502014
+      ],
+      "effective_branch_mass": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "self_message_rms": 1.1487600803375244,
+      "neighbor_message_rms": 0.8475176692008972,
+      "fp32_bf16_logit_rms_delta": 0.00937147717922926,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.7303813695907593,
+          "centered_logit_rms_delta": 1.2526851892471313,
+          "probability_kl_mean": 0.25208401679992676,
+          "loss_delta": 0.2899767756462097,
+          "prediction_flip_fraction": 0.1145833358168602
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\none\\subject_02\\seed_13\\best.pt",
+      "subject": 2,
+      "seed": 13,
+      "graph": "none",
+      "validation_subject": 3,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 0.012760591693222523,
+      "raw_affinity_logit_max_abs": 0.17017318308353424,
+      "encoded_descriptor_rms": 0.23258987069129944,
+      "query_weight_norm": 2.4805569648742676,
+      "key_weight_norm": 2.3688879013061523,
+      "raw_affinity_probability_std": 0.0009973745327442884,
+      "masked_dynamic_row_sum_mean": 0.8882700204849243,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.7869859933853149,
+        0.10650697350502014,
+        0.10650697350502014
+      ],
+      "effective_branch_mass": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "self_message_rms": 1.0084306001663208,
+      "neighbor_message_rms": 0.0,
+      "fp32_bf16_logit_rms_delta": 0.010117065161466599,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.4547792971134186,
+          "centered_logit_rms_delta": 0.8943818211555481,
+          "probability_kl_mean": 0.07491415739059448,
+          "loss_delta": 0.09120988845825195,
+          "prediction_flip_fraction": 0.03125
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.277777761220932,
+          "message_rms_delta": 0.8475176692008972,
+          "centered_logit_rms_delta": 1.574764370918274,
+          "probability_kl_mean": 0.7233942747116089,
+          "loss_delta": 0.8322582244873047,
+          "prediction_flip_fraction": 0.25
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\residual\\subject_05\\seed_13\\best.pt",
+      "subject": 5,
+      "seed": 13,
+      "graph": "residual",
+      "validation_subject": 8,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 4.360564860583782e-12,
+      "raw_affinity_logit_max_abs": 2.6921747817154618e-11,
+      "encoded_descriptor_rms": 0.008853256702423096,
+      "query_weight_norm": 0.0012547941878437996,
+      "key_weight_norm": 0.0011918729869648814,
+      "raw_affinity_probability_std": 0.0,
+      "masked_dynamic_row_sum_mean": 0.8888890743255615,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.734358012676239,
+        0.13461780548095703,
+        0.13102419674396515
+      ],
+      "effective_branch_mass": [
+        0.5689767003059387,
+        0.3731344938278198,
+        0.05788883939385414
+      ],
+      "self_message_rms": 1.227003812789917,
+      "neighbor_message_rms": 0.6313596367835999,
+      "fp32_bf16_logit_rms_delta": 0.009767663665115833,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 2.875188087614333e-09,
+          "message_rms_delta": 2.092844297862939e-08,
+          "centered_logit_rms_delta": 2.181244980192787e-07,
+          "probability_kl_mean": 2.249908453988425e-10,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 3.477245513749949e-08,
+          "message_rms_delta": 1.1764585394757887e-07,
+          "centered_logit_rms_delta": 3.465144118308672e-07,
+          "probability_kl_mean": -1.158218410068912e-09,
+          "loss_delta": 3.725290298461914e-09,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1314285695552826,
+          "message_rms_delta": 0.42118728160858154,
+          "centered_logit_rms_delta": 0.7729632258415222,
+          "probability_kl_mean": 0.018082989379763603,
+          "loss_delta": 0.015651574358344078,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.12384903430938721,
+          "message_rms_delta": 0.4060055613517761,
+          "centered_logit_rms_delta": 0.7741739749908447,
+          "probability_kl_mean": 0.043370168656110764,
+          "loss_delta": 0.042065538465976715,
+          "prediction_flip_fraction": 0.02083333395421505
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\residual_balanced\\subject_05\\seed_13\\best.pt",
+      "subject": 5,
+      "seed": 13,
+      "graph": "residual_balanced",
+      "validation_subject": 8,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 1.7788082914194092e-05,
+      "raw_affinity_logit_max_abs": 0.00018095230916514993,
+      "encoded_descriptor_rms": 0.06690186262130737,
+      "query_weight_norm": 0.31996822357177734,
+      "key_weight_norm": 0.3027937114238739,
+      "raw_affinity_probability_std": 1.439836864847166e-06,
+      "masked_dynamic_row_sum_mean": 0.8888885974884033,
+      "baseline_adjacency_between_window_std": 1.7919215622441698e-07,
+      "branch_weights": [
+        0.739418089389801,
+        0.13037094473838806,
+        0.1302109807729721
+      ],
+      "effective_branch_mass": [
+        0.739418089389801,
+        0.13037092983722687,
+        0.1302109658718109
+      ],
+      "self_message_rms": 1.213402271270752,
+      "neighbor_message_rms": 0.7629425525665283,
+      "fp32_bf16_logit_rms_delta": 0.00967432465404272,
+      "fp32_bf16_adjacency_rms_delta": 6.46369180401507e-09,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 1.9483275082166074e-07,
+          "message_rms_delta": 9.335723802905704e-07,
+          "centered_logit_rms_delta": 9.539689926896244e-07,
+          "probability_kl_mean": 2.5504793832453743e-09,
+          "loss_delta": -3.725290298461914e-08,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 1.9208947321658343e-07,
+          "message_rms_delta": 9.164947414319613e-07,
+          "centered_logit_rms_delta": 9.463797709940991e-07,
+          "probability_kl_mean": 3.549615712472587e-09,
+          "loss_delta": -2.2351741790771484e-08,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.5231278755200037e-07,
+          "message_rms_delta": 1.1315178198856302e-06,
+          "centered_logit_rms_delta": 1.0541759820625884e-06,
+          "probability_kl_mean": 2.538757648551382e-09,
+          "loss_delta": -3.725290298461914e-09,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 1.9333621992245753e-07,
+          "message_rms_delta": 9.180486131299403e-07,
+          "centered_logit_rms_delta": 9.416646093995951e-07,
+          "probability_kl_mean": 2.914547214682983e-10,
+          "loss_delta": -3.3527612686157227e-08,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 2.5231278755200037e-07,
+          "message_rms_delta": 1.1315178198856302e-06,
+          "centered_logit_rms_delta": 1.0541759820625884e-06,
+          "probability_kl_mean": 2.538757648551382e-09,
+          "loss_delta": -3.725290298461914e-09,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1859082728624344,
+          "message_rms_delta": 0.6030787825584412,
+          "centered_logit_rms_delta": 0.9061411619186401,
+          "probability_kl_mean": 0.05991722270846367,
+          "loss_delta": 0.0635356530547142,
+          "prediction_flip_fraction": 0.010416666977107525
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.06563057005405426,
+          "message_rms_delta": 0.21291112899780273,
+          "centered_logit_rms_delta": 0.34277287125587463,
+          "probability_kl_mean": 0.010227877646684647,
+          "loss_delta": 0.010760489851236343,
+          "prediction_flip_fraction": 0.0
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\physical\\subject_05\\seed_13\\best.pt",
+      "subject": 5,
+      "seed": 13,
+      "graph": "physical",
+      "validation_subject": 8,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 4.0871555272159465e-12,
+      "raw_affinity_logit_max_abs": 2.5305268297470818e-11,
+      "encoded_descriptor_rms": 0.008880234323441982,
+      "query_weight_norm": 0.0012405384331941605,
+      "key_weight_norm": 0.001175793120637536,
+      "raw_affinity_probability_std": 0.0,
+      "masked_dynamic_row_sum_mean": 0.8888890743255615,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.7869859933853149,
+        0.10650697350502014,
+        0.10650697350502014
+      ],
+      "effective_branch_mass": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "self_message_rms": 1.2920844554901123,
+      "neighbor_message_rms": 0.9372269511222839,
+      "fp32_bf16_logit_rms_delta": 0.009578204713761806,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.8159886002540588,
+          "centered_logit_rms_delta": 1.2579187154769897,
+          "probability_kl_mean": 0.15130305290222168,
+          "loss_delta": 0.17560169100761414,
+          "prediction_flip_fraction": 0.0416666679084301
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        }
+      }
+    },
+    {
+      "checkpoint": "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945\\training\\jobs\\none\\subject_05\\seed_13\\best.pt",
+      "subject": 5,
+      "seed": 13,
+      "graph": "none",
+      "validation_subject": 8,
+      "sample_windows": 96,
+      "selection": "evenly spaced all-available source ideal validation windows",
+      "forward_reconstruction_max_abs": 0.0,
+      "adjacency_reconstruction_max_abs": 0.0,
+      "raw_affinity_logit_std": 0.013708686456084251,
+      "raw_affinity_logit_max_abs": 0.15418753027915955,
+      "encoded_descriptor_rms": 0.23174667358398438,
+      "query_weight_norm": 2.4805569648742676,
+      "key_weight_norm": 2.3688879013061523,
+      "raw_affinity_probability_std": 0.001108146971091628,
+      "masked_dynamic_row_sum_mean": 0.8882045745849609,
+      "baseline_adjacency_between_window_std": 0.0,
+      "branch_weights": [
+        0.7869859933853149,
+        0.10650697350502014,
+        0.10650697350502014
+      ],
+      "effective_branch_mass": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "self_message_rms": 1.1107306480407715,
+      "neighbor_message_rms": 0.0,
+      "fp32_bf16_logit_rms_delta": 0.008097546175122261,
+      "fp32_bf16_adjacency_rms_delta": 0.0,
+      "interventions": {
+        "uniform_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "source_mean_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "donor_final_adjacency": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.48485898971557617,
+          "centered_logit_rms_delta": 0.7850785255432129,
+          "probability_kl_mean": 0.10812010616064072,
+          "loss_delta": 0.1427099108695984,
+          "prediction_flip_fraction": 0.0416666679084301
+        },
+        "forced_physical_final_adjacency": {
+          "adjacency_rms_delta": 0.277777761220932,
+          "message_rms_delta": 0.9372269511222839,
+          "centered_logit_rms_delta": 1.3859293460845947,
+          "probability_kl_mean": 0.5083770155906677,
+          "loss_delta": 0.5619410872459412,
+          "prediction_flip_fraction": 0.1770833432674408
+        }
+      }
+    }
+  ],
+  "notes": "Interventions compare consumed adjacency and centered logits; argmax alone is insufficient. Source-validation windows only; held-out placement data did not enter this audit."
+}

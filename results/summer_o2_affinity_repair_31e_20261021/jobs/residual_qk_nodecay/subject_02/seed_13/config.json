@@ -1,0 +1,16 @@
+{
+  "arm": "residual_qk_nodecay",
+  "graph": "residual",
+  "feature": "mag_dot",
+  "qk_weight_decay": 0.0,
+  "other_weight_decay": 0.0005,
+  "optimizer": "Adam fused",
+  "lr": 0.0001,
+  "scheduler": "OneCycleLR once/epoch",
+  "epochs": 31,
+  "batch_size": 64,
+  "seed": 13,
+  "held_out_subject": 2,
+  "validation_only": true,
+  "selection": "distinct source subject ideal 33-class macro-F1"
+}

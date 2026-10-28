@@ -1,0 +1,17 @@
+{
+  "mode": "smoke",
+  "arms": [
+    "gated_masked",
+    "gated_pairwise"
+  ],
+  "jobs": [
+    [
+      2,
+      13
+    ]
+  ],
+  "epochs": 2,
+  "batch_size": 64,
+  "selection": "source ideal validation only",
+  "representation": "mag_dot"
+}

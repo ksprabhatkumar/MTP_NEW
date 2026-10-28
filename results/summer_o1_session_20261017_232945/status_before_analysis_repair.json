@@ -1,0 +1,18 @@
+{
+  "state": "failed",
+  "pid": 20456,
+  "total": 5,
+  "completed": 4,
+  "updated": "2026-10-18T13:07:45.096013+05:30",
+  "task": "analysis",
+  "plan_step": "P4.7",
+  "command": [
+    "C:/ProgramData/anaconda3/python.exe",
+    "analyze_summer_o1.py",
+    "--run",
+    "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945/training"
+  ],
+  "child_pid": 30844,
+  "error": "RuntimeError('Task analysis exited 1; inspect its log and epoch checkpoint.')",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\General\\Desktop\\prabhat\\MTP\\run_long_training.py\", line 165, in run\n    raise RuntimeError(f'Task {task_id} exited {code}; inspect its log and epoch checkpoint.')\nRuntimeError: Task analysis exited 1; inspect its log and epoch checkpoint.\n"
+}

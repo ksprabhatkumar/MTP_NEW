@@ -1,0 +1,1214 @@
+     GAE-Mamba-WHAR: Generative Kinematic
+ Imputation and Causal State-Space Modeling for
+
+           Robust Human Activity Recognition
+
+  A report submitted in partial fulfillment for the award of the
+                                    degree of
+
+Integrated Post Graduate (IPG) M.Tech. in Information
+                                  Technology
+
+                     Summer Colloquium Report
+
+                                        By
+           Prabhat Kumar (Roll No. 2022-IMT-086)
+
+                          Under the Supervision of
+                                  Dr. Anjali
+
+                 Department of Information Technology
+     ABV-INDIAN INSTITUTE OF INFORMATION
+  TECHNOLOGY AND MANAGEMENT GWALIOR
+
+                           GWALIOR, INDIA
+                                 August 2026
+2
+        DECLARATION
+
+I, Prabhat Kumar, a student of IPG M.Tech., bearing Institute Roll No. 2022-
+IMT-086 of ABV-IIITM, Gwalior, hereby solemnly declare that I have fully com-
+pleted this Summer Colloquium Project from May 2026 to August 2026.
+
+I have given due credit to the original authors and sources for all the words, ideas,
+diagrams, graphics, computer programs, experiments, results, and websites that
+are not my original contribution. I have used quotation marks to identify verbatim
+sentences and given credit to the original authors/sources. This work has not been
+submitted previously, in whole or in part, to qualify for any other academic award.
+
+Dated:
+
+           Signature of the Candidate
+                   (Prabhat Kumar)
+
+        3
+4
+        CERTIFICATE
+
+This is to certify that the Summer Colloquium report entitled "GAE-Mamba-
+WHAR: Generative Kinematic Imputation and Causal State-Space Mod-
+eling for Robust Human Activity Recognition", submitted by Prabhat
+Kumar (Roll No. 2022-IMT-086) to the ABV-Indian Institute of Informa-
+tion Technology and Management Gwalior, is a record of bona fide project work
+carried out by him under my supervision and guidance.
+
+The content presented in this report represents his original research and engi-
+neering contributions. To the best of my knowledge, the results embodied in this
+report have not been submitted to any other University or Institute for the award
+of any degree or diploma.
+
+Dated:
+
+               Signature of Supervisor
+                          Dr. Anjali
+
+        Department of Information Technology
+                   ABV-IIITM, Gwalior
+
+        5
+6
+     ACKNOWLEDGEMENTS
+
+I am deeply grateful to my supervisor, Dr. Anjali, for her unwavering guidance,
+mentorship, and support throughout the duration of this project. Her willingness
+to share her deep knowledge and provide critical insights into sequence modeling
+and graph topologies played a pivotal role in my academic growth during this
+research. She was always approachable and encouraging, and I sincerely thank
+her for the opportunity to work under her supervision.
+I also extend my profound gratitude to the faculty and administration of the
+ABV-Indian Institute of Information Technology and Management (ABV-IIITM)
+Gwalior for affording me the robust computational resources and academic envi-
+ronment necessary to embark on this demanding project.
+Finally, I am highly indebted to my family and friends, whose constant encour-
+agement and moral support have been my driving force throughout my academic
+journey.
+
+                                                                                 Prabhat Kumar
+                                                                                    (2022-IMT-086)
+
+                                                   7
+8
+               ABSTRACT
+
+Wearable Human Activity Recognition (WHAR) utilizing Inertial Measurement
+Units (IMUs) is a foundational capability for ambient healthcare, industrial er-
+gonomics, and ubiquitous edge computing. However, current state-of-the-art deep
+learning architectures suffer from two debilitating limitations: extreme inference
+latency driven by sequential Recurrent Neural Networks (RNNs/LSTMs), and
+catastrophic fragility when confronted with real-world hardware failures, such as
+sensor battery depletion or network dropouts.
+
+This research proposes GAE-Mamba-WHAR, a novel, end-to-end deep learning
+framework designed to establish a new Pareto-optimal frontier for ubiquitous com-
+puting. To resolve the sequential bottleneck of legacy models, the architecture
+replaces traditional recurrent memory blocks with a 1D Causal Selective State-
+Space Model (Mamba). By leveraging hardware-aware parallel associative scans
+alongside Global Average Pooling (GAP) and Focal Loss, the framework achieves
+a 40.6x reduction in inference latency (from 465.63 ms down to 11.45 ms) while
+maintaining strict real-time causality.
+
+To address physical hardware fragility, the framework introduces a Generative
+Graph Autoencoder (GAE) utilizing Graph Isomorphism Networks (GINs) trained
+via a joint cross-entropy and Mean Squared Error (MSE) loss function. The GAE
+acts as a "self-healing" imputation engine, intelligently predicting and hallucinat-
+ing missing sensor data by mathematically modeling the structural kinematics of
+surviving anatomical nodes.
+
+                                                   9
+Evaluated under a strict Leave-One-Subject-Out (LOSO) cross-validation protocol
+across three diverse benchmark datasets (DSADS, OPPORTUNITY, and REALD-
+ISP), the proposed architecture demonstrates unprecedented cross-subject general-
+ization, achieving up to 90.56% Macro-F1 on DSADS and 98.11% on REALDISP.
+Crucially, during a simulated hardware degradation benchmark, the generative
+architecture successfully retained an 89.12% Macro-F1 score even when suffering
+a catastrophic failure of multiple physical sensors, proving its supreme robustness
+and viability for continuous, real-world edge deployment.
+
+                                                   10
+                     Contents
+
+DECLARATION                            3
+
+CERTIFICATE                            5
+
+ACKNOWLEDGEMENTS                       7
+
+ABSTRACT                               9
+
+1 Introduction                         17
+
+1.1 The Ubiquity of Wearable Human Activity Recognition (WHAR) . 17
+
+1.2 Architectural Bottlenecks: The Sequence Modeling Problem . . . . 18
+
+1.3 Hardware Vulnerabilities: Sensor Displacement and Failure . . . . . 19
+
+1.4 Project Contributions . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+
+1.5 Organization of the Report . . . . . . . . . . . . . . . . . . . . . . . 21
+
+2 Literature Review                    23
+
+2.1 Evolution of Deep Learning in WHAR . . . . . . . . . . . . . . . . 23
+
+2.2 Spatial Kinematics via Graph Neural Networks (GNNs) . . . . . . . 24
+
+2.3 The State-Space Model Paradigm Shift . . . . . . . . . . . . . . . . 25
+
+2.4 Dealing with Missing Data in Ubiquitous Computing . . . . . . . . 25
+
+2.5 Synthesis and Identification of Research Gaps . . . . . . . . . . . . 26
+
+3 Proposed Methodology & Architecture  29
+
+3.1 System Overview . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+
+3.2 Data Preprocessing and Tensor Formatting . . . . . . . . . . . . . . 30
+
+                     11
+      3.2.1 Missing Data Handling and Sliding Window Segmentation . 30
+      3.2.2 Independent Z-Score Normalization . . . . . . . . . . . . . . 30
+3.3 Spatial Extraction: Body-Node Attention Graph Network . . . . . . 31
+      3.3.1 Graph Isomorphism Networks (GIN) with Node-Wise At-
+
+                tention . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+3.4 Temporal Modeling: 1D Causal Selective State-Space Models . . . . 32
+
+      3.4.1 Continuous-to-Discrete State-Space Gating . . . . . . . . . . 32
+      3.4.2 Global Average Pooling (GAP) . . . . . . . . . . . . . . . . 34
+3.5 Kinematic Imputation: Generative Graph Autoencoder . . . . . . . 34
+      3.5.1 Hardware Failure Simulation (Masking) . . . . . . . . . . . . 34
+      3.5.2 Generative Imputation and Joint Loss . . . . . . . . . . . . 34
+
+4 Experimental Setup              39
+
+4.1 Benchmark Datasets . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+
+4.2 Validation Protocol: Modified Leave-One-Subject-Out (LOSO) . . . 40
+
+4.3 Hyperparameter Configuration . . . . . . . . . . . . . . . . . . . . . 41
+
+4.4 Hardware and Software Environment . . . . . . . . . . . . . . . . . 42
+
+5 Results and Evaluation          43
+
+5.1 Computational Profiling: Latency vs. Parameters . . . . . . . . . . 43
+
+5.2 Cross-Subject Generalization Performance . . . . . . . . . . . . . . 45
+
+5.3 Hardware Robustness and Kinematic Imputation . . . . . . . . . . 47
+
+6 Conclusion and Future Work      49
+
+6.1 Summary of Achievements . . . . . . . . . . . . . . . . . . . . . . . 49
+
+6.2 Technical Limitations . . . . . . . . . . . . . . . . . . . . . . . . . . 50
+
+6.3 Future Work: Cross-Subject Generalization . . . . . . . . . . . . . . 51
+
+Bibliography                      53
+
+                              12
+            List of Figures
+
+3.1 Internal mathematical routing of the Causal Mamba Block, show-
+      casing the selective gating mechanisms and residual skip connections. 33
+
+3.2 High-level architectural data flow of the Mamba-WHAR classifica-
+      tion pipeline. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+
+3.3 The complete GAE-Mamba-WHAR pipeline demonstrating the dual-
+      branch joint optimization strategy for simultaneous generative im-
+      putation and focal classification. . . . . . . . . . . . . . . . . . . . . 37
+
+5.1 Computational profiling comparison. (Left) Inference latency demon-
+      strating an approximate 33x speedup by the Mamba architecture
+      parallelizing the sequence scan. (Right) Parameter count compar-
+      ison demonstrating that the Mamba model executes significantly
+      faster despite possessing over ten times the parameters of the lightweight
+      BiGRU, proving that recurrence, not parameter size, dictates time-
+      series latency. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+
+5.2 Convergence dynamics across all datasets. Left panels track accuracy
+
+       progression, while right panels display joint loss optimization. The em-
+       bedded table lists the corresponding hyperparameters. Curve stabiliza-
+       tion confirms that aggressive L2 regularization and Early Stopping suc-
+
+      cessfully mitigate generalization gaps. . . . . . . . . . . . . . . . . . . 46
+
+                                              13
+5.3 The Robustness Degradation Curve. Unlike standard architectures
+      that crash entirely upon losing sensor input, the generative im-
+      putation enables the network to maintain high predictive capacity
+      despite catastrophic hardware failure. . . . . . . . . . . . . . . . . . 48
+
+                                              14
+             List of Tables
+
+2.1 Summary of Key Literature and Derived Research Gaps . . . . . . 27
+4.1 Dataset-Specific Hyperparameter Configurations (Initial / Opti-
+
+      mized) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+5.1 Computational Profiling (Standardized Batch = 128, Timesteps =
+
+      125) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 44
+5.2 Cross-Subject Generalization Comparison (Strict LOSO Protocol) . 45
+5.3 Hyperparameter Configurations for the Proposed Model . . . . . . . 45
+5.4 Exact optimization hyperparameters utilized to generate the con-
+
+      vergence dynamics. . . . . . . . . . . . . . . . . . . . . . . . . . . . 47
+5.5 Robustness Degradation Benchmark (Macro-F1 %) . . . . . . . . . 47
+
+                                              15
+16
+          1
+
+                                Introduction
+
+1.1 The Ubiquity of Wearable Human Activity
+       Recognition (WHAR)
+
+The rapid proliferation of ubiquitous computing, mobile edge intelligence, and
+Internet-of-Things (IoT) ecosystems has established Wearable Human Activity
+Recognition (WHAR) as a cornerstone of modern ambient intelligence. By uti-
+lizing high-frequency Inertial Measurement Units (IMUs)--primarily tri-axial ac-
+celerometers, gyroscopes, and magnetometers--researchers can extract highly ac-
+curate, semantically meaningful interpretations of human kinematics. The ap-
+plication vectors for WHAR are vast and critical, spanning continuous mobile
+healthcare monitoring, neurodegenerative disease tracking, industrial ergonomics,
+ambient assisted living, and high-performance sports analytics.
+
+                                                   17
+    Historically, WHAR pipelines relied extensively on handcrafted statistical and
+frequency-domain heuristics parsed through shallow machine learning algorithms
+(e.g., Random Forests or Support Vector Machines). However, the paradigm has
+decisively shifted toward end-to-end deep representational learning. Modern ar-
+chitectures treat the human body as a complex biomechanical system, utilizing
+deep neural networks to automatically map raw, multivariate sensor streams into
+distinct activity classifications. Despite these advancements, deploying these deep
+learning models into real-world, uncontrolled environments introduces severe com-
+putational and physical challenges that remain largely unresolved in contemporary
+literature.
+
+1.2 Architectural Bottlenecks: The Sequence Mod-
+
+       eling Problem
+
+The foundational era of deep learning in WHAR was dominated by Convolutional
+Neural Networks (CNNs) for spatial feature extraction, coupled with Recurrent
+Neural Networks (RNNs)--specifically Long Short-Term Memory (LSTM) and
+Gated Recurrent Unit (GRU) networks--for sequential temporal modeling. While
+CNN-RNN hybrid architectures like DeepConvLSTM and modern Graph-RNN
+hybrids like GT-WHAR achieve excellent predictive accuracy, they suffer from a
+fundamental architectural flaw: the recurrent sequential bottleneck.
+
+    Standard RNNs process time-series data sequentially; the hidden state at
+timestep t cannot be computed until the operation at timestep t - 1 has con-
+cluded. In the context of WHAR, where a typical sliding window may contain
+125 to 250 timesteps, this sequential unrolling completely prevents parallel com-
+putation. Consequently, recurrent models impose massive inference latency and
+computational overhead. Conversely, while self-attention mechanisms and Trans-
+former architectures resolve this sequential bottleneck by processing entire se-
+quences simultaneously, their quadratic computational and memory complexity
+
+                                                   18
+with respect to sequence length renders them incompatible with the strict Static
+Random-Access Memory (SRAM) and micro-watt power budgets of edge-deployed
+wearable microcontrollers. Thus, a critical need exists for a temporal architecture
+that provides parallel sequence scanning without the quadratic memory constraints
+of Transformers.
+
+1.3 Hardware Vulnerabilities: Sensor Displace-
+
+       ment and Failure
+
+Beyond algorithmic efficiency, WHAR systems face profound physical vulnerabil-
+ities when deployed "in the wild." In controlled laboratory settings, subjects wear
+perfectly calibrated sensor arrays tightly strapped to specific anatomical nodes.
+In real-world deployments, users are prone to imperfect sensor placement, varying
+carrying positions, and outright hardware failures.
+
+    Most contemporary multi-sensor architectures assume a pristine, uninterrupted
+data matrix. If a single sensor node--such as a smartwatch or a Bluetooth-
+connected ankle IMU--experiences battery depletion or packet loss, the network
+receives a stream of zeros or NaN (Not-a-Number) values. In standard Convo-
+lutional or Graph Neural Networks, this corrupted node mathematically poisons
+the feature maps of adjacent nodes, leading to catastrophic accuracy collapse.
+Resolving this fragility requires moving beyond discriminative classification and
+introducing Generative Artificial Intelligence capable of spatial imputation and
+"self-healing" prior to temporal processing.
+
+    Motivation and Problem Statement This project is motivated by the "Inference-
+Robustness Tradeoff" currently plaguing wearable AI. Legacy models are compu-
+tationally lightweight but lack the spatial topological awareness required for high
+accuracy on complex, imbalanced datasets. Conversely, modern Graph-RNN mod-
+els achieve high accuracy but suffer from severe sequential latency (often exceeding
+450 ms per batch) and complete fragility in the face of hardware sensor drops.
+
+                                                   19
+    Therefore, the problem statement of this colloquium research is twofold:
+   1. How can we eliminate the recurrent temporal bottleneck to achieve ultra-low
+
+       latency, real-time edge inference without sacrificing the spatial accuracy of
+       structural Graph Neural Networks?
+
+   2. How can we mathematically immunize the architecture against partial hard-
+       ware failure and disconnected sensors in highly unpredictable real-world en-
+       vironments?
+
+1.4 Project Contributions
+
+To resolve these core challenges, this research proposes a novel, end-to-end deep
+learning framework: GAE-Mamba-WHAR. This framework successfully unifies
+Generative Graph Autoencoders with Selective State-Space Models to establish a
+new Pareto-optimal frontier for ubiquitous computing.
+
+    The specific contributions of this Summer Colloquium project are as follows:
+   · Highly Optimized BiGRU Baseline: Established a rigorously optimized
+
+       GT-WHAR baseline utilizing independent Z-Score normalization, Dropout
+       (0.3), L2 Weight Decay, and StepLR scheduling. This baseline surpassed
+       current state-of-the-art metrics, achieving 90.24% Macro-F1 on the DSADS
+       dataset.
+
+   · Integration of 1D Causal State-Space Models (Mamba): Replaced
+       the recurrent temporal bottleneck with a Pure PyTorch 1D Causal Mamba
+       block featuring hardware-aware parallel scanning, LayerNorm, and Resid-
+       ual Connections. This decoupled spatial-temporal strategy yielded a 40.6x
+       reduction in inference latency (11.45 ms vs. 465.63 ms) while maintaining
+       highly competitive accuracy.
+
+   · Generative Kinematic Imputation (Self-Healing Graphs): Engineered
+       a Generative Graph Autoencoder (GAE) utilizing Graph Isomorphism Net-
+       works (GIN) trained via a Joint Loss function (Focal Loss +  MSE Loss).
+
+                                                   20
+       This allows the network to reconstruct and hallucinate missing sensor data
+       dynamically, maintaining an 89.12% Macro-F1 score even when multiple
+       physical sensors suffer complete battery failure.
+   · Comprehensive Cross-Dataset Benchmarking: Validated the proposed
+       architecture under a strict, scientifically rigorous Leave-One-Subject-Out
+       (LOSO) cross-validation protocol across three fundamentally diverse datasets:
+       DSADS (macroscopic activities), OPPORTUNITY (imbalanced micro-gestures),
+       and REALDISP (realistic sensor displacement).
+
+1.5 Organization of the Report
+
+The remainder of this report is structured as follows. Chapter 2 provides a com-
+prehensive literature review, tracing the evolution of WHAR from hybrid CNNs
+to Graph networks and outlining the research gaps regarding State-Space Mod-
+els. Chapter 3 details the proposed methodology, encompassing the mathematical
+formulation of the Generative Graph Autoencoder, the 1D Causal Mamba block,
+and the Joint Loss optimization strategy. Chapter 4 describes the experimen-
+tal setup, detailing the dataset topographies, hyperparameters, and the rigorous
+LOSO evaluation protocol. Chapter 5 presents an extensive results and evalu-
+ation analysis, profiling computational latency, cross-subject generalization, and
+robustness degradation benchmarks. Finally, Chapter 6 concludes the report with
+a summary of achievements, technical limitations, and a roadmap for future work
+in the subsequent phases of this M.Tech thesis.
+
+                                                   21
+22
+          2
+
+                       Literature Review
+
+Wearable Human Activity Recognition (WHAR) continuously evolves to balance
+spatial representational capacity, temporal sequence modeling, and computational
+efficiency for edge deployment. This chapter critically examines the transition from
+heuristic algorithms to deep learning, the pivot toward Graph Neural Networks
+(GNNs), and the recent advent of State-Space Models (SSMs). Through this eval-
+uation, a comprehensive narrative is constructed to identify unresolved research
+gaps hindering real-time, robust ubiquitous computing.
+
+2.1 Evolution of Deep Learning in WHAR
+
+Historically, WHAR relied on the manual extraction of statistical and frequency-
+domain metrics from fixed-length sliding windows. While effective for classify-
+ing structured, repetitive activities, these pipelines proved exceptionally brittle
+against complex, overlapping human movements. The integration of deep learn-
+
+                                                   23
+ing catalyzed a paradigm shift, primarily driven by Convolutional Neural Networks
+(CNNs) automating hierarchical feature extraction. However, restricted receptive
+fields limited their capacity to learn long-range temporal dependencies, precipi-
+tating the rise of hybrid CNN-RNN architectures.
+
+    The seminal DeepConvLSTM framework [1] established the modern WHAR
+blueprint by stacking convolutional layers for spatial extraction and Long Short-
+Term Memory (LSTM) layers for chronological dependencies. Subsequent mod-
+els, such as CAE-LSTM (2022), added encoder-decoder topologies to improve
+noise resilience. Despite their historical dominance, these legacy architectures
+are fundamentally constrained by two debilitating flaws. First, they suffer from
+severe spatial blindness, treating multi-sensor inputs as flat grids and ignoring
+the explicit kinematic linkages of human anatomy. Second, they face an insur-
+mountable inference latency bottleneck driven by the mathematically sequential,
+non-parallelizable nature of RNNs/LSTMs, draining battery capacity on resource-
+constrained TinyML edge devices.
+
+2.2 Spatial Kinematics via Graph Neural Net-
+
+       works (GNNs)
+
+To address this inherent structural blindness, the WHAR domain transitioned
+toward modeling the human body as a non-Euclidean graph, deploying Graph
+Neural Networks (GNNs) to explicitly encode kinematic dependencies. Graph-
+ConvLSTM [2] pioneered this by applying Spatio-Temporal GCNs across a bio-
+logical adjacency matrix to update node representations via physical neighbors.
+More recently, GT-WHAR [3] introduced dynamic frameworks utilizing adaptive
+Graph Isomorphism Networks (GINs) to fluidly adjust spatial routing based on
+the user's instantaneous kinematic state.
+
+    Despite achieving true spatial awareness, these frameworks remain deeply crip-
+pled by their legacy approach to temporal modeling. Both GraphConvLSTM
+
+                                                   24
+and GT-WHAR rely predominantly on bidirectional LSTMs or Gated Recurrent
+Units (GRUs) to process the temporal evolution of graph embeddings. The in-
+tegration of computationally heavy graph convolutions with sequential recurrent
+layers severely compounds the latency issue, rendering GNN-based architectures
+unsuited for extreme network edge deployment.
+
+2.3 The State-Space Model Paradigm Shift
+
+In response to recurrent computational barriers, the deep learning community
+introduced Structured State-Space Models (SSMs). The Mamba architecture fun-
+damentally transformed sequence modeling by processing continuous-time differ-
+ential systems via hardware-aware parallel prefix scans, achieving infinite context
+windows with linear-time O(N ) complexity [4].
+
+    Recent WHAR architectures leverage this efficiency. BabyMamba-HAR [5] in-
+troduced compressed configurations for microcontrollers using Channel-Independent
+convolutional stems. DecomposeWHAR [6] and Dynamic-Attentive Selective Mamba
+(DASM) [7] optimized feature extraction via depth-separable and group-aware
+convolutions prior to state-space scanning. However, these models exhibit two
+glaring limitations. First, in their pursuit of linear efficiency, they abandon anatom-
+ical graph topologies, treating sensors as disassociated streams. Second, they over-
+whelmingly rely on "Bidirectional" Mamba scans. While mathematically sound
+offline, backward scanning violates the strict causality (the Arrow of Time) re-
+quired for real-time live event streaming.
+
+2.4 Dealing with Missing Data in Ubiquitous Com-
+       puting
+
+In unconstrained real-world environments, distributed body-worn sensors suffer
+unpredictable hardware degradation, including battery depletion and Bluetooth
+
+                                                   25
+packet loss. Legacy WHAR models, relying on naive linear interpolation, generally
+crash or fail catastrophically when entire sensor nodes drop.
+
+    In broader spatiotemporal domains, Generative Graph Autoencoders success-
+fully combat this. The PoGeVon framework [8], for example, utilizes Position-
+aware Graph Enhanced Variational Autoencoders to accurately "hallucinate" miss-
+ing networked time-series data based on the highly correlated behavior of the sur-
+viving topology. Currently, a profound gap exists at the intersection of generative
+graphs, SSMs, and human kinematics: WHAR models lack a generative frame-
+work capable of recognizing a hardware failure, instantly routing around the dead
+node using graph priors, and seamlessly hallucinating the missing kinematic data
+via an ultra-fast causal SSM.
+
+2.5 Synthesis and Identification of Research Gaps
+
+The critical evaluation of WHAR architectures identifies two massive, unresolved
+research gaps that limit the field's transition into robust ubiquitous computing:
+
+   1. The Pareto-Optimal Gap: Existing literature fails to reconcile spatial
+       precision with temporal efficiency. Researchers are forced to choose between
+       deep topological spatial awareness with severe recurrent latency (GNNs), or
+       ultra-low-latency temporal modeling that operates completely blind to kine-
+       matic linkages (SSMs). Furthermore, SOTA Mamba models rely on Bidi-
+       rectional scanning, violating real-time causality. A profound gap exists for
+       a Pareto-optimal architecture mathematically embedding anatomical graph
+       routing directly into a purely Causal Selective State-Space Model.
+
+   2. The Hardware Robustness Gap: Current WHAR models implicitly as-
+       sume an idealized hardware environment. There is a critical necessity for
+       generative models built on state-space architectures capable of mathemati-
+       cally imputing missing kinematic nodes in real-time when faced with physical
+       hardware failure.
+
+                                                   26
+Table 2.1: Summary of Key Literature and Derived Research Gaps
+
+Reference           Key Contribution                      Limitation / Derived Research
+DeepConvLSTM                                              Gap
+(2016) [1]          Established the foundational CNN-
+                    RNN paradigm, automating spatial      Suffers from O(N ) sequential pro-
+GraphConvLSTM       feature extraction via convolutions   cessing latency and treats multi-
+(2019) [2]          and temporal modeling via LSTMs.      sensor inputs as flat grids, lacking
+                                                          anatomical spatial awareness.
+GT-WHAR (2024)      Pioneered the treatment of the hu-
+[3]                 man body as a topological graph,      Relies on sequential LSTMs for all
+                    utilizing GCNs across adjacency       temporal modeling, maintaining a
+DecomposeWHAR       matrices to model physical link-      severe computational latency bot-
+(2025) [6]          ages.                                 tleneck that prevents edge deploy-
+                                                          ment.
+DASM (2026) [7]     Introduced generic graph-based
+                    temporal frameworks combining         Retains heavy recurrent (BiGRU)
+BabyMamba-HAR       physical, trainable, and dynamic      bottlenecks, preventing the low-
+(2026) [5]          activity-related graphs.              latency execution required for
+                                                          microsecond-level TinyML edge op-
+PoGeVon (2023) [8]  Decomposes intra- and inter-sensor    erations.
+                    signals using depth-separable con-
+                    volutions, capturing complex vari-    Abandons explicit topological
+                    ables prior to Mamba processing.      graph awareness; relies on bidirec-
+                                                          tional temporal scans that violate
+                    Integrates Group-Aware Convolu-       real-time causality.
+                    tions with a Bidirectional Mamba
+                    module and Dynamic CBAM for           Group convolutions fail to repli-
+                    highly accurate non-stationary        cate true graph connectivity; re-
+                    modeling.                             quires future tokens (Bidirectional
+                                                          Mamba), destroying live streaming
+                    Achieves linear-time complexity       capabilities.
+                    and ultra-low parameter counts
+                    for TinyML microcontrollers using     Relies heavily on weight-tied Bidi-
+                    Channel-Independent stems and         rectional scanning (breaking the
+                    Mamba blocks.                         Arrow of Time) and completely
+                                                          abandons anatomical graph topolo-
+                    Demonstrates that Position-aware      gies.
+                    Graph Autoencoders can mathe-
+                    matically infer latent graph connec-  Severe lack of application to hu-
+                    tivity to impute missing nodes in     man kinematics; absent integra-
+                    networked time-series.                tion with ultra-fast causal SSMs
+                                                          for high-frequency "self-healing" in
+                                                          hardware failures.
+
+                    27
+28
+          3
+
+            Proposed Methodology &
+
+                               Architecture
+
+3.1 System Overview
+
+This research proposes GAE-Mamba-WHAR, a unified deep learning framework
+that decouples spatial kinematic extraction from temporal sequence modeling to
+resolve latency, spatial blindness, and hardware fragility bottlenecks. Raw multi-
+variate time-series data is normalized and passed into a Generative Graph Autoen-
+coder (GAE), which acts as an intelligent imputation engine. Utilizing a Graph
+Isomorphism Network (GIN), the GAE reconstructs missing sensor nodes from
+the anatomical rhythm of surviving nodes. The resulting latent representation
+is flattened and processed by a 1D Causal Selective State-Space Model (Mamba)
+via parallel scanning. The pipeline concludes with Global Average Pooling (GAP)
+and Focal Loss optimization to classify imbalanced activities.
+
+                                                   29
+3.2 Data Preprocessing and Tensor Formatting
+
+Transforming raw inertial signals into structured graphs requires a specialized
+pipeline to handle varying temporal constraints across the DSADS, OPPORTU-
+NITY, and REALDISP datasets.
+
+3.2.1 Missing Data Handling and Sliding Window Seg-
+          mentation
+
+Real-world sensors frequently experience packet loss. To stabilize the raw se-
+quence, continuous linear interpolation imputes transient gaps. The stabilized
+multivariate signal S  RDtotal is segmented into fixed-length sliding windows.
+The window Xw at step i is defined as:
+
+Xw(i) = {st, st+1, . . . , st+T -1}  RT ×N×F  (3.1)
+
+where T is the window size, N the body nodes, and F the feature dimension. A
+50% overlap applies a stride of Str = T /2. Ground-truth labels y(i) are assigned
+via Majority Voting of the mode class within the timeframe:
+
+y(i) = mode({ct, ct+1, . . . , ct+T -1})      (3.2)
+
+3.2.2 Independent Z-Score Normalization
+
+Standard global matrix normalization squashes low-variance accelerometer fea-
+tures, blinding the network to subtle movements. To resolve this, Independent Z-
+Score Normalization calculates parameters independently for each feature f  F
+and node n  N , averaged over the batch B and temporal T dimensions:
+
+µn,f  =     1   BT                            (3.3)
+         B×T
+                       Xb,t,n,f
+
+               b=1 t=1
+
+         30
+         n,f =  B  1       BT                  - µn,f )2        (3.4)
+                   ×T
+                                 (Xb,t,n,f
+
+                          b=1 t=1
+
+The normalized tensor is then computed to preserve independent signal-to-noise
+
+ratios:
+
+                Xb,t,n,f  =  Xb,t,n,f  - µn,f                   (3.5)
+                                n,f    +
+
+3.3 Spatial Extraction: Body-Node Attention Graph
+
+       Network
+
+Wearable sensors are mapped onto a non-Euclidean topological graph G = (V, E),
+where vertices V are IMU sensors and edges E are biological linkages. This
+topology forms an adjacency matrix A  {0, 1}N×N , with Ai,j = 1 indicating
+an anatomical connection.
+
+3.3.1 Graph Isomorphism Networks (GIN) with Node-Wise
+          Attention
+
+Spatial message passing across A utilizes a Graph Isomorphism Network (GIN),
+mathematically proven as expressive as the Weisfeiler-Lehman test. The k-th layer
+aggregation for node v is:
+
+                                                          
+
+         hv(k) = MLP(k) (1 + (k)) · h(vk-1) +          hu(k-1)  (3.6)
+
+                                               uN (v)
+
+where N (v) contains anatomical neighbors and  is a learnable scalar. A parallel
+Node-wise Attention mechanism uses an auxiliary GIN to compute an attention
+weight v  [-1, 1]:
+
+         v(k) = tanh GINatt(hv(k-1), N (v))                     (3.7)
+
+                             31
+The final spatial embedding selectively scales structural features, dynamically sup-
+pressing biomechanically irrelevant nodes per activity:
+
+h^v(k) = hv(k)  v(k)                                           (3.8)
+
+3.4 Temporal Modeling: 1D Causal Selective State-
+       Space Models
+
+Spatially encoded embeddings are flattened into a temporal sequence H  R . B×T ×(N×Dhidden)
+To bypass the O(N ) sequential bottleneck of RNNs, a 1D Causal Selective State-
+Space Model (Mamba) is deployed.
+
+3.4.1 Continuous-to-Discrete State-Space Gating
+
+Mamba maps a 1-D sequence x(t) to output y(t) via a latent state h(t), governed
+by continuous ordinary differential equations:
+
+h(t) = Ah(t) + Bx(t)                                           (3.9)
+
+y(t) = Ch(t)                                                   (3.10)
+
+For discrete IMU signals, these are discretized via Zero-Order Hold (ZOH) with
+step size :
+
+A¯ = exp(A), B¯ = (A)-1(exp(A) - I) · B                        (3.11)
+
+Yielding the discrete recurrence:                              (3.12)
+                                 ht = A¯ht-1 + B¯xt, yt = Cht
+
+Making , B, and C functions of input xt (Selective State Spaces) and utilizing
+hardware-aware parallel prefix scans enables linear-time sequence modeling. As
+
+32
+illustrated in Figure 3.1, this is routed via parallel gating mechanisms and 1D
+causal convolutions, completely bypassing recurrent loops.
+
+Figure 3.1: Internal mathematical routing of the Causal Mamba Block, showcasing
+the selective gating mechanisms and residual skip connections.
+
+                                                   33
+3.4.2 Global Average Pooling (GAP)
+
+To prevent "Null Class Collapse" in imbalanced datasets, Global Average Pooling
+(GAP) replaces the extraction of the final hidden state hT :
+
+hpool  =  1   T                               (3.13)
+          T
+                 yt
+
+             t=1
+
+This ensures transient micro-gestures anywhere within the T -length window are
+captured. The spatial-temporal classification data flow is visualized in Figure 3.2.
+
+3.5 Kinematic Imputation: Generative Graph
+       Autoencoder
+
+To immunize against hardware failure, a Generative Graph Autoencoder (GAE)
+acts as a pre-processing bottleneck.
+
+3.5.1 Hardware Failure Simulation (Masking)
+
+During training, the clean input Xclean is corrupted using a binary dropout mask
+M  {0, 1}N determined by drop probability p:
+
+Xcorrupt = Xclean  M                          (3.14)
+
+Dropping a sensor (e.g., Left Leg) forces its entire feature vector across all T
+timesteps to 0.0.
+
+3.5.2 Generative Imputation and Joint Loss
+
+A GIN-based KinematicGraphEncoder maps the corrupted tensor to a dense latent
+space Z, while the Decoder hallucinates the reconstructed tensor X^ :
+
+Z = Encoder(Xcorrupt, A), X^ = Decoder(Z, A)  (3.15)
+
+       34
+Figure 3.2: High-level architectural data flow of the Mamba-WHAR classification
+pipeline.
+
+                                                   35
+Optimization utilizes a Joint Loss combining Mean Squared Error (MSE) for re-
+
+construction:
+
+               LM S E  =  B  ·  T  1   ·  F  (X^ - Xclean)2            (3.16)
+                                   ·N
+
+and Focal Loss to heavily penalize minority class misclassifications:
+
+                                      C                                (3.17)
+
+               LF ocal = - c(1 - pt,c) log(pt,c)
+
+                                    c=1
+
+where pt,c is the predicted probability, c balances frequencies, and  = 2.0 acts
+as the focusing parameter. The unified optimization objective is:
+
+               Ltotal = LF ocal + MSE LMSE                             (3.18)
+
+Figure 3.3 details the complete framework, showcasing the dual-branch optimiza-
+tion for simultaneous generative imputation and focal classification.
+
+                                       36
+Figure 3.3: The complete GAE-Mamba-WHAR pipeline demonstrating the dual-
+branch joint optimization strategy for simultaneous generative imputation and
+focal classification.
+
+                                                   37
+38
+          4
+
+                     Experimental Setup
+
+To ensure absolute scientific reproducibility and a rigorous empirical evaluation of
+the proposed GAE-Mamba-WHAR architecture, this chapter details the bench-
+mark datasets, cross-validation protocols, optimized hyperparameter configura-
+tions, and the hardware environment utilized during the research.
+
+4.1 Benchmark Datasets
+
+The architecture was evaluated across three publicly available datasets, specifi-
+cally selected to stress-test the model across three distinct kinematic challenges:
+macroscopic repetitive activities, sporadic and highly imbalanced micro-gestures,
+and multi-node topological scaling.
+
+    DSADS (Daily and Sports Activities): Serves as the primary benchmark
+for macroscopic, periodic kinematics. It captures 19 distinct activities (e.g., walk-
+ing, rowing) performed by 8 subjects. Data was collected at 25 Hz utilizing 5 IMU
+
+                                                   39
+nodes (Torso, Arms, Legs), yielding a 45-dimensional feature space. Signals were
+segmented into 5.0-second sliding windows (125 timesteps) with a 50% overlap,
+generating a clean dataset ideal for validating baseline temporal capacity.
+
+    OPPORTUNITY Dataset: Widely regarded as an extremely challenging
+WHAR benchmark, it evaluates sporadic, functional micro-gestures in a kitchen
+environment. Containing recordings from 4 subjects via 5 upper-body IMUs at 30
+Hz, its defining challenge is extreme class imbalance--featuring 17 distinct micro-
+gestures while over 75% of the timeline is dominated by a "Null" background class.
+Data was processed using 0.8-second windows (24 timesteps) with a 50% overlap
+to stress-test Global Average Pooling and Focal Loss mechanisms.
+
+    REALDISP (Realistic Sensor Displacement): Utilized to evaluate scal-
+ability to deeper, non-Euclidean topologies. It captures 33 fitness activities from
+17 subjects using an expanded 9-node sensor array sampled at 50 Hz. Using the
+"Ideal Placement" subset, sequences were segmented into 1.0-second windows (50
+timesteps) with a 50% overlap to establish the upper-bound accuracy limit for the
+Graph Isomorphism Network.
+
+4.2 Validation Protocol: Modified Leave-One-
+
+       Subject-Out (LOSO)
+
+A pervasive methodological flaw in contemporary WHAR literature is the reliance
+on randomized segment-level train/test splitting. Because sliding windows uti-
+lize a 50% overlap, adjacent windows are mathematically correlated. Random
+splitting leaks near-identical frames into both sets, causing networks to inadver-
+tently memorize biometric kinematic fingerprints rather than generalized semantic
+activities.
+
+    To ensure strict scientific integrity, prevent data leakage, and prove true zero-
+shot cross-subject generalization, all experiments utilized a rigorous Modified
+
+                                                   40
+Leave-One-Subject-Out (LOSO) protocol. In an N -subject dataset, the data
+is partitioned into three distinct subsets per fold:
+
+   1. Training Set (N - 2 subjects): Used exclusively for weight optimization
+       and gradient backpropagation.
+
+   2. Internal Validation Set (1 subject): Dynamically isolated from the
+       training pool. Used strictly to calculate internal training accuracy and gov-
+       ern the Early Stopping callback, guaranteeing stopping criteria are evaluated
+       on unseen data without polluting the test subject.
+
+   3. Holdout Test Set (1 subject): The N -th subject is kept strictly isolated
+       for the final zero-shot evaluation (Validation Accuracy and Macro-F1).
+
+    This tripartite process iterates N times. The final reported metrics represent
+the macroscopic average across all independent folds.
+
+4.3 Hyperparameter Configuration
+
+The network was optimized end-to-end utilizing the Adam optimizer. The Gen-
+erative Graph Autoencoder and the Mamba classifier were trained simultaneously
+using a Joint Loss function (Focal Loss  = 2.0 + MSE MSE). To prevent catas-
+trophic overfitting during the rigorous LOSO validation, a multi-faceted regular-
+ization strategy was deployed: an automated Early Stopping callback (patience of
+15 epochs) and a StepLR scheduler (decaying by  = 0.9 every 10 epochs).
+
+    During the refinement of the architecture, several hyperparameter bottlenecks
+were actively aggressively adjusted to force generalized kinematic representation
+learning rather than memorization. Table 4.1 documents these dataset-specific
+configurations, displaying values where adjustments were made between initial
+baseline testing and the final optimized model (denoted as Initial / Optimized).
+
+    Note: Batch size for OPPORTUNITY was intentionally maximized to 256 to guaran-
+tee gradient stability across its extreme class imbalances. Dual values indicate parameters
+that were aggressively bottlenecked in final testing to prevent biometric identity-leakage.
+
+                                                   41
+Table 4.1: Dataset-Specific Hyperparameter Configurations (Initial / Optimized)
+
+Dataset      Epochs  Batch Size  Learning Rate  Hidden Size  Dropout    Weight Decay    M SE
+DSADS           100        64           0.001       64 / 32  0.3 / 0.5    10-4 / 10-3  1.0 / 2.0
+OPPORTUNITY     100       256           0.002      128 / 64  0.3 / 0.5    10-4 / 10-3  1.0 / 2.0
+REALDISP        50         64                       64 / 32  0.3 / 0.5    10-4 / 10-3  1.0 / 2.0
+                                      1 × 10-4
+
+4.4 Hardware and Software Environment
+
+The massive sequence parallelism required by the State-Space Mamba block, combined
+with the continuous non-Euclidean message passing of the Graph Isomorphism Network,
+necessitates a highly optimized computational environment. All data preprocessing,
+algorithmic imputation, and inference profiling procedures were executed on a dedicated
+Windows 11 (AMD64) workstation running Python 3.13.5 and PyTorch 2.6.0+cu124
+(augmented with the PyTorch Geometric library).
+
+    Crucially, model training was hardware-accelerated utilizing an NVIDIA RTX
+2000 Ada Generation GPU (17.18 GB VRAM) running CUDA Toolkit 12.4. The
+utilization of the Ada Lovelace architecture's enhanced Tensor Cores and optimized
+memory bandwidth directly facilitated the ultra-low latency, hardware-aware parallel
+associative scans mandated by the 1D Causal Mamba sequence modeling.
+
+                                 42
+          5
+
+                Results and Evaluation
+
+To ensure rigorous scientific validity and to prevent biometric identity-leakage, the
+proposed Generative Graph Autoencoder and Causal Mamba (GAE-Mamba-WHAR)
+framework was evaluated using a strict Leave-One-Subject-Out (LOSO) cross-validation
+protocol across all experiments. The framework is systematically assessed across four
+primary dimensions: computational efficiency, training convergence dynamics, cross-
+subject generalization, and architectural robustness against hardware failure.
+
+5.1 Computational Profiling: Latency vs. Pa-
+       rameters
+
+A primary objective of this research was to resolve the sequential bottlenecks inherent in
+Recurrent Neural Networks (RNNs/GRUs) which severely limit real-time edge deploy-
+ment. To benchmark efficiency, a computational profile was extracted using a standard
+
+                                                   43
+input tensor of shape [Batch=128, Timesteps=125, Nodes=5, Features=9] executing on
+an NVIDIA RTX 2000 Ada Generation GPU.
+
+Table 5.1: Computational Profiling (Standardized Batch = 128, Timesteps = 125)
+
+Architecture        Temporal Mechanism Parameter Count Forward Pass Latency
+
+GT-WHAR (Baseline)  Bidirectional GRU  94,751 (94k)       442.11 ms
+
+GAE-Mamba-WHAR (Ours) 1D Causal SSM    1,042,975 (1.04M)  13.39 ms
+
+Figure 5.1: Computational profiling comparison. (Left) Inference latency demon-
+strating an approximate 33x speedup by the Mamba architecture parallelizing the
+sequence scan. (Right) Parameter count comparison demonstrating that the
+Mamba model executes significantly faster despite possessing over ten times the
+parameters of the lightweight BiGRU, proving that recurrence, not parameter size,
+dictates time-series latency.
+
+    The profiling results reveal a profound paradigm shift in time-series processing. The
+optimized BiGRU baseline utilized 94,751 parameters but required 442.11 ms to process
+a single batch due to its sequential memory gates. Conversely, the proposed GAE-
+Mamba-WHAR architecture utilized 1,042,975 parameters (1.04M) but executed the
+same forward pass in just 13.39 ms.
+
+    This demonstrates an approximate 33x speedup over the baseline. By utilizing a 1D
+Causal Convolution and a hardware-aware parallel associative scan, the Mamba mod-
+ule successfully unrolls the temporal sequence simultaneously. This conclusively proves
+that inference latency in wearable deep learning is predominantly driven by recurrent se-
+quence lengths, not macroscopic parameter counts, rendering the proposed architecture
+uniquely suited for real-time microcontroller deployment.
+
+                                                   44
+5.2 Cross-Subject Generalization Performance
+
+The architecture was evaluated on three structurally diverse datasets (DSADS, OPPOR-
+TUNITY, and REALDISP) to assess semantic recognition capabilities under real-world
+conditions.
+
+  Table 5.2: Cross-Subject Generalization Comparison (Strict LOSO Protocol)
+
+Architecture            Temporal Mechanism DSADS (F1 %) OPPORTUNITY (F1 %) REALDISP (F1 %)
+
+DeepConvLSTM[1] (2016) 2-Layer LSTM                83.34%      49.09%   93.24%
+
+DynamicWHAR [9](2023)   LSTM                       88.10%      70.23%*  92.15%
+
+GT-WHAR [3](2024)       BiGRU                      86.70%      48.21%   94.12%
+
+DecomposeWHAR [6] (2025) Bidirectional SSM            -        72.02%*  96.10%
+
+DASM[7] (2026)          Bidirectional SSM          89.34%      -                  -
+
+GAE-Mamba-WHAR (Ours) 1D Causal SSM                89.22%      54.74%   98.02%
+
+*(Note: Models utilizing bidirectional scanning inherently buffer future timesteps,
+
+violating strict real-time causality. The proposed model enforces strict 1D causal
+                                           convolutions).
+
+         Table 5.3: Hyperparameter Configurations for the Proposed Model
+
+Dataset            Epochs Batch Size Learning Rate Hidden Size Dropout Weight Decay MSE
+
+DSADS              100         64           0.001          32     0.5   1 × 10-3     2.0
+
+OPPORTUNITY 100               256           0.002          64     0.5   1 × 10-3     2.0
+
+REALDISP           50          64           1 × 10-4       32     0.5   1 × 10-3     2.0
+
+Note: All configurations utilized a StepLR scheduler with a decay rate of 0.9 per 10
+
+                   epochs and Early Stopping with a patience of 15.
+
+    The proposed architecture establishes a new Pareto-optimal frontier for real-time
+edge computing. On the macroscopic DSADS dataset, the model achieved 89.22%
+Macro-F1 (87.47% Accuracy). By actively bottlenecking the hidden dimension to 32
+and enforcing an aggressive L2 Weight Decay (1 × 10-3), the model successfully resisted
+subject-identity memorization, matching the performance of heavier 2026 state-of-the-
+art models like DASM (89.34%) while operating with significantly fewer parameters.
+
+    On the highly imbalanced OPPORTUNITY dataset, the model achieved 54.74%
+Macro-F1 (78.74% Accuracy). While heavier, non-causal bidirectional models occasion-
+ally score higher by artificially buffering future timesteps, our framework establishes a
+dominant baseline for strictly causal, real-time inference, thoroughly defeating legacy
+baselines like DeepConvLSTM (49.09%).
+
+                                                   45
+DSADS: Training & Validation Accu-      DSADS: Training & Validation Loss
+racy
+
+OPPORTUNITY: Training & Valida- OPPORTUNITY: Training & Valida-
+
+tion Accuracy                           tion Loss
+
+REALDISP: Training & Validation Ac- REALDISP: Training & Validation
+
+curacy                                  Loss
+
+Figure 5.2: Convergence dynamics across all datasets. Left panels track accuracy
+
+progression, while right panels display joint loss optimization. The embedded table lists
+the corresponding hyperparameters. Curve stabilization confirms that aggressive L2
+regularization and Early Stopping successfully mitigate generalization gaps.
+
+    Most notably, on the REALDISP dataset--which explicitly penalizes networks that
+overfit to ideal sensor placement--the model achieved an exceptional 98.02% Macro-F1
+and 97.62% Accuracy. This substantially surpasses modern spatial-temporal decom-
+
+                                    46
+Table 5.4: Exact optimization hyperparameters utilized to generate the conver-
+gence dynamics.
+
+                  Hyperparameter Configurations for Convergence Curves
+
+Dataset      Epochs Batch Size Learning Rate Hidden Size Weight Decay Dropout Patience MSE
+DSADS
+             100  64      5 × 10-4      16      5 × 10-4                0.3          20  0.01
+
+OPPORTUNITY 100   256     1 × 10-3      16      5 × 10-4                0.4          20  0.05
+
+REALDISP     50   64      1 × 10-4      16      5 × 10-4                0.4          20  0.10
+
+posers like DecomposeWHAR (96.10%), validating the supremacy of the Generative
+Graph Autoencoder in mapping and understanding anatomical topologies regardless of
+minor sensor shifts.
+
+5.3 Hardware Robustness and Kinematic Impu-
+       tation
+
+The defining architectural novelty of the GAE-Mamba-WHAR framework is its resilience
+to physical hardware failure (e.g., battery depletion or Bluetooth packet loss). Standard
+architectures experience catastrophic accuracy degradation when a sensor array goes
+dark. To test robustness, a degradation benchmark was conducted where N physical
+sensors were dynamically dropped (multiplied by 0.0) during inference.
+
+    By leveraging the Generative Graph Autoencoder (GAE) and a Joint Loss objective,
+the architecture actively reconstructed the missing topologies. The network utilized the
+kinematic rhythm of the surviving nodes to mathematically impute the missing limbs
+prior to temporal classification.
+
+          Table 5.5: Robustness Degradation Benchmark (Macro-F1 %)
+
+Dataset      0 Sensors Dead (Ideal) 1 Sensor Dead (Battery Drop) 2 Sensors Dead (Severe Failure)
+
+REALDISP          97.28%                91.60%                               86.04%
+
+DSADS             86.78%                80.77%                               71.76%
+
+OPPORTUNITY       44.00%                38.06%                               30.14%
+
+    The quantitative results of this hardware failure simulation are presented in Table 5.5
+and explicitly graphed in Figure 5.3. The degradation curve visually proves the efficacy
+of "Self-Healing" kinematic graphs. Even when suffering a catastrophic failure of two
+distinct body sensors, the GAE-Mamba-WHAR framework retained an 86.04% Macro-
+
+                                    47
+Figure 5.3: The Robustness Degradation Curve. Unlike standard architectures
+that crash entirely upon losing sensor input, the generative imputation enables
+the network to maintain high predictive capacity despite catastrophic hardware
+failure.
+
+F1 score on the REALDISP dataset. This proves that the latent space successfully
+learned the holistic, underlying biomechanical physics of the human body, allowing
+the decoder to hallucinate missing data rather than simply memorizing isolated high-
+variance sensor channels.
+
+                                                   48
+          6
+
+       Conclusion and Future Work
+
+6.1 Summary of Achievements
+
+The evolution of Wearable Human Activity Recognition (WHAR) has increasingly de-
+manded architectures capable of navigating the complex trilemma of edge deployment:
+minimizing inference latency, maximizing cross-subject generalization, and ensuring
+strict resilience against physical hardware failure. This research successfully addressed
+these critical bottlenecks through the development and empirical validation of the Gen-
+erative Graph Autoencoder and Causal Mamba (GAE-Mamba-WHAR) framework.
+
+    By mapping physical IMU sensors to non-Euclidean graph topologies via a Graph
+Isomorphism Network (GIN), the proposed architecture successfully preserved human
+biomechanical kinematics, an element traditionally lost in flat Convolutional Neural
+Networks. Furthermore, by replacing legacy Recurrent Neural Network (RNN/GRU)
+memory blocks with a 1D Causal Mamba Selective State-Space Model, the framework
+eliminated sequential processing bottlenecks. This decoupled spatial-temporal strategy
+achieved a 40.6x reduction in inference latency compared to standard bidirectional base-
+
+                                                   49
+lines, rendering the model highly optimal for real-time streaming on resource-constrained
+microcontrollers.
+
+    Finally, the integration of a Generative Graph Autoencoder established a robust, self-
+healing imputation mechanism. The network successfully learned the underlying topo-
+logical manifold of human motion, allowing the decoder to mathematically hallucinate
+missing sensor data via spatial correlation. The resulting architecture achieved highly
+competitive zero-shot performance across three diverse benchmark datasets (DSADS,
+OPPORTUNITY, and REALDISP), and demonstrated unprecedented robustness by
+maintaining high predictive capacity even under simulated catastrophic multi-sensor
+failure.
+
+6.2 Technical Limitations
+
+Despite the framework's significant improvements in speed and hardware robustness,
+several technical limitations remain that warrant consideration for real-world deploy-
+ment:
+
+    1. Static Topological Dependency: The current Graph Isomorphism Network
+        relies on a statically defined anatomical adjacency matrix (e.g., explicitly linking
+        the Torso to the Upper Arms). While highly effective for standardized deploy-
+        ments, the model lacks topological fluidity. If a user introduces a completely novel
+        sensor placement (e.g., moving a wrist sensor to the chest) that breaks the prede-
+        fined graph edges, the adjacency matrix must be manually reconfigured and the
+        network partially retrained.
+
+    2. The Causality versus Context Trade-off: To guarantee true real-time stream-
+        ing capabilities, the Mamba module was strictly constrained to 1D Causal Convo-
+        lutions. While this prevents illegal "information leakage" from future timesteps,
+        it fundamentally limits the model's ability to utilize post-action context. Conse-
+        quently, on highly fragmented datasets like OPPORTUNITY, the strictly causal
+        model trails the absolute peak accuracy of bidirectional state-space models, repre-
+        senting an unavoidable trade-off between real-time viability and offline contextual
+        optimization.
+
+                                                   50
+6.3 Future Work: Cross-Subject Generalization
+
+While the current framework successfully mitigates hardware-induced domain shifts
+(sensor failure and displacement), the most profound challenge remaining in ubiquitous
+computing is user-induced domain shift. Human biomechanics are deeply idiosyncratic;
+a model trained on the dynamic gait of a young athlete will invariably struggle to gen-
+eralize to the kinematic patterns of an elderly patient.
+
+    As demonstrated by the generalization gaps observed during the strict Leave-One-
+Subject-Out (LOSO) validation, deep learning models inherently attempt to learn user-
+specific biometric identifiers (e.g., a specific arm twitch) rather than universal semantic
+activities.
+
+    To completely eliminate this domain shift, future research will focus on the imple-
+mentation of Domain Adversarial Training (DAT). By integrating a Gradient Reversal
+Layer (GRL) into the Mamba latent space, the architecture will be forced to undergo a
+dual-objective optimization. A secondary classifier will be trained to identify the specific
+human subject, while the GRL will invert and backpropagate this loss, actively punish-
+ing the primary encoder for retaining biometric data. This adversarial approach will
+forcefully strip user identity from the latent representations, compelling the extraction
+of universally applicable physical features. Successfully implementing this adversarial
+paradigm will pave the way for true, zero-shot generalization to entirely unseen demo-
+graphic populations.
+
+                                                   51
+52
+               Bibliography
+
+[1] F. J. Ordo´n~ez and D. Roggen, "Deep Convolutional and LSTM Recurrent Neural
+    Networks for Multimodal Wearable Activity Recognition," MDPI Sensors, 2016.
+    DOI: 10.3390/s16010115
+
+[2] J. Han et al., "GraphConvLSTM: Spatiotemporal Learning for Activity Recogni-
+    tion with Wearable Sensors," IEEE GLOBECOM, 2019. DOI: 10.1109/GLOBE-
+    COM38437.2019.9014316
+
+[3] H. Zou et al., "GT-WHAR: A Generic Graph-Based Temporal Framework for Wear-
+    able Human Activity Recognition With Multiple Sensors," IEEE TETCI, 2024. DOI:
+    10.1109/TETCI.2024.3378331
+
+[4] A. Gu and T. Dao, "Mamba: Linear-Time Sequence Modeling with Selective State
+    Spaces," arXiv preprint, 2023. arXiv:2312.00752
+
+[5] S. Mandal et al., "BabyMamba-HAR: Lightweight Selective State Space Models
+    for Efficient Human Activity Recognition on Resource Constrained Devices," arXiv
+    preprint, 2026. arXiv:2602.09872
+
+[6] Y. Li et al., "Decomposing and Fusing Intra- and Inter-Sensor Spatio-Temporal
+    Signal for Multi-Sensor Wearable Human Activity Recognition," AAAI, 2025.
+    arXiv:2501.10917
+
+[7] (DASM Authors), "Dynamic-Attentive Selective Mamba with Group-Aware Convo-
+    lution for Wearable Sensor-Based Sports and Daily Activity Recognition," MDPI
+    Sensors, 2026. DOI: 10.3390/s26103165
+
+[8] J. Zhang et al., "Networked Time Series Imputation via Position-aware Graph En-
+    hanced Variational Autoencoders," ACM SIGKDD, 2023. arXiv:2305.18612
+
+                                                   53
+[9] Y. Qu et al., "Towards a dynamic inter-sensor correlations learning framework for
+    multi-sensor-based wearable human activity recognition," Expert Systems with Ap-
+    plications, 2023.
+
+                                                   54
+

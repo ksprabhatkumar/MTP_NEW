@@ -1,0 +1,23 @@
+{
+  "condition": {
+    "name": "residual_rotate",
+    "graph": "residual",
+    "augmentation": "rotate",
+    "gae": false
+  },
+  "subject": 15,
+  "seed": 13,
+  "epochs": 31,
+  "batch_size": 64,
+  "smoke_limit": null,
+  "validation_only": false,
+  "hidden_dim": 16,
+  "dropout": 0.5,
+  "optimizer": "Adam",
+  "lr": 0.0001,
+  "weight_decay": 0.0005,
+  "scheduler": "OneCycleLR once/epoch",
+  "loss": "cross_entropy + 0.1 masked-target MSE only for GAE ablation",
+  "selection": "distinct source subject ideal 33-class macro-F1",
+  "provenance": "baselines/summer_original/PROVENANCE.json"
+}

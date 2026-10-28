@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "modes": {
+    "masked_balanced": {
+      "passed": true,
+      "initial_dynamic_mass": 0.12245064228773117,
+      "router_grad_norm": 0.00027467383188195527,
+      "available_row_sum_max_error": 1.1920928955078125e-07
+    },
+    "masked_floor": {
+      "passed": true,
+      "initial_dynamic_mass": 0.33795225620269775,
+      "router_grad_norm": 0.000735533656552434,
+      "available_row_sum_max_error": 1.1920928955078125e-07
+    },
+    "pairwise_balanced": {
+      "passed": true,
+      "initial_dynamic_mass": 0.12245065718889236,
+      "router_grad_norm": 0.0005212255637161434,
+      "available_row_sum_max_error": 2.384185791015625e-07
+    },
+    "pairwise_floor": {
+      "passed": true,
+      "initial_dynamic_mass": 0.33795225620269775,
+      "router_grad_norm": 0.0016869279788807034,
+      "available_row_sum_max_error": 1.1920928955078125e-07
+    }
+  },
+  "checks": [
+    "eligible sender masking",
+    "self edge masking",
+    "empty row",
+    "normalized nonempty rows",
+    "finite logits",
+    "router gradients"
+  ]
+}

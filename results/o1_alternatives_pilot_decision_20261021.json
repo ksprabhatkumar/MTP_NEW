@@ -1,0 +1,26 @@
+{
+  "decision": "proceed",
+  "pilot_recommendation": "do_not_launch_full_yet",
+  "authorization": "User explicitly instructed on 2026-10-22 to start the long training now so the chat can be closed.",
+  "interpretation": "Exploratory full matrix despite negative source pilot; no graph-superiority claim is prevalidated.",
+  "reviewed": "2026-10-21",
+  "basis": "Two source folds, seed 13, eight epochs each; source validation only",
+  "source_ideal_f1": {
+    "none": 0.9339621658879328,
+    "residual": 0.9262596182076921,
+    "masked_floor": 0.9242170696919114,
+    "pairwise_floor": 0.9238034099233687,
+    "gated_masked": 0.9324645238293232,
+    "gated_pairwise": 0.9313850965559807
+  },
+  "source_self_f1": {
+    "none": 0.9244309583418759,
+    "gated_masked": 0.9196112682249278,
+    "gated_pairwise": 0.9190465637841903
+  },
+  "routing": "Pairwise floor changed 0.59% of sampled predictions under uniform-affinity intervention; gated arms changed 0%. The gated adjacency variation may arise from the receiver gate rather than useful dynamic affinities.",
+  "reason": "No proposed arm beat the matched no-graph control on average source ideal or self F1, and the gated arms did not show consequential sample-conditioned affinity routing.",
+  "next_step": "Run the frozen 81-job matrix serially, then analyze paired graph comparisons and routing interventions honestly. Diagnose consumed messages if the dynamic graph still fails to help.",
+  "full_jobs_if_released": 81,
+  "held_out_placement_used_for_selection": false
+}

@@ -1,0 +1,69 @@
+{
+  "device": "cpu",
+  "rotation": "independent fixed SO(3) per window/IMU",
+  "feature_atol_rtol": 1e-05,
+  "model_atol_rtol": 0.0001,
+  "cases": [
+    {
+      "feature": "magnitude",
+      "graph": "physical",
+      "feature_max_abs": 1.6689300537109375e-06,
+      "adjacency_max_abs": 0.0,
+      "logit_max_abs": 4.76837158203125e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    },
+    {
+      "feature": "magnitude",
+      "graph": "residual",
+      "feature_max_abs": 1.6689300537109375e-06,
+      "adjacency_max_abs": 8.940696716308594e-08,
+      "logit_max_abs": 4.470348358154297e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    },
+    {
+      "feature": "magnitude",
+      "graph": "none",
+      "feature_max_abs": 1.6689300537109375e-06,
+      "adjacency_max_abs": 0.0,
+      "logit_max_abs": 4.76837158203125e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    },
+    {
+      "feature": "mag_dot",
+      "graph": "physical",
+      "feature_max_abs": 3.814697265625e-06,
+      "adjacency_max_abs": 0.0,
+      "logit_max_abs": 4.917383193969727e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    },
+    {
+      "feature": "mag_dot",
+      "graph": "residual",
+      "feature_max_abs": 3.814697265625e-06,
+      "adjacency_max_abs": 5.960464477539063e-08,
+      "logit_max_abs": 6.258487701416016e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    },
+    {
+      "feature": "mag_dot",
+      "graph": "none",
+      "feature_max_abs": 3.814697265625e-06,
+      "adjacency_max_abs": 0.0,
+      "logit_max_abs": 8.642673492431641e-07,
+      "feature_passed": true,
+      "adjacency_passed": true,
+      "logits_passed": true
+    }
+  ],
+  "passed": true
+}

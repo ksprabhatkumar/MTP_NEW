@@ -1,0 +1,21 @@
+none S02 seed=13 epoch=1/2 loss=3.4512 val_F1=0.0202 train=0.36s
+none S02 seed=13 epoch=2/2 loss=3.2695 val_F1=0.0202 train=0.01s
+test_invariants_survive_independent_sensor_rotations (test_o2.OrientationFeatureTests.test_invariants_survive_independent_sensor_rotations) ... ok
+test_lagged_dot_first_step_uses_current_vector (test_o2.OrientationFeatureTests.test_lagged_dot_first_step_uses_current_vector) ... ok
+test_validation_rule_uses_common_classes_and_ideal_floor (test_o2.OrientationFeatureTests.test_validation_rule_uses_common_classes_and_ideal_floor) ... ok
+test_realdisp_scenario_names_are_normalized (test_objective1.DataContractTests.test_realdisp_scenario_names_are_normalized) ... ok
+test_diagnostics_are_deterministic_in_eval_mode (test_objective1.ResidualDynamicGraphTests.test_diagnostics_are_deterministic_in_eval_mode) ... ok
+test_missing_senders_and_empty_rows_are_safe (test_objective1.ResidualDynamicGraphTests.test_missing_senders_and_empty_rows_are_safe) ... ok
+test_residual_graph_is_finite_nonnegative_and_row_normalized (test_objective1.ResidualDynamicGraphTests.test_residual_graph_is_finite_nonnegative_and_row_normalized) ... ok
+test_dynamicwhar_correct_layout_and_backward (test_workstation.WorkstationTests.test_dynamicwhar_correct_layout_and_backward) ... ok
+test_gae_masked_reconstruction_backward (test_workstation.WorkstationTests.test_gae_masked_reconstruction_backward) ... ok
+test_graph_masks_every_sender_and_has_useful_gradients (test_workstation.WorkstationTests.test_graph_masks_every_sender_and_has_useful_gradients) ... ok
+test_macro_f1_uses_declared_class_set (test_workstation.WorkstationTests.test_macro_f1_uses_declared_class_set) ... ok
+test_realdisp_channels_exclude_magnetometer_quaternion (test_workstation.WorkstationTests.test_realdisp_channels_exclude_magnetometer_quaternion) ... ok
+test_resume_after_interruption_preserves_completed_epoch (test_workstation.WorkstationTests.test_resume_after_interruption_preserves_completed_epoch) ... ok
+test_train_only_normalization_and_disjoint_records (test_workstation.WorkstationTests.test_train_only_normalization_and_disjoint_records) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 2.388s
+
+OK

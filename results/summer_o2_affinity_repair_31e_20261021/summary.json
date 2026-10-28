@@ -1,0 +1,517 @@
+{
+  "source_only": true,
+  "rows": [
+    {
+      "arm": "residual_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 16,
+      "best_source_ideal_f1": 0.9349463304432876,
+      "source_self_f1_at_best": 0.8832240357513257,
+      "best_probe": {
+        "query_weight_norm": 0.04410593956708908,
+        "key_weight_norm": 0.039532534778118134,
+        "between_window_adjacency_std": 1.7377868892151649e-12,
+        "effective_branch_mass": [
+          0.5910572409629822,
+          0.35333874821662903,
+          0.0556039996445179
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 4.510601267493364e-11,
+          "message_rms_delta": 5.737699759755799e-10,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13687416911125183,
+          "message_rms_delta": 0.3570597469806671,
+          "centered_logit_rms_delta": 0.9942862391471863,
+          "probability_kl_mean": 0.2328166663646698,
+          "loss_delta": 0.28537434339523315,
+          "prediction_flip_fraction": 0.1041666716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 8.757263458392117e-06,
+        "key_weight_norm": 8.4596176748164e-06,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.5811373591423035,
+          0.3622532784938812,
+          0.05660942941904068
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1343446969985962,
+          "message_rms_delta": 0.35054638981819153,
+          "centered_logit_rms_delta": 1.06223464012146,
+          "probability_kl_mean": 0.2472926825284958,
+          "loss_delta": 0.30070459842681885,
+          "prediction_flip_fraction": 0.1145833358168602
+        },
+        "sample_windows": 96
+      },
+      "seconds": 126.84020730003249
+    },
+    {
+      "arm": "residual_qk_nodecay",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 16,
+      "best_source_ideal_f1": 0.9345075520978726,
+      "source_self_f1_at_best": 0.8832240357513257,
+      "best_probe": {
+        "query_weight_norm": 2.6400866508483887,
+        "key_weight_norm": 2.384239673614502,
+        "between_window_adjacency_std": 4.438124108219199e-07,
+        "effective_branch_mass": [
+          0.5910336971282959,
+          0.3533374071121216,
+          0.05562892183661461
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 5.28040004610375e-07,
+          "message_rms_delta": 2.364142801525304e-06,
+          "centered_logit_rms_delta": 0.00011243350309086964,
+          "probability_kl_mean": 1.575048358404274e-08,
+          "loss_delta": -3.6954879760742188e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1368679255247116,
+          "message_rms_delta": 0.35704314708709717,
+          "centered_logit_rms_delta": 0.9941799640655518,
+          "probability_kl_mean": 0.2326139211654663,
+          "loss_delta": 0.284919410943985,
+          "prediction_flip_fraction": 0.1041666716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.6409051418304443,
+        "key_weight_norm": 2.38517427444458,
+        "between_window_adjacency_std": 5.796267021906942e-09,
+        "effective_branch_mass": [
+          0.5811201333999634,
+          0.36224818229675293,
+          0.05663171783089638
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 7.217973330142513e-09,
+          "message_rms_delta": 3.8557427473051575e-08,
+          "centered_logit_rms_delta": 2.9987584639457054e-05,
+          "probability_kl_mean": 7.19873138876892e-09,
+          "loss_delta": 6.556510925292969e-07,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1343402862548828,
+          "message_rms_delta": 0.3505346179008484,
+          "centered_logit_rms_delta": 1.0622392892837524,
+          "probability_kl_mean": 0.24735157191753387,
+          "loss_delta": 0.30067795515060425,
+          "prediction_flip_fraction": 0.1145833358168602
+        },
+        "sample_windows": 96
+      },
+      "seconds": 127.13739769998938
+    },
+    {
+      "arm": "physical_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 24,
+      "best_source_ideal_f1": 0.9333209747024929,
+      "source_self_f1_at_best": 0.87078579113039,
+      "best_probe": {
+        "query_weight_norm": 9.488699288340285e-05,
+        "key_weight_norm": 8.899280510377139e-05,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.6551591157913208,
+          "centered_logit_rms_delta": 1.679396152496338,
+          "probability_kl_mean": 0.5852668285369873,
+          "loss_delta": 0.6586732864379883,
+          "prediction_flip_fraction": 0.2395833432674408
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 8.813266504148487e-06,
+        "key_weight_norm": 8.352316399395932e-06,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.6551591157913208,
+          "centered_logit_rms_delta": 1.7070845365524292,
+          "probability_kl_mean": 0.5880823135375977,
+          "loss_delta": 0.6655371785163879,
+          "prediction_flip_fraction": 0.2395833432674408
+        },
+        "sample_windows": 96
+      },
+      "seconds": 120.08406140003353
+    },
+    {
+      "arm": "none_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 23,
+      "best_source_ideal_f1": 0.9274068939975202,
+      "source_self_f1_at_best": 0.9268469167199359,
+      "best_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.6043386459350586,
+          "centered_logit_rms_delta": 1.6407657861709595,
+          "probability_kl_mean": 0.7182468771934509,
+          "loss_delta": 0.8185913562774658,
+          "prediction_flip_fraction": 0.2708333432674408
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.6043386459350586,
+          "centered_logit_rms_delta": 1.6748125553131104,
+          "probability_kl_mean": 0.7496242523193359,
+          "loss_delta": 0.8492434620857239,
+          "prediction_flip_fraction": 0.2604166865348816
+        },
+        "sample_windows": 96
+      },
+      "seconds": 101.24806840007659
+    },
+    {
+      "arm": "residual_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 27,
+      "best_source_ideal_f1": 0.9529778787474213,
+      "source_self_f1_at_best": 0.9668928764281608,
+      "best_probe": {
+        "query_weight_norm": 1.910150058392901e-05,
+        "key_weight_norm": 1.8347731383983046e-05,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.5724999904632568,
+          0.369920015335083,
+          0.05758001282811165
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13208407163619995,
+          "message_rms_delta": 0.3722795248031616,
+          "centered_logit_rms_delta": 1.2065985202789307,
+          "probability_kl_mean": 0.35166728496551514,
+          "loss_delta": 0.3389430344104767,
+          "prediction_flip_fraction": 0.1145833358168602
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.101976158679463e-05,
+        "key_weight_norm": 1.0625793947838247e-05,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.5723088383674622,
+          0.37009313702583313,
+          0.05759802833199501
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13203588128089905,
+          "message_rms_delta": 0.37214601039886475,
+          "centered_logit_rms_delta": 1.204769492149353,
+          "probability_kl_mean": 0.3422383666038513,
+          "loss_delta": 0.3314923048019409,
+          "prediction_flip_fraction": 0.125
+        },
+        "sample_windows": 96
+      },
+      "seconds": 125.91782510001212
+    },
+    {
+      "arm": "residual_qk_nodecay",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 27,
+      "best_source_ideal_f1": 0.9529778787474213,
+      "source_self_f1_at_best": 0.9660337276966716,
+      "best_probe": {
+        "query_weight_norm": 2.6272480487823486,
+        "key_weight_norm": 2.379082441329956,
+        "between_window_adjacency_std": 7.653738975932356e-09,
+        "effective_branch_mass": [
+          0.5724720358848572,
+          0.3699277937412262,
+          0.05760018900036812
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 1.0894964042051924e-08,
+          "message_rms_delta": 5.788807655449091e-08,
+          "centered_logit_rms_delta": 4.1775092540774494e-05,
+          "probability_kl_mean": -5.265031077783533e-09,
+          "loss_delta": -1.9371509552001953e-07,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13207682967185974,
+          "message_rms_delta": 0.3722594082355499,
+          "centered_logit_rms_delta": 1.2066147327423096,
+          "probability_kl_mean": 0.35164618492126465,
+          "loss_delta": 0.3386702835559845,
+          "prediction_flip_fraction": 0.1145833358168602
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.627250909805298,
+        "key_weight_norm": 2.379086494445801,
+        "between_window_adjacency_std": 6.591771128938717e-09,
+        "effective_branch_mass": [
+          0.5722790956497192,
+          0.37010249495506287,
+          0.057618398219347
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 9.362596919970656e-09,
+          "message_rms_delta": 5.371539302245765e-08,
+          "centered_logit_rms_delta": 5.062415948486887e-05,
+          "probability_kl_mean": 1.9535499606870843e-10,
+          "loss_delta": -1.9073486328125e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.13202817738056183,
+          "message_rms_delta": 0.3721245229244232,
+          "centered_logit_rms_delta": 1.2045271396636963,
+          "probability_kl_mean": 0.3422865569591522,
+          "loss_delta": 0.33144158124923706,
+          "prediction_flip_fraction": 0.125
+        },
+        "sample_windows": 96
+      },
+      "seconds": 121.8035847999854
+    },
+    {
+      "arm": "physical_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 30,
+      "best_source_ideal_f1": 0.9566409588401183,
+      "source_self_f1_at_best": 0.967980377234881,
+      "best_probe": {
+        "query_weight_norm": 1.1085516234743409e-05,
+        "key_weight_norm": 1.0496682989469264e-05,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.7103397846221924,
+          "centered_logit_rms_delta": 1.7602204084396362,
+          "probability_kl_mean": 0.8545732498168945,
+          "loss_delta": 0.880937397480011,
+          "prediction_flip_fraction": 0.3229166865348816
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.1084161997132469e-05,
+        "key_weight_norm": 1.0495406058907975e-05,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.7103397846221924,
+          "centered_logit_rms_delta": 1.7572925090789795,
+          "probability_kl_mean": 0.8609060049057007,
+          "loss_delta": 0.8816626071929932,
+          "prediction_flip_fraction": 0.3229166865348816
+        },
+        "sample_windows": 96
+      },
+      "seconds": 128.7455493999878
+    },
+    {
+      "arm": "none_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 31,
+      "best_source_ideal_f1": 0.9473339975549673,
+      "source_self_f1_at_best": 0.9604159397123727,
+      "best_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.7299220561981201,
+          "centered_logit_rms_delta": 1.6836827993392944,
+          "probability_kl_mean": 0.7405686378479004,
+          "loss_delta": 0.8310606479644775,
+          "prediction_flip_fraction": 0.2291666716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.7299220561981201,
+          "centered_logit_rms_delta": 1.6836827993392944,
+          "probability_kl_mean": 0.7405686378479004,
+          "loss_delta": 0.8310606479644775,
+          "prediction_flip_fraction": 0.2291666716337204
+        },
+        "sample_windows": 96
+      },
+      "seconds": 105.4650725000538
+    }
+  ]
+}

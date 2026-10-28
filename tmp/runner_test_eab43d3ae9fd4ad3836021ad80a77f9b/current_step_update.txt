@@ -1,0 +1,20 @@
+SUMMER-BASED O1 LONG SESSION HANDOFF
+Updated: 2026-10-17T23:17:50.108883+05:30
+Workspace: C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b
+Plan: C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b\plan.json
+Run: C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b\run
+State: failed
+Worker PID: 25536
+Current entire_plan.md step: preflight
+Current task: none
+Completed tasks: 3/3
+Error: ValueError('Completed artifact missing for task1; inspect before rerun.')
+
+Logs: task_logs/<task_id>.log; completed.json; status.json.
+The task backend saves model/optimizer/scheduler/RNG epoch checkpoints.
+Resume only after checking that the prior worker and child exited.
+Resume: "C:\Users\General\Desktop\prabhat\MTP\prabhat\Scripts\python.exe" -u "C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b\run_long_training.py" --plan "C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b\plan.json" --output "C:\Users\General\Desktop\prabhat\MTP\tmp\runner_test_eab43d3ae9fd4ad3836021ad80a77f9b\run"
+Same plan/source hashes are required. Completed tasks are skipped only
+when their declared artifacts remain present. A failed task stops the queue.
+Keep static, residual dynamic and no-graph results; do not select test
+settings to obtain a desired winner. See entire_plan.md for next phases.

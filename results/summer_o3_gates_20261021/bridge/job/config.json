@@ -1,0 +1,13 @@
+{
+  "kind": "mag_dot",
+  "graph": "residual",
+  "method": "centralized",
+  "subject": 2,
+  "seed": 13,
+  "epochs": 31,
+  "batch_size": 64,
+  "smoke_limit": null,
+  "recipe": "summer Adam 1e-4/wd 5e-4, OneCycle per global pass",
+  "client_policy": "all source subjects, one local pass per round",
+  "checkpoint_rule": "source ideal macro-F1 only"
+}

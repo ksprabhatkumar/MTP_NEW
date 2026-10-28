@@ -1,0 +1,20 @@
+SUMMER-BASED O1 LONG SESSION HANDOFF
+Updated: 2026-10-18T13:07:45.096013+05:30
+Workspace: C:\Users\General\Desktop\prabhat\MTP
+Plan: C:\Users\General\Desktop\prabhat\MTP\summer_o1_session.json
+Run: C:\Users\General\Desktop\prabhat\MTP\results\summer_o1_session_20261017_232945
+State: failed
+Worker PID: 20456
+Current entire_plan.md step: P4.7
+Current task: analysis
+Completed tasks: 4/5
+Error: RuntimeError('Task analysis exited 1; inspect its log and epoch checkpoint.')
+
+Logs: task_logs/<task_id>.log; completed.json; status.json.
+The task backend saves model/optimizer/scheduler/RNG epoch checkpoints.
+Resume only after checking that the prior worker and child exited.
+Resume: "C:\Users\General\Desktop\prabhat\MTP\.python\cpython-3.11.15-windows-x86_64-none\python.exe" -u "C:\Users\General\Desktop\prabhat\MTP\run_long_training.py" --plan "C:\Users\General\Desktop\prabhat\MTP\summer_o1_session.json" --output "C:\Users\General\Desktop\prabhat\MTP\results\summer_o1_session_20261017_232945"
+Same plan/source hashes are required. Completed tasks are skipped only
+when their declared artifacts remain present. A failed task stops the queue.
+Keep static, residual dynamic and no-graph results; do not select test
+settings to obtain a desired winner. See entire_plan.md for next phases.

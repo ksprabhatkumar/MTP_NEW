@@ -1,0 +1,148 @@
+ Realistic sensor displacement benchmark
+                          dataset
+
+                                           Dataset Manual
+
+                          Oresti Ban~os, Ma´te´ Attila To´th
+
+                                   March 27, 2014
+
+1. Introduction
+
+This document briefly outlines the technical details of the fitness dataset for activity recognition.
+For more details please refer to the paper a "A benchmark dataset to evaluate sensor displace-
+ment in activity recognition" [1]. If you have any further questions please contact Oresti Ban~os
+(oresti@ugr.es) or Ma´te´ Attila To´th (toth.attila.mate@gmail.com).
+
+2. Sensor displacement scenarios
+
+    · Ideal-placement or default scenario: The sensors are positioned by the instructor to pre-
+       defined locations within each body part. The data stemming from this scenario could be
+       considered as the training set for supervised activity recognition systems.
+
+    · Self-placement scenario: The user is asked to position 3 sensors himself on the body part
+       specified by the instructor. This scenario tries to simulate some of the variability that may
+       occur in the day to day usage of an activity recognition system, involving wearable or self-
+       attached sensors. Normally the self-placement will lead to on-body sensor setups that differ
+       with respect to the ideal- placement. Nevertheless, this difference may be minimal if the
+       subject places the sensor close to the ideal position.
+
+    · Mutual-displacement: An intentional de-positioning of sensors using rotations and transla-
+       tions with respect to the ideal placement is introduced by the instructor. One of the key inter-
+       ests of including this last scenario is to investigate how the performance of a certain method
+       degrades as the system drifts far from the initial setup. The number of sensors displaced in
+       this scenario increases from 4 to 7.
+
+                                                          1
+        Recording  LUA  BACK
+
+        laptop             RUA
+                           RLA
+Camera             LLA
+                              Master
+                   LT   RT
+                   LC   RC
+
+Figure 1: Experimental setup (cardio-fitness room). Eight Xsens units are placed on each body
+           limb and an additional one on the back.
+
+     3. Sensors
+
+       9 Xsens inertial measurement units are distributed on the subject's body as shown in Fig-
+       ure 1. Each sensor node provides tri-directional acceleration, gyroscope and magnetic field
+       measurements as well as orientation estimates in quaternion format (4D). Thus each sensor
+       outputs 13 values at each measurement, which leads to an overall set of 117 recorded signals.
+       The recordings were sampled at 50 Hz.
+
+     4. Activities
+
+       The dataset consists of a set of typical warm up, fitness and cool down exercises which are
+       summarized in Table 3). We have included whole body (L1-L3), (L5-L8), (L31-33) as well
+       as body part specific activities focused on the trunk (L9-L18), upper extremities (L19-L25)
+       and lower extremities (L26-L29).
+
+     5. Log files
+
+       The filenames indicate the subject ID, the sensor displacement scenario, and in the case
+       of mutual displacement the number of sensors displaced. The log files are structured as
+       follows.The rows of the log file correspond to the consecutive samples of the mesurments
+
+                                                          2
+                                           Sensor set
+                                     LC: Left calf
+                                     RC: Right calf
+                                     LT: Left thigh
+                                     RT: Right thigh
+                                     LLA: Left lower arm
+                                     RLA: Right lower arm
+                                     LUA: Left upper arm
+                                     RUA: Right upper arm
+                                     BACK: Back
+
+Table 1: Warm up, cool down and fitness exercises considered for the activity set. In brackets the
+          number of repetitions (Nx) or duration of the exercises (in minutes).
+
+                                                                Activity set
+
+L1: Walking (1 min)                  L12: Waist rotation (20x)                               L23: Shoulders high amplitude rotation (20x)
+
+L2: Jogging (1 min)                  L13: Waist bends (reach foot with opposite hand) (20x)  L24: Shoulders low amplitude rotation (20x)
+
+L3: Running (1 min)                  L14: Reach heels backwards (20x)                        L25: Arms inner rotation (20x)
+
+L4: Jump up (20x)                    L15: Lateral bend (10x to the left + 10x to the right)  L26: Knees (alternatively) to the breast (20x)
+
+L5: Jump front & back (20x)          L16: Lateral bend arm up (10x to the left + 10x to the right) L27: Heels (alternatively) to the backside (20x)
+
+L6: Jump sideways (20x)              L17: Repetitive forward stretching (20x)                L28: Knees bending (crouching) (20x)
+
+L7: Jump leg/arms open/closed (20x)  L18: Upper trunk and lower body opposite twist (20x)    L29: Knees (alternatively) bend forward (20x)
+
+L8: Jump rope (20x)                  L19: Arms lateral elevation (20x)                       L30: Rotation on the knees (20x)
+
+L9: Trunk twist (arms outstretched) (20x) L20: Arms frontal elevation (20x)                  L31: Rowing (1 min)
+
+L10: Trunk twist (elbows bended) (20x) L21: Frontal hand claps (20x)                         L32: Elliptic bike (1 min)
+
+L11: Waist bends forward (20x)       L22: Arms frontal crossing (20x)                        L33: Cycling (1 min)
+
+Table 2: Warm up, cool down and fitness exercises considered for the activity set. In brackets the
+          number of repetitions (Nx) or duration of the exercises (in minutes).
+
+sampled at 50 Hz. Each log file contains 120 columns. The first two columns of the samples
+correspond to the whole and rest part of the timestamp in seconds and microseconds respec-
+tively. The last column of the datafile corresponds to the activity label. The label is denoted
+by a positive integer corresponding to the activity in Table 3. Zero denotes that no activity
+label is present. The columns in between the 3rd and 119th column correspond to the sensor
+measurements. There are 9 sensors in total with 13 modalities each. The order in which the
+sensors and their respective modalities appear in the log file is detailed in Table 4 and 5 .
+
+                                                                      3
+  Activity set
+   Timestamp (second) Timestamp (microsecond ) RLA : ACC: X RLA : ACC: Y ... LC : QUAT : 4 Activity label
+
+Table 3: The first to columns correspond to the timestamp while the last column corresponds to the
+          activity label.
+
+  Sensor ordering
+
+                   RLA RUA BACK LUA LLA RC RT LT LC
+
+Table 4: The ordering of the sensors between the 3rd and 119th column. 13 columns correspond to
+          each sensor.
+
+             Modality ordering
+                              ACC : X ACC : Y ACC : Z GYR : X GYR : Y GYR : Z MAG : X MAG : Y MAG : Z
+                             QUAT : 1 QUAT : 2 QUAT : 3 QUAT : 4
+
+                              Table 5: The column order for any given sensor.
+
+     References
+
+       [1] Oresti Banos, Miguel Damas, Hctor Pomares, Ignacio Rojas, Mt Attila Toth, and Oliver
+            Amft. A benchmark dataset to evaluate sensor displacement in activity recognition. In
+            Proceedings of the 2012 ACM Conference on Ubiquitous Computing, UbiComp '12,
+            pages 1026­1035, New York, NY, USA, 2012. ACM.
+
+                                                          4
+

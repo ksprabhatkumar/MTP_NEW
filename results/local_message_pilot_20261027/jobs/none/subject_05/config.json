@@ -1,0 +1,16 @@
+{
+  "arm": "none",
+  "subject": 5,
+  "seed": 13,
+  "epochs": 8,
+  "batch_size": 64,
+  "features": "mag_dot",
+  "hidden": 16,
+  "dropout": 0.5,
+  "optimizer": "Adam",
+  "lr": 0.0001,
+  "weight_decay": 0.0005,
+  "selection": "source ideal fixed-33 macro-F1",
+  "data_device": "cpu",
+  "precision": "bf16"
+}

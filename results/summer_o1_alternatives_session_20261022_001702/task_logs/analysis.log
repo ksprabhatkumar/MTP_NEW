@@ -1,0 +1,90 @@
+
+START 2026-10-22T03:18:23.074603+05:30
+COMMAND ["C:\\Users\\General\\Desktop\\prabhat\\MTP\\.python\\cpython-3.11.15-windows-x86_64-none\\python.exe", "analyze_summer_o1_alternatives.py", "--mode", "full", "--run", "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_alternatives_session_20261022_001702/training"]
+{
+  "mode": "full",
+  "jobs": 81,
+  "summary": {
+    "physical": {
+      "source_ideal_f1": 0.9378599434278998,
+      "source_self_f1": null,
+      "ideal": 0.9288261858057897,
+      "self": 0.9222940460955716,
+      "induced": 0.8599248421849246,
+      "latency_ms": 2.468261104594502,
+      "dynamic_branch_mass": 0.0
+    },
+    "residual": {
+      "source_ideal_f1": 0.9418240085825531,
+      "source_self_f1": null,
+      "ideal": 0.9340624300268933,
+      "self": 0.9235825628835151,
+      "induced": 0.8655075224679024,
+      "latency_ms": 2.150522234539191,
+      "dynamic_branch_mass": 0.05639207984010378
+    },
+    "none": {
+      "source_ideal_f1": 0.9492567253493945,
+      "source_self_f1": null,
+      "ideal": 0.9372434632931711,
+      "self": 0.9256230391740662,
+      "induced": 0.8711633432471748,
+      "latency_ms": 1.9067666726186872,
+      "dynamic_branch_mass": 0.0
+    },
+    "masked_balanced": {
+      "source_ideal_f1": 0.9420370261238776,
+      "source_self_f1": null,
+      "ideal": 0.9341672146795562,
+      "self": 0.9205990565891555,
+      "induced": 0.86579769910276,
+      "latency_ms": 2.312611109421899,
+      "dynamic_branch_mass": 0.1336791002088123
+    },
+    "masked_floor": {
+      "source_ideal_f1": 0.9425373279701297,
+      "source_self_f1": null,
+      "ideal": 0.9341956321623914,
+      "self": 0.9237272700514415,
+      "induced": 0.8646577836935524,
+      "latency_ms": 2.5954722142260938,
+      "dynamic_branch_mass": 0.3494621316591899
+    },
+    "pairwise_balanced": {
+      "source_ideal_f1": 0.9419894337957927,
+      "source_self_f1": null,
+      "ideal": 0.934045995315341,
+      "self": 0.9202870078073409,
+      "induced": 0.8658110616447581,
+      "latency_ms": 2.2122166701592505,
+      "dynamic_branch_mass": 0.1337274412314097
+    },
+    "pairwise_floor": {
+      "source_ideal_f1": 0.9418740405257365,
+      "source_self_f1": null,
+      "ideal": 0.9335532535194424,
+      "self": 0.924199782618894,
+      "induced": 0.8646153249250116,
+      "latency_ms": 2.354394444005771,
+      "dynamic_branch_mass": 0.3495979805787404
+    },
+    "gated_masked": {
+      "source_ideal_f1": 0.9450714352707835,
+      "source_self_f1": null,
+      "ideal": 0.9368321055478775,
+      "self": 0.9265578264077993,
+      "induced": 0.8676477134650961,
+      "latency_ms": 2.4890000220491655,
+      "dynamic_branch_mass": 0.04050908982753754
+    },
+    "gated_pairwise": {
+      "source_ideal_f1": 0.9463162845721823,
+      "source_self_f1": null,
+      "ideal": 0.9368220660952952,
+      "self": 0.9279392402879565,
+      "induced": 0.869472266057916,
+      "latency_ms": 2.4489944399748413,
+      "dynamic_branch_mass": 0.033001993886298604
+    }
+  }
+}

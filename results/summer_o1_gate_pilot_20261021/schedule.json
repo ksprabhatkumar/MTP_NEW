@@ -1,0 +1,21 @@
+{
+  "mode": "pilot",
+  "arms": [
+    "gated_masked",
+    "gated_pairwise"
+  ],
+  "jobs": [
+    [
+      2,
+      13
+    ],
+    [
+      5,
+      13
+    ]
+  ],
+  "epochs": 8,
+  "batch_size": 64,
+  "selection": "source ideal validation only",
+  "representation": "mag_dot"
+}

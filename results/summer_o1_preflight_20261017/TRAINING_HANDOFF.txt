@@ -1,0 +1,21 @@
+SUMMER-BASED O1 HANDOFF
+{
+  "state": "complete",
+  "mode": "preflight",
+  "plan_step": "P4.4",
+  "pid": 48980,
+  "updated": "2026-10-17T23:25:17.335641+05:30"
+}
+
+Workspace: C:\Users\General\Desktop\prabhat\MTP
+Output: C:\Users\General\Desktop\prabhat\MTP\results\summer_o1_preflight_20261017
+Authoritative checklist: entire_plan.md. Model provenance: baselines/summer_original/PROVENANCE.json.
+Main CE; GAE is a separate masked-target reconstruction ablation.
+No graph is a required control; the target is residual dynamic graph.
+Status is a snapshot. Inspect status.json, epochs.jsonl and GPU telemetry.
+Resume through run_long_training.py with the SAME parent output directory.
+It skips completed stages/jobs; the backend restores model, optimizer, scheduler and RNG.
+Do not launch another writer or modify source during an active run.
+After completion: compare static_sum, normalized static, residual and no graph, then
+augmentation/GAE/branch-balanced controls; examine recording coverage and interventions.
+All subjects already inspected in prior runs: results are exploratory.

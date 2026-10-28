@@ -1,0 +1,22 @@
+{
+  "variant": {
+    "kind": "mag_dot",
+    "graph": "masked_floor"
+  },
+  "subject": 2,
+  "seed": 13,
+  "epochs": 2,
+  "batch_size": 64,
+  "smoke_limit": 2,
+  "validation_only": true,
+  "hidden_dim": 16,
+  "dropout": 0.5,
+  "optimizer": "Adam",
+  "lr": 0.0001,
+  "weight_decay": 0.0005,
+  "scheduler": "constant for smoke",
+  "selection": "distinct source subject ideal 33-class macro-F1",
+  "loss": "cross_entropy",
+  "backbone": "verified summer GIN-attention",
+  "feature_width": 5
+}

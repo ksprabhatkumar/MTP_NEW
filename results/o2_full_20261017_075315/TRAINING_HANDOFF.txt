@@ -1,0 +1,68 @@
+OBJECTIVE 2 BACKGROUND TRAINING HANDOFF — 2026-10-17 07:54 IST
+
+Workspace: C:\Users\General\Desktop\prabhat\MTP
+Run directory: C:\Users\General\Desktop\prabhat\MTP\results\o2_full_20261017_075315
+Active run pointer: results\o2_active_run.json
+Python environment: prabhat\Scripts\python.exe (CUDA PyTorch 2.5.1+cu121)
+GPU: NVIDIA RTX 2000 Ada Generation
+
+PURPOSE
+Objective 1 found weak induced-displacement generalization and little causal
+contribution from learned dynamic routing. Objective 2 tests raw six-axis IMU,
+raw-axis random SO(3) augmentation, acceleration/gyro magnitudes, and five
+local rotation-invariant magnitude/dot features, each with no graph and with
+the prior residual graph. The primary study is held-out subjects 2, 5, 15
+with seeds 13, 29, 47. Supplementary ideal LOSO covers all 17 subjects with
+raw and mag_dot, no graph/residual, seed 13. Models train ONLY on ideal
+recordings; checkpoint selection uses distinct-subject ideal/self validation.
+
+PREFLIGHT AND DATA
+All 46 raw files were audited. Three label-bearing recordings have every
+sensor value zero and are excluded from O2: subject6_self.log,
+subject13_self.log, subject15_mutual4.log. See
+results\o2_preflight_20261017\DATA_GATE.md and associated CSV/JSON.
+O1 is untouched. Corrected O1 induced macro-F1 excluding the bad induced file:
+no graph 16.74%, residual 13.54%. The O2 corpus contains 76,268 windows.
+O2 is exploratory because O1 already exposed the primary held-out subjects.
+
+TRAINING STATE WHEN THIS FILE WAS WRITTEN
+The background run was launched via PowerShell Start-Process -WindowStyle Hidden
+at 07:53:15 IST. Launcher PID 18272, actual Python PID 20468. Both may change
+if resumed. Schedule is LOCKED: 128 sequential jobs x 45 epochs, estimated
+5.43 hours. At 07:54 job 1 (raw_none, subject 2, seed 13) was training.
+The Codex CLI can be closed without stopping this separate process.
+
+MONITOR IN POWERSHELL
+  $r = Get-Content results\o2_active_run.json | ConvertFrom-Json
+  Get-Content (Join-Path $r.run_directory 'status.json')
+  Get-Content (Join-Path $r.run_directory 'run.log') -Tail 30
+  Get-Content (Join-Path $r.run_directory 'gpu_telemetry.csv') -Tail 5
+  Get-Process -Id 20468 -ErrorAction SilentlyContinue
+Results appear incrementally under jobs\, fold_metrics.csv, and summary.json.
+Final plots are under figures\ if optional plotting succeeds.
+
+RESUME ONLY IF THE PROCESS HAS EXITED OR status.json SAYS FAILED
+  .\prabhat\Scripts\python.exe -u run_o2.py --mode full --hours 5.5 --output results\o2_full_20261017_075315 --plot-python C:\ProgramData\anaconda3\python.exe
+Run it in another PowerShell with Start-Process -WindowStyle Hidden for an
+unattended continuation. The runner refuses concurrent execution in the same
+folder, checks source hashes/configuration, skips completed jobs, and resumes
+an interrupted epoch from latest.pt. Do not edit snapshotted source files
+before completion; resume will reject source changes. Never restart in a new
+output folder if the existing run can be resumed.
+
+ON COMPLETION
+Verify status.json says complete, all 128 result.json files exist, and
+unit_tests.log and smoke\passed.json succeeded. Analyze summary.json and
+fold_metrics.csv, focusing on subject-level mean/variation of induced F1,
+ideal/self F1, synthetic-rotation F1, raw augmentation control, and the
+no-graph versus residual interaction. For subject 15, induced excludes
+mutual4 entirely; report recording coverage. Subject 7 ideal has only 3
+classes; report separately. Inspect routing, latency, GPU telemetry and
+failure logs. Write a candid result analysis and next-step recommendation.
+Use recorded displacement evidence for placement claims; synthetic rotations
+alone are insufficient. Do not claim confirmatory significance from these
+same three exposed subjects.
+
+UPDATE 2026-10-17 22:47 IST
+The first process completed 116/128 jobs, including all 72 primary jobs, then stopped on subject 14 because subject 15 passed separate ideal/self class thresholds but shared only 28 classes. The validation eligibility rule now also requires >=29 shared classes, making subject 16 the validation subject for subject 14. All 14 unit tests passed; fold(14, raw) was checked. The original o2_features.py snapshot is preserved as o2_features_before_resume.py; resume_patch.json records both hashes. The same run was resumed in a new background worker (actual PID 52976), and it reached job 117. The 116 completed jobs were retained.
+Primary subject-mean induced macro-F1: raw/no-graph 18.21%, raw/residual 13.78%, raw SO(3)-aug/no-graph 83.73%, magnitudes/no-graph 87.27%, magnitude+dot/no-graph 87.89%. Residual routing adds no clear benefit. Subject 15 induced uses only mutual5-7 because mutual4 is entirely zero; its invariant-feature F1 is ~70%, below subjects 2 and 5. These are exploratory same-cohort results.

@@ -1,0 +1,19 @@
+{
+  "condition": {
+    "name": "global",
+    "graph": "global",
+    "dropout": 0.0,
+    "gae": false,
+    "sender_mask": true
+  },
+  "subject": 5,
+  "seed": 13,
+  "epochs": 53,
+  "batch_size": 256,
+  "smoke_batch_limit": null,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0005,
+  "reconstruction_weight": 0.01,
+  "precision": "bf16",
+  "backbone": "inherited gated causal convolution, not selective-scan Mamba"
+}

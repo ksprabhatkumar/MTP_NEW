@@ -1,0 +1,517 @@
+{
+  "source_only": true,
+  "rows": [
+    {
+      "arm": "residual_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 7,
+      "best_source_ideal_f1": 0.920237395306242,
+      "source_self_f1_at_best": 0.8678531087418159,
+      "best_probe": {
+        "query_weight_norm": 1.0710704326629639,
+        "key_weight_norm": 0.9870689511299133,
+        "between_window_adjacency_std": 1.3878839126846287e-06,
+        "effective_branch_mass": [
+          0.6142835021018982,
+          0.3327085077762604,
+          0.05300799757242203
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 1.79783296516689e-06,
+          "message_rms_delta": 8.591664482082706e-06,
+          "centered_logit_rms_delta": 0.00010711867071222514,
+          "probability_kl_mean": 5.8315001716380266e-09,
+          "loss_delta": 6.467103958129883e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14299875497817993,
+          "message_rms_delta": 0.37313365936279297,
+          "centered_logit_rms_delta": 0.8221158385276794,
+          "probability_kl_mean": 0.19724218547344208,
+          "loss_delta": 0.22117890417575836,
+          "prediction_flip_fraction": 0.0729166716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.0710703134536743,
+        "key_weight_norm": 0.9870689511299133,
+        "between_window_adjacency_std": 1.38788584536087e-06,
+        "effective_branch_mass": [
+          0.6142835021018982,
+          0.3327085077762604,
+          0.05300799757242203
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 1.797835807337833e-06,
+          "message_rms_delta": 8.591807272750884e-06,
+          "centered_logit_rms_delta": 0.00011935093789361417,
+          "probability_kl_mean": 1.4550774807275957e-08,
+          "loss_delta": 6.258487701416016e-07,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14299875497817993,
+          "message_rms_delta": 0.37313365936279297,
+          "centered_logit_rms_delta": 0.8211281299591064,
+          "probability_kl_mean": 0.19905707240104675,
+          "loss_delta": 0.22159136831760406,
+          "prediction_flip_fraction": 0.0833333358168602
+        },
+        "sample_windows": 96
+      },
+      "seconds": 33.63421000004746
+    },
+    {
+      "arm": "residual_qk_nodecay",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 7,
+      "best_source_ideal_f1": 0.9199330071330895,
+      "source_self_f1_at_best": 0.8680851484926314,
+      "best_probe": {
+        "query_weight_norm": 2.6162891387939453,
+        "key_weight_norm": 2.3716988563537598,
+        "between_window_adjacency_std": 1.9482302377582528e-05,
+        "effective_branch_mass": [
+          0.6142643690109253,
+          0.3326999247074127,
+          0.05303570628166199
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.3779050025041215e-05,
+          "message_rms_delta": 0.0001236213429365307,
+          "centered_logit_rms_delta": 0.00024255563039332628,
+          "probability_kl_mean": 1.4972551198866313e-08,
+          "loss_delta": -1.722574234008789e-05,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14299263060092926,
+          "message_rms_delta": 0.37310096621513367,
+          "centered_logit_rms_delta": 0.8220840692520142,
+          "probability_kl_mean": 0.1971873939037323,
+          "loss_delta": 0.22112753987312317,
+          "prediction_flip_fraction": 0.0729166716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.6162891387939453,
+        "key_weight_norm": 2.3716988563537598,
+        "between_window_adjacency_std": 1.948229873960372e-05,
+        "effective_branch_mass": [
+          0.6142643690109253,
+          0.3326999247074127,
+          0.05303570628166199
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.3779050025041215e-05,
+          "message_rms_delta": 0.00012362137204036117,
+          "centered_logit_rms_delta": 0.00023209470964502543,
+          "probability_kl_mean": 1.4432050221557802e-08,
+          "loss_delta": -2.1457672119140625e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14299263060092926,
+          "message_rms_delta": 0.37310096621513367,
+          "centered_logit_rms_delta": 0.8211091160774231,
+          "probability_kl_mean": 0.1991322636604309,
+          "loss_delta": 0.22172227501869202,
+          "prediction_flip_fraction": 0.0833333358168602
+        },
+        "sample_windows": 96
+      },
+      "seconds": 33.49325850000605
+    },
+    {
+      "arm": "physical_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 6,
+      "best_source_ideal_f1": 0.9143318270470816,
+      "source_self_f1_at_best": 0.851524790248867,
+      "best_probe": {
+        "query_weight_norm": 1.0970295667648315,
+        "key_weight_norm": 1.0113624334335327,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.6551591157913208,
+          "centered_logit_rms_delta": 1.2589449882507324,
+          "probability_kl_mean": 0.5456125140190125,
+          "loss_delta": 0.5898832678794861,
+          "prediction_flip_fraction": 0.21875
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.07112717628479,
+        "key_weight_norm": 0.9869533181190491,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.6551591157913208,
+          "centered_logit_rms_delta": 1.2649929523468018,
+          "probability_kl_mean": 0.5493420958518982,
+          "loss_delta": 0.5963400602340698,
+          "prediction_flip_fraction": 0.2083333432674408
+        },
+        "sample_windows": 96
+      },
+      "seconds": 32.46517189999577
+    },
+    {
+      "arm": "none_standard",
+      "subject": 2,
+      "seed": 13,
+      "validation_subject": 3,
+      "best_epoch": 5,
+      "best_source_ideal_f1": 0.9219288698333773,
+      "source_self_f1_at_best": 0.8960030611994672,
+      "best_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.6043386459350586,
+          "centered_logit_rms_delta": 1.2135279178619385,
+          "probability_kl_mean": 0.5497551560401917,
+          "loss_delta": 0.6432868242263794,
+          "prediction_flip_fraction": 0.1979166716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.6043386459350586,
+          "centered_logit_rms_delta": 1.2408039569854736,
+          "probability_kl_mean": 0.5574541091918945,
+          "loss_delta": 0.6519069671630859,
+          "prediction_flip_fraction": 0.1979166716337204
+        },
+        "sample_windows": 96
+      },
+      "seconds": 27.747451499919407
+    },
+    {
+      "arm": "residual_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 6,
+      "best_source_ideal_f1": 0.9322818411091421,
+      "source_self_f1_at_best": 0.9485089770414199,
+      "best_probe": {
+        "query_weight_norm": 1.1021653413772583,
+        "key_weight_norm": 1.0163493156433105,
+        "between_window_adjacency_std": 1.6422231965407263e-06,
+        "effective_branch_mass": [
+          0.6138060092926025,
+          0.33312392234802246,
+          0.0530700609087944
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.2375581920641707e-06,
+          "message_rms_delta": 1.1119217560917605e-05,
+          "centered_logit_rms_delta": 0.00011832547897938639,
+          "probability_kl_mean": -4.100897399439418e-09,
+          "loss_delta": 4.798173904418945e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14287808537483215,
+          "message_rms_delta": 0.40277808904647827,
+          "centered_logit_rms_delta": 0.8629104495048523,
+          "probability_kl_mean": 0.3299058675765991,
+          "loss_delta": 0.2188560664653778,
+          "prediction_flip_fraction": 0.1875
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.0763354301452637,
+        "key_weight_norm": 0.9920108914375305,
+        "between_window_adjacency_std": 1.504599254076311e-06,
+        "effective_branch_mass": [
+          0.6134268045425415,
+          0.3334572911262512,
+          0.053115930408239365
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.048676833510399e-06,
+          "message_rms_delta": 1.017527756630443e-05,
+          "centered_logit_rms_delta": 0.00011771068966481835,
+          "probability_kl_mean": -4.407756382107664e-09,
+          "loss_delta": -6.973743438720703e-06,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14277605712413788,
+          "message_rms_delta": 0.4024890065193176,
+          "centered_logit_rms_delta": 0.8751040101051331,
+          "probability_kl_mean": 0.35227179527282715,
+          "loss_delta": 0.2515614330768585,
+          "prediction_flip_fraction": 0.2083333432674408
+        },
+        "sample_windows": 96
+      },
+      "seconds": 30.9969054000685
+    },
+    {
+      "arm": "residual_qk_nodecay",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 6,
+      "best_source_ideal_f1": 0.9322818411091421,
+      "source_self_f1_at_best": 0.9485089770414199,
+      "best_probe": {
+        "query_weight_norm": 2.6061980724334717,
+        "key_weight_norm": 2.367142915725708,
+        "between_window_adjacency_std": 2.0560866687446833e-05,
+        "effective_branch_mass": [
+          0.6137992143630981,
+          0.33310645818710327,
+          0.05309435725212097
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.68341045739362e-05,
+          "message_rms_delta": 0.0001383669296046719,
+          "centered_logit_rms_delta": 0.00024748462601564825,
+          "probability_kl_mean": 7.236278687372533e-09,
+          "loss_delta": 1.7881393432617188e-05,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1428753286600113,
+          "message_rms_delta": 0.4027586281299591,
+          "centered_logit_rms_delta": 0.8628283739089966,
+          "probability_kl_mean": 0.33001455664634705,
+          "loss_delta": 0.21919187903404236,
+          "prediction_flip_fraction": 0.1875
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.6075403690338135,
+        "key_weight_norm": 2.3677585124969482,
+        "between_window_adjacency_std": 1.990578675759025e-05,
+        "effective_branch_mass": [
+          0.6134198904037476,
+          0.3334398865699768,
+          0.053140293806791306
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 2.595071418909356e-05,
+          "message_rms_delta": 0.00013381047756411135,
+          "centered_logit_rms_delta": 0.00023753337154630572,
+          "probability_kl_mean": 1.7872913815608626e-08,
+          "loss_delta": 3.859400749206543e-05,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.14277328550815582,
+          "message_rms_delta": 0.4024699926376343,
+          "centered_logit_rms_delta": 0.8749111890792847,
+          "probability_kl_mean": 0.3523423671722412,
+          "loss_delta": 0.25222262740135193,
+          "prediction_flip_fraction": 0.2083333432674408
+        },
+        "sample_windows": 96
+      },
+      "seconds": 30.920144299976528
+    },
+    {
+      "arm": "physical_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 6,
+      "best_source_ideal_f1": 0.9261541551771808,
+      "source_self_f1_at_best": 0.9439131304596184,
+      "best_probe": {
+        "query_weight_norm": 1.1022121906280518,
+        "key_weight_norm": 1.0162371397018433,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.7103397846221924,
+          "centered_logit_rms_delta": 1.2482125759124756,
+          "probability_kl_mean": 0.716195285320282,
+          "loss_delta": 0.6735914349555969,
+          "prediction_flip_fraction": 0.28125
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 1.0763850212097168,
+        "key_weight_norm": 0.9918991327285767,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.25153848528862,
+          "message_rms_delta": 0.7103397846221924,
+          "centered_logit_rms_delta": 1.2600724697113037,
+          "probability_kl_mean": 0.7473195791244507,
+          "loss_delta": 0.7064734697341919,
+          "prediction_flip_fraction": 0.2916666865348816
+        },
+        "sample_windows": 96
+      },
+      "seconds": 30.874805800034665
+    },
+    {
+      "arm": "none_standard",
+      "subject": 5,
+      "seed": 13,
+      "validation_subject": 8,
+      "best_epoch": 8,
+      "best_source_ideal_f1": 0.9459954619424883,
+      "source_self_f1_at_best": 0.9528588554842846,
+      "best_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.7299220561981201,
+          "centered_logit_rms_delta": 1.2262680530548096,
+          "probability_kl_mean": 0.5303334593772888,
+          "loss_delta": 0.6199862957000732,
+          "prediction_flip_fraction": 0.1666666716337204
+        },
+        "sample_windows": 96
+      },
+      "last_probe": {
+        "query_weight_norm": 2.486466407775879,
+        "key_weight_norm": 2.323113441467285,
+        "between_window_adjacency_std": 0.0,
+        "effective_branch_mass": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "donor_affinity": {
+          "adjacency_rms_delta": 0.0,
+          "message_rms_delta": 0.0,
+          "centered_logit_rms_delta": 0.0,
+          "probability_kl_mean": 0.0,
+          "loss_delta": 0.0,
+          "prediction_flip_fraction": 0.0
+        },
+        "forced_uniform_final_adjacency": {
+          "adjacency_rms_delta": 0.1178511306643486,
+          "message_rms_delta": 0.7299220561981201,
+          "centered_logit_rms_delta": 1.2262680530548096,
+          "probability_kl_mean": 0.5303334593772888,
+          "loss_delta": 0.6199862957000732,
+          "prediction_flip_fraction": 0.1666666716337204
+        },
+        "sample_windows": 96
+      },
+      "seconds": 26.20408130006399
+    }
+  ]
+}

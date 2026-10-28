@@ -1,0 +1,22 @@
+{
+  "mode": "smoke",
+  "arms": [
+    "physical",
+    "residual",
+    "none",
+    "masked_balanced",
+    "masked_floor",
+    "pairwise_balanced",
+    "pairwise_floor"
+  ],
+  "jobs": [
+    [
+      2,
+      13
+    ]
+  ],
+  "epochs": 2,
+  "batch_size": 64,
+  "selection": "source ideal validation only",
+  "representation": "mag_dot"
+}

@@ -1,0 +1,56 @@
+{
+  "mode": "full",
+  "arms": [
+    "physical",
+    "residual",
+    "none",
+    "masked_balanced",
+    "masked_floor",
+    "pairwise_balanced",
+    "pairwise_floor",
+    "gated_masked",
+    "gated_pairwise"
+  ],
+  "jobs": [
+    [
+      2,
+      13
+    ],
+    [
+      2,
+      29
+    ],
+    [
+      2,
+      47
+    ],
+    [
+      5,
+      13
+    ],
+    [
+      5,
+      29
+    ],
+    [
+      5,
+      47
+    ],
+    [
+      15,
+      13
+    ],
+    [
+      15,
+      29
+    ],
+    [
+      15,
+      47
+    ]
+  ],
+  "epochs": 31,
+  "batch_size": 64,
+  "selection": "source ideal validation only",
+  "representation": "mag_dot"
+}

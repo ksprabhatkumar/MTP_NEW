@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "model": "summer GIN-attention + projection/BN bridge",
+  "local_normalization_keys": [
+    "backbone.encoder.gin_agg.nn.1.bias",
+    "backbone.encoder.gin_agg.nn.1.num_batches_tracked",
+    "backbone.encoder.gin_agg.nn.1.running_mean",
+    "backbone.encoder.gin_agg.nn.1.running_var",
+    "backbone.encoder.gin_agg.nn.1.weight",
+    "input_bn.bias",
+    "input_bn.num_batches_tracked",
+    "input_bn.running_mean",
+    "input_bn.running_var",
+    "input_bn.weight"
+  ],
+  "communication_bytes_two_clients": 3478928,
+  "checks": [
+    "weighted FedAvg",
+    "local BN retention",
+    "state merge",
+    "communication accounting",
+    "CPU model forward",
+    "no-graph control forward"
+  ]
+}

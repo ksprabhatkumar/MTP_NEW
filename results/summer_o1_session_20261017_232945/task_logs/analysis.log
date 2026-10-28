@@ -1,0 +1,64 @@
+
+START 2026-10-18T13:07:44.323429+05:30
+COMMAND ["C:/ProgramData/anaconda3/python.exe", "analyze_summer_o1.py", "--run", "C:\\Users\\General\\Desktop\\prabhat\\MTP\\results\\summer_o1_session_20261017_232945/training"]
+Traceback (most recent call last):
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\_core\__init__.py", line 24, in <module>
+    from . import multiarray
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\_core\multiarray.py", line 11, in <module>
+    from . import _multiarray_umath, overrides
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\_core\overrides.py", line 6, in <module>
+    from numpy._core._multiarray_umath import (
+    ...<3 lines>...
+    )
+ModuleNotFoundError: No module named 'numpy._core._multiarray_umath'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\General\Desktop\prabhat\MTP\analyze_summer_o1.py", line 71, in <module>
+    analyze(Path(parser.parse_args().run))
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\General\Desktop\prabhat\MTP\analyze_summer_o1.py", line 52, in analyze
+    import matplotlib
+  File "C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\__init__.py", line 161, in <module>
+    from . import _api, _version, cbook, _docstring, rcsetup
+  File "C:\ProgramData\anaconda3\Lib\site-packages\matplotlib\cbook.py", line 24, in <module>
+    import numpy as np
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\__init__.py", line 125, in <module>
+    from numpy.__config__ import show_config
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\__config__.py", line 4, in <module>
+    from numpy._core._multiarray_umath import (
+    ...<3 lines>...
+    )
+  File "C:\Users\General\Desktop\prabhat\MTP\prabhat\Lib\site-packages\numpy\_core\__init__.py", line 85, in <module>
+    raise ImportError(msg) from exc
+ImportError: 
+
+IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+
+Importing the numpy C-extensions failed. This error can happen for
+many reasons, often due to issues with your setup or how NumPy was
+installed.
+The following compiled module files exist, but seem incompatible
+with with either python 'cpython-313' or the platform 'win32':
+
+  * _multiarray_umath.cp311-win_amd64.lib
+  * _multiarray_umath.cp311-win_amd64.pyd
+
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python 3.13 from "C:\ProgramData\anaconda3\python.exe"
+  * The NumPy version is: "2.4.6"
+
+and make sure that they are the versions you expect.
+
+Please carefully study the information and documentation linked above.
+This is unlikely to be a NumPy issue but will be caused by a bad install
+or environment on your machine.
+
+Original error was: No module named 'numpy._core._multiarray_umath'
+
