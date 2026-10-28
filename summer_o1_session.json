@@ -1,0 +1,20 @@
+{
+  "name": "Verified summer GIN-attention backbone with residual dynamic topology",
+  "ready": true,
+  "authority": ["resources/colloquium_report.pdf", "resources/objectives_methodology.tex"],
+  "original_repository": "https://github.com/ksprabhatkumar/GAE_Mamba_WHAR",
+  "main_loss_policy": "cross_entropy_with_gae_ablation",
+  "main_loss_policy_source": "Explicit user answer in this session",
+  "target_hours": 5.5,
+  "source_commit": "792ef355e8ba94da638c6b14b103aea0dabb0e07",
+  "recipe_basis": "Actual recovered main.py: hidden 16, dropout .5, Adam lr .0001, weight decay .0005, batch 64, OneCycle. No accuracy ranking invented from conflicting PDF tables.",
+  "unresolved": [],
+  "source_files": ["run_summer_o1.py", "summer_o1_experiments.py", "models/summer_dynamic.py", "analyze_summer_o1.py"],
+  "tasks": [
+    {"id":"preflight", "plan_step":"P4.3", "command":["{python}","-u","run_summer_o1.py","--mode","preflight","--output","{run_dir}/preflight"], "artifacts":["{run_dir}/preflight/passed.json"]},
+    {"id":"smoke", "plan_step":"P4.4", "command":["{python}","-u","run_summer_o1.py","--mode","smoke","--output","{run_dir}/smoke"], "artifacts":["{run_dir}/smoke/passed.json"]},
+    {"id":"source_pilot", "plan_step":"P4.4", "command":["{python}","-u","run_summer_o1.py","--mode","pilot","--output","{run_dir}/pilot"], "artifacts":["{run_dir}/pilot/passed.json"]},
+    {"id":"training", "plan_step":"P4.5", "command":["{python}","-u","run_summer_o1.py","--mode","full","--hours","5.5","--output","{run_dir}/training"], "artifacts":["{run_dir}/training/completed.json","{run_dir}/training/summary.json"]},
+    {"id":"analysis", "plan_step":"P4.7", "command":["C:/ProgramData/anaconda3/python.exe","analyze_summer_o1.py","--run","{run_dir}/training"], "artifacts":["{run_dir}/training/ANALYSIS.md","{run_dir}/training/figures/placement.png"]}
+  ]
+}

@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\run_objective1_preprocess.py", line 13, in <module>
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\process_all_data.py", line 148, in process_realdisp
+    with open(manifest_path, "w", encoding="utf-8") as handle:
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\process_all_data.py", line 34, in save_tensors
+    print(f"\u2705 Saved {name.upper()}: X {X_tensor.shape}, Y {Y_tensor.shape}, P {P_tensor.shape}\n")
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>

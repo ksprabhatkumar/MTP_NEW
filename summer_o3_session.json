@@ -1,0 +1,150 @@
+{
+  "name": "Summer-based O3 federation after locked O2 selection",
+  "ready": true,
+  "unresolved": [],
+  "authority": [
+    "resources/colloquium_report.pdf",
+    "resources/objectives_methodology.tex"
+  ],
+  "client_policy": "One source subject per client; test and validation subjects excluded",
+  "source_files": [
+    "run_summer_o3.py",
+    "summer_o3_experiments.py",
+    "summer_o3_federation.py",
+    "prepare_o3_clients.py",
+    "check_summer_o3_cpu.py",
+    "analyze_summer_o3.py",
+    "summer_o3_study.json",
+    "summer_o2_experiments.py",
+    "models/summer_dynamic.py",
+    "o2_features.py",
+    "o2_experiments.py",
+    "summer_o1_experiments.py",
+    "workstation_experiments.py",
+    "run_long_training.py"
+  ],
+  "tasks": [
+    {
+      "id": "client_manifest",
+      "plan_step": "P6.1",
+      "command": [
+        "{python}",
+        "prepare_o3_clients.py",
+        "--output",
+        "{run_dir}/client_manifest.json"
+      ],
+      "artifacts": [
+        "{run_dir}/client_manifest.json"
+      ]
+    },
+    {
+      "id": "cpu_checks",
+      "plan_step": "P6.1",
+      "command": [
+        "{python}",
+        "check_summer_o3_cpu.py",
+        "--output",
+        "{run_dir}/cpu_checks.json"
+      ],
+      "artifacts": [
+        "{run_dir}/cpu_checks.json"
+      ]
+    },
+    {
+      "id": "preflight",
+      "plan_step": "P6.3",
+      "command": [
+        "{python}",
+        "-u",
+        "run_summer_o3.py",
+        "--mode",
+        "preflight",
+        "--config",
+        "summer_o3_study.json",
+        "--output",
+        "{run_dir}/preflight"
+      ],
+      "artifacts": [
+        "{run_dir}/preflight/passed.json"
+      ]
+    },
+    {
+      "id": "smoke",
+      "plan_step": "P6.3",
+      "command": [
+        "{python}",
+        "-u",
+        "run_summer_o3.py",
+        "--mode",
+        "smoke",
+        "--config",
+        "summer_o3_study.json",
+        "--output",
+        "{run_dir}/smoke"
+      ],
+      "artifacts": [
+        "{run_dir}/smoke/passed.json"
+      ]
+    },
+    {
+      "id": "baseline_training",
+      "plan_step": "P6.5",
+      "command": [
+        "{python}",
+        "-u",
+        "run_summer_o3.py",
+        "--mode",
+        "full",
+        "--config",
+        "summer_o3_study.json",
+        "--methods",
+        "centralized,local_only,fedavg",
+        "--output",
+        "{run_dir}/baseline"
+      ],
+      "artifacts": [
+        "{run_dir}/baseline/completed.json",
+        "{run_dir}/baseline/summary.json"
+      ]
+    },
+    {
+      "id": "local_norm_training",
+      "plan_step": "P6.5",
+      "command": [
+        "{python}",
+        "-u",
+        "run_summer_o3.py",
+        "--mode",
+        "full",
+        "--config",
+        "summer_o3_study.json",
+        "--methods",
+        "fedbn",
+        "--output",
+        "{run_dir}/fedbn"
+      ],
+      "artifacts": [
+        "{run_dir}/fedbn/completed.json",
+        "{run_dir}/fedbn/summary.json"
+      ]
+    },
+    {
+      "id": "analysis",
+      "plan_step": "P6.4",
+      "command": [
+        "{python}",
+        "analyze_summer_o3.py",
+        "--baseline",
+        "{run_dir}/baseline",
+        "--localnorm",
+        "{run_dir}/fedbn",
+        "--output",
+        "{run_dir}/analysis"
+      ],
+      "artifacts": [
+        "{run_dir}/analysis/ANALYSIS.md",
+        "{run_dir}/analysis/figures/unseen_placement.png"
+      ]
+    }
+  ]
+}

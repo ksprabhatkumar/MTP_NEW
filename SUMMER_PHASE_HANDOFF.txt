@@ -1,0 +1,205 @@
+SUMMER-BASED OBJECTIVE 1 CORRECTION AND LONG-TRAINING HANDOFF
+Created 2026-10-17 23:30 IST. This file records decisions/provenance; live state
+is in current_step_update.txt and the session's status files.
+
+USER INTENT AND AUTHORITY
+The user clarified that Objective 1 must extend the summer-colloquium pipeline
+by replacing static topology with residual dynamic topology. The research target
+is a beneficial dynamic graph, not substituting a no-graph project. No graph is
+retained as the methodology-required control, so the contribution can be tested.
+The user confirmed resources/colloquium_report.pdf + objectives_methodology.tex
+as authority and explicitly chose cross-entropy main / GAE ablation.
+The user requested entire_plan.md as the master checked/unchecked plan and a
+current-step log. Maintain both. Do not mark training or scientific benefit done
+just because a script exists or a run was launched.
+
+RECOVERED SOURCE
+User supplied https://github.com/ksprabhatkumar/GAE_Mamba_WHAR. Git/web access
+failed in this environment. User then supplied the readable local repository:
+C:\Users\General\Desktop\prabhat\mamba_GT_WHAR\Mamba_WHAR_Phase1
+Clean commit: 792ef355e8ba94da638c6b14b103aea0dabb0e07.
+Archived files and SHA-256 manifest: baselines/summer_original/PROVENANCE.json.
+The original PyG environment can run. make_summer_reference.py used it to save
+parity_reference.pt. Restored dense static model matches original logits,
+reconstruction, input gradients and parameter gradients within 2e-5 tolerance.
+No modifications were made in the original external repository.
+
+WHY THE PREVIOUS RESULT DID NOT CLOSE THIS OBJECTIVE
+Prior workstation O1/O2 kept the temporal algebra but replaced GIN-times-GIN-
+attention with an additive graph encoder and calculated affinity on raw axes.
+Most runs lacked a decoder; the latter follows the later CE/GAE-ablation policy,
+but is not the full summer joint-loss recipe. Thus those runs are a modified
+descendant, not an exact graph-only change to the verified summer architecture.
+The no-graph control still had cross-sensor mixing in flattened temporal
+projections. The prior residual graph was nearly static, with ~5.7% effective
+dynamic mass. These explain why a no-graph win did not rule out the intended
+summer-based dynamic mechanism. See SUMMER_O1_AUDIT.md for full comparison.
+
+CURRENT MODEL AND RECIPE
+models/summer_dynamic.py preserves summer GIN aggregation multiplied by tanh
+GIN attention, learned GIN self coefficients, GIN decoder, gated causal temporal
+block, flattened node identity, mean pooling, LayerNorm and classifier.
+The temporal source is a gated-convolution implementation, not selective-scan
+Mamba. Do not change it silently while testing the graph.
+Dynamic adjacency is computed from learned per-IMU causal descriptors using
+the exact methodology's C/S/A equation, sender mask, diagonal removal and final
+row normalization. Weighted summer GIN keeps its self contribution once. The
+methodology's illustrative alternative message operator is not substituted.
+Unavailable classifier outputs are masked; all-missing windows raise an explicit
+unavailable/abstain error. Branch-scale balancing is a separately named ablation.
+
+Actual recovered main.py settings: hidden 16, dropout .5, Adam lr 1e-4,
+weight decay .0005, batch 64, OneCycle schedule once per epoch. User requested
+the worse-accuracy recipe from inconsistent PDF tables; there is no reliable
+mapping of those two tables to accuracy. Actual recovered runtime settings are
+used consistently for all controls rather than inventing a weaker baseline.
+Main loss is CE by explicit user choice. GAE ablations add .1 masked-target MSE,
+with matched dropout-only controls. Rotation augmentation operates on raw vectors
+before normalization. Best epoch uses only the distinct source ideal-validation
+subject. The original script selected using test_loader; that leakage is fixed.
+Fixed common epoch count is calibrated, bounded 20-50; target 5.5 hours is an
+estimate rather than a timer. The suite can exceed the target if minimum budget
+or hardware/checkpoint overhead requires it.
+
+EXPERIMENT MATRIX
+14 conditions x test subjects 2,5,15 x seeds 13,29,47 = 126 sequential jobs.
+Conditions: static_sum, physical (row-normalized static), global, dynamic,
+residual, none, residual_balanced, physical_rotate, residual_rotate,
+physical_drop, residual_drop, physical_gae, residual_gae, dynamicwhar.
+All main summer conditions share temporal architecture, data and training recipe.
+DynamicWHAR is explicitly an external comparator. No-graph remains an ablation.
+No all-17-subject supplementary suite is hidden in this budget; the primary
+recorded-displacement comparison is prioritized. Further LOSO can follow if needed.
+
+DATA AND CLAIM LIMITS
+Corrected six-axis REALDISP view: 76,268 windows; 50 samples, stride25, nine IMUs.
+Train only ideal recordings of source subjects, excluding held-out and validation
+subjects. Source validation subjects: 3 for test2, 8 for test5, 16 for test15.
+All-zero subject6_self, subject13_self, subject15_mutual4 are excluded. Their raw
+audit is results/o2_preflight_20261017/DATA_GATE.md. Subject15 induced has files5-7.
+Normalization is fitted on training subjects only. Corrected channel order and
+six-axis channels differ from historical summer data; do not claim old score
+reproduction from architecture parity. All three test subjects were previously
+examined: this remains exploratory. Do not fabricate a positive graph conclusion.
+
+VALIDATION BEFORE LAUNCH
+Original PyG output/gradient parity passed. Graph equation, masks, abstention,
+input sensitivity and gradient tests passed. All 14 real-data GPU smoke variants
+passed. Six-epoch source-only pilots: static_sum best ideal val F1 .9102;
+physical .9112; residual .9111. These are readiness checks, not test scores.
+An interrupted/resumed model matched uninterrupted parameters exactly after
+restoring scheduler, optimizer and RNG. Supervisor sequencing, failed-stage stop,
+resume skipping and missing-artifact rejection tests passed. Full preflight in
+the launched session passed all 20 tests.
+
+ACTIVE SESSION
+results/summer_o1_session_20261017_232945
+Pointer: results/summer_o1_active_run.json
+Started 2026-10-17 23:29:45 IST. The original CLI-managed process stopped
+before the full schedule was saved; see the continuation note below.
+Five stages: preflight -> smoke -> source_pilot -> training -> analysis.
+Files: summer_o1_session.json (frozen commands), run_long_training.py
+(supervisor), run_summer_o1.py (GPU backend), summer_o1_experiments.py,
+analyze_summer_o1.py (final report/figure).
+
+MONITOR FROM MTP POWERSHELL
+  $r=Get-Content results\summer_o1_active_run.json | ConvertFrom-Json
+  Get-Content (Join-Path $r.run_directory 'status.json')
+  Get-Content (Join-Path $r.run_directory 'training\status.json')
+  Get-Content (Join-Path $r.run_directory 'training\run.log') -Tail 20
+  Get-Content current_step_update.txt
+The supervisor's child_pid can be a Python launcher shim; the backend status
+records the actual trainer PID. Check both live processes and recent logs.
+
+RESUME ONLY AFTER ALL PREVIOUS WRITERS HAVE EXITED
+  .\prabhat\Scripts\python.exe -u run_long_training.py --plan summer_o1_session.json --output results\summer_o1_session_20261017_232945
+For independent background resumption, run .\resume_summer_o1.ps1 from the MTP
+directory. It launches the direct Python interpreter outside the CLI job and
+reuses the same session. Verify its returned PID and both status files.
+Do not run a second writer. Source/config hashes are enforced. Completed stages
+and jobs are skipped; interrupted epochs resume from latest.pt. Do not edit
+training code while this run is active. entire_plan.md may be updated; its
+start-of-stage snapshot is retained for provenance.
+
+AFTER THE SESSION
+Verify outer status complete (5 stages), training/completed.json has126 jobs,
+all126 result.json files, analysis report/figure, source snapshots and logs.
+Review training/ANALYSIS.md, summary.json, per-job per_recording metrics,
+predictions, routing interventions/effective mass, latency and source-val curves.
+Update P4.5/P4.6/P4.7 in entire_plan.md only when their evidence is complete.
+Use matched static/residual/no-graph and augmentation comparisons; retain any
+negative result. Do not jump to O3 before summer-based O1/O2 decisions are made.
+
+PREVIOUS RUNS
+Original workstation O1: results/o1_full_20261016_220301, 118/118 complete.
+Modified-pipeline O2: results/o2_full_20261017_075315, 128/128 complete at
+23:13:50 IST; figures generated. Preserve both as historical evidence.
+
+CONTINUATION ON 18 OCTOBER 2026
+At 07:17 IST the original supervisor, trainer and launcher were absent. Its
+status was stale at calibration, with no schedule or full-job results. The
+same session was resumed; calibration locked 126 jobs x 31 epochs, with a
+5.36-hour estimate. The first static_sum / subject 2 / seed 13 job completed.
+Two resumed attempts through the venv launcher then stopped with Windows exit
+code 4294967295. Their epoch checkpoints and the finished job remain intact.
+Windows Task Scheduler was unavailable (schtasks returned 'The system cannot
+find the path specified'). A direct interpreter process was then launched
+with the prabhat site-packages on PYTHONPATH. At 07:23 IST, supervisor PID20456
+and trainer PID24004 were both confirmed alive and outside the CLI's Windows
+job, and static_sum / subject 2 / seed 29 had reached epoch 9/31. Both PIDs
+were checked with IsProcessInJob, which returned false. Do not use stale
+launcher PIDs from the original start to judge this run.
+
+Current launcher: resume_summer_o1.ps1 calls launch_independent.py. It must
+only be used when no writer owns this session. Active output log:
+results/summer_o1_session_20261017_232945/base_independent_stdout.log.
+The authoritative progress files are the outer status.json and
+training/status.json; backend status is updated per job, while run.log and
+per-job epochs.jsonl show epoch progress. Closing the CLI should no longer
+terminate this breakaway run, but verify progress after reopening before
+drawing conclusions. No held-out-placement result has been analyzed yet.
+The post-O1 Objective 2 and Objective 3 training design is in
+NEXT_TWO_OBJECTIVES_TRAINING_PLAN.md, linked from the unchecked P5/P6 sections
+of entire_plan.md. Do not start those GPU sessions while this O1 run is active.
+Parallel code preparation and CPU-only validation are documented in
+NEXT_PHASE_PREP_HANDOFF.txt. The active O1 source hashes remain unchanged.
+
+STATUS AND LONG-RUN HANDOFF - 18 OCTOBER 2026, 07:45 IST
+
+The current step is P4.5: summer-based Objective 1 full GPU training. At the
+last check, supervisor PID 20456 and trainer PID 24004 were alive; 11/126
+training result.json files existed. The active backend status identified job
+12/126 as dynamic / subject 2 / seed 47, with 31 epochs per job. Outer stage
+status was running training, 3/5 stages complete. Its status timestamp updates
+per job, so inspect epochs.jsonl or training/run.log for within-job progress.
+This is a snapshot; inspect the status files after reopening the CLI. Do not
+start a second writer. Closing this chat should leave the independently
+launched processes running, but verify liveness and fresh progress afterward.
+
+Estimated remaining O1 time at this snapshot: approximately 4.5-5.5 hours
+for 115 remaining jobs, plus final analysis, based on the frozen 5.36-hour
+whole-stage calibration. This is an estimate, not a deadline. No O1 placement
+conclusion can be drawn until all subjects/seeds and analysis are complete.
+
+Next sequence, with no concurrent GPU training:
+1. Confirm O1 outer status complete, 126 job result files, summary and
+   ANALYSIS.md. Review residual dynamic versus static, no graph and matched
+   augmentation/GAE controls. Record negative or mixed findings. Update P4.
+2. O2: the prepared summer_o2_session.json stages CPU invariance, preflight,
+   seven-condition GPU smoke, raw/physical O1 parity bridge and review, 63
+   sequential 31-epoch jobs, analysis, then source-only O3 feature selection.
+   Run .\start_summer_o2.ps1 only after O1 is complete. The runner enforces
+   that gate. Estimated full GPU work is 2.5-3.5 hours provisionally; replace
+   it with a smoke/pilot measurement. Stop if the bridge fails.
+3. O3: after O2 completion and selection, summer_o3_session.json runs client
+   manifest/CPU checks, GPU preflight/smoke and timing, 81 baseline method
+   bundles, 27 FedBN bundles, then analysis. The config is currently blocked
+   deliberately. Run .\start_summer_o3.ps1 only after O2 is complete and
+   the O3 study is frozen. Its 5-10-hour estimate is provisional; split into
+   resumable sessions if the calibrated runtime exceeds the target window.
+
+Prepared code and CPU evidence are inventoried in NEXT_PHASE_PREP_HANDOFF.txt.
+The historical modified-pipeline O1/O2 runs do not substitute for the current
+summer-based comparison. No O2/O3 GPU training has started. No new training
+was launched while writing this handoff. Keep update.txt current whenever the
+active step changes; current_step_update.txt is also written by the O1 runner.

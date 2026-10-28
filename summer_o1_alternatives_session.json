@@ -1,0 +1,46 @@
+{
+  "name": "O1 alternative graph routing on frozen summer magnitude-dot inputs",
+  "ready": true,
+  "unresolved": [],
+  "launch_basis": "User explicitly requested the exploratory long training now on 2026-10-22; negative source pilot retained in the decision artifact.",
+  "authority": [
+    "resources/colloquium_report.pdf",
+    "resources/objectives_methodology.tex",
+    "O1_ALTERNATIVES_PLAN.md"
+  ],
+  "main_loss": "cross_entropy",
+  "representation": "O2-selected mag_dot, fixed for all arms",
+  "arms": ["physical", "residual", "none", "masked_balanced", "masked_floor", "pairwise_balanced", "pairwise_floor", "gated_masked", "gated_pairwise"],
+  "subjects": [2, 5, 15],
+  "seeds": [13, 29, 47],
+  "jobs": 81,
+  "epochs": 31,
+  "source_files": [
+    "run_summer_o1_alternatives.py",
+    "analyze_summer_o1_alternatives.py",
+    "models/summer_alternatives.py",
+    "models/summer_dynamic.py",
+    "models/mamba_whar.py",
+    "summer_o2_experiments.py",
+    "summer_o1_experiments.py",
+    "o2_features.py",
+    "o2_experiments.py",
+    "workstation_experiments.py",
+    "results/o1_alternatives_pilot_decision_20261021.json",
+    "run_long_training.py"
+  ],
+  "tasks": [
+    {
+      "id": "training",
+      "plan_step": "P4-alt",
+      "command": ["{python}", "-u", "run_summer_o1_alternatives.py", "--mode", "full", "--pilot-dir", "results/summer_o1_alternatives_pilot_20261021", "--gate-pilot-dir", "results/summer_o1_gate_pilot_20261021", "--output", "{run_dir}/training"],
+      "artifacts": ["{run_dir}/training/completed.json", "{run_dir}/training/summary.json"]
+    },
+    {
+      "id": "analysis",
+      "plan_step": "P4-alt",
+      "command": ["{python}", "analyze_summer_o1_alternatives.py", "--mode", "full", "--run", "{run_dir}/training"],
+      "artifacts": ["{run_dir}/training/ANALYSIS.md", "{run_dir}/training/ANALYSIS.json"]
+    }
+  ]
+}
