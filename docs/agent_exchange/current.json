@@ -1,0 +1,26 @@
+{
+  "experiment_id": "t08_predictive_20261114_r1",
+  "revision": 1,
+  "phase": "READY_FOR_LUNA_VALIDATION",
+  "next_owner": "Luna",
+  "updated": "2026-11-14",
+  "protocol_path": "docs/agent_exchange/protocol.md",
+  "research_request": {
+    "brief_path": "experiments/t08_predictive_20261114/spec.md",
+    "brief_sha256": "9047cd255da2dac13d3a224f2c15816954ed008315fb1057172f89ae2e0780f0",
+    "training_authorized": "conditional on smoke and audits passing",
+    "launcher": "experiments/t08_predictive_20261114/launch.ps1",
+    "output": "results/t08_predictive_20261114_r1",
+    "smoke_jobs": 4,
+    "full_jobs": 16
+  },
+  "implementation_return": {
+    "status": "AWAITING_LUNA",
+    "runtime_tests_executed_by_astra": false
+  },
+  "research_decision": {
+    "T08_complete": false,
+    "decision": "Frozen predictive repair pilot; execution and result review pending"
+  },
+  "official_channel": "docs/agent_exchange/Astra_to_Luna.md and Luna_to_Astra.md"
+}

@@ -1,5 +1,33 @@
 # Project status
 
+## T08 execution handoff - 14 November 2026
+
+Astra finalized receiver-blind predictive repair revision1 and its code. READY_FOR_LUNA_VALIDATION; runtime checks not executed. Read docs/agent_exchange/Astra_to_Luna.md. The exact four-job smoke followed by sixteen-job full source-validation pilot is authorized only through the passed-smoke gate. T08 remains OPEN until candidate review. This supersedes earlier statements that the next method/commands are unspecified. No terminal or training was run by Astra.
+
+
+## T08 status correction - 14 November 2026
+
+T08 is OPEN / INCOMPLETE: no graph candidate has passed the frozen source promotion criteria for displacement confirmation. Completed training and reviews do not constitute completion of candidate selection. The earlier REVIEW_COMPLETE_NO_PROMOTION records describe finished reviews, not a completed T08 milestone. The original three studies and later repair pilot remain completed evidence; do not rerun them automatically. Next: Astra specifies a justified revision, Luna executes the explicitly authorized smoke/pilot, and Astra selects a candidate only if the unchanged acceptance criteria pass. No new training is authorized by this correction.
+
+
+## Current reviewed state - 12 November 2026
+
+Reviewed 12 November 2026: the graph-repair queue COMPLETED all 4 smoke and 8 full jobs on 29 October at 08:25:19 IST. Audits passed. Self validation accuracy: graph 93.904%, robust no graph 93.907%, local repair 94.368%. Decision NO_PROMOTION_GRAPH_REPAIR. Read results/research_review_20261112/RESEARCH_REVIEW.md for historical raw/mag+dot placement comparisons and plots. Current handoff: docs/agent_exchange/current.json. The new direction is placement diagnostics before conditional experts; its plan is not an authorized training queue. Earlier execution notes below are historical.
+
+
+## T08 closed — 29 October 2026
+
+T08 review and handoff are COMPLETE. Decision: REVIEW_COMPLETE_NO_PROMOTION. Read results/o1_t01_t08_20261028/T08_FINAL_REVIEW.md and its accompanying T08_FINAL_DECISION.json. All three source studies completed (36 full jobs, 9 smoke jobs). The final training finished28 October at22:44:19 IST; no new training was launched by the final review.
+
+Original correction source-self F1:92.7117%; matched no graph:92.2249%; local control:93.0090%. The graph gains0.4867pp over no graph but trails local control by0.2973pp. It is retained as a research reference, not promoted as a qualified winner. None of the candidates meets the frozen full promotion rule. Held-out induced displacement has NOT been evaluated; the user's graph-superiority objective remains OPEN.
+
+Next: research chat freezes the next graph-specific mechanism/objective and controls. CLI must not rerun completed pilots or launch an unspecified final study. T09 genuine-Mamba implementation can proceed independently from docs/experiments/mamba_temporal_spec_20261028.md. Workstation setup remains to be verified. All Git actions remain user-only.
+
+
+
+Latest update28 October2026: T01-T08 execution/review completed; details in results/o1_t01_t08_20261028/execution_report.md. New gated-neighbor source pilot completed12/12 jobs after3/3 smoke jobs; all audits passed. Graph ideal/self F1=93.8185/92.2214%, none=93.8024/92.3278%, local=94.0051/92.5451%. Candidate NOT PROMOTED; no recorded-displacement evaluation. Genuine Mamba specification written, implementation pending. Current graph-superiority goal remains unresolved. The earlier27 October record below is historical context.
+
+
 Reviewed: 27 October 2026 (Asia/Calcutta). This is the current human-readable status, not a live process monitor. Read `project_plan.md` for future work and `project_handoff.md` when resuming. Paths below are relative to the project root.
 
 Local follow-up completed on 27 October at 14:54:34 IST: `results/local_message_pilot_20261027`, six jobs at eight epochs in one visible terminal. Isolated `Prabhat`: Python 3.11.15, torch 2.5.1+cu121, CUDA 12.1, RTX 2050. GPU preflight and checkpoint recovery passed with zero parameter/loss discrepancy. CPU staging kept peak allocated GPU memory below 69 MB (allocator measure, not total process/device usage). All six checkpoint/history/prediction sets and source fingerprints were verified.

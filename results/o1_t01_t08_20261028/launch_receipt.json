@@ -1,0 +1,91 @@
+{
+  "run_id": "o1_t01_t08_20261028/full",
+  "output": "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\o1_t01_t08_20261028\\full",
+  "expected_jobs": 12,
+  "epochs_per_job": 16,
+  "batch_size": 64,
+  "sources": {
+    "run_o1_selection.py": "ce14e9b0f6ebdcd8ad598b1c53593008946d5d6f3078fc10396f0af9119a1786",
+    "check_o1_selection.py": "672306a6fee09c3dd05f329973b4635e2ac0f65c414b5ad299c1cf35b57fdfae",
+    "models/summer_gated_neighbor.py": "802088e758119d483da7f0b9ae6dbbfadd40858c9ca6daec932bee2cf34c91fa",
+    "analyze_o1_selection.py": "1182c0e8da14b8acd004ea995d51252bce343852303b8cd3181128d91751be83",
+    "run_local_message_pilot.py": "f1ed74926595058c60bdb2b9c1bfaa8de15ef61ae28db5b35b8cc79c4dd272a8",
+    "check_local_message_training.py": "c70c4f7f17302f15901ae1a7d43d891d1bbf21f215c62663b0b646bad3c8ca58",
+    "models/summer_message_correction.py": "2bd6f3bf22ea0533fc7cdd6bead70c2288aee61e71e1a685dc1c5c3db4be5e5e",
+    "models/summer_dynamic.py": "66baccf2d8391c0c0536bbdd6ed0e604d9d35d88793bc4dd24336f0676272dec",
+    "models/mamba_whar.py": "c80f79b416bbe71ec2076f4a2628c7ee38dd8e7a495755d860acc2b35dfc6c0e",
+    "o2_features.py": "b2f81b0c04b513b7b278ca4d1f063c5bfd67795a023ee7b21e3e8608cb7528ee",
+    "o2_experiments.py": "8d58eeedb073b3e5799917fa972d5292910b195964cfd9f9d27449ed4423f50d",
+    "summer_o1_experiments.py": "0e75464c114a8f2f00612a548301374c7c155b0172ddcca8d826ace4d492028d",
+    "workstation_experiments.py": "b517eb14d9891e3687967d2a5e19e90b5a741636d775c9d2a0b7ba38eee9122e",
+    "prepare_workstation_data.py": "93dbf573b205096683a98cfa59a41fe3d7b5f216e4949f4ca68207534b8ad324",
+    "requirements_local_gpu.txt": "30a153efdc42fb490acf4193060190982bcb3338e490086b273e507074bbf741"
+  },
+  "dataset_sha256_manifest": "full/fingerprint.json",
+  "system": {
+    "python": "3.11.15 (main, Jun 23 2026, 15:20:37) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\Prabhat\\Scripts\\python.exe",
+    "torch": "2.5.1+cu121",
+    "cuda": "12.1",
+    "gpu": "NVIDIA GeForce RTX 2050",
+    "total_vram_mb": 4095.5625
+  },
+  "smoke_audit": {
+    "passed": true,
+    "jobs": [
+      {
+        "job": "jobs\\gated_neighbor\\subject_02_seed_13",
+        "epochs": 4,
+        "passed": true
+      },
+      {
+        "job": "jobs\\local_control\\subject_02_seed_13",
+        "epochs": 4,
+        "passed": true
+      },
+      {
+        "job": "jobs\\none\\subject_02_seed_13",
+        "epochs": 4,
+        "passed": true
+      }
+    ],
+    "metrics_recomputed": true,
+    "plots_regenerated": true
+  },
+  "process_independence": {
+    "TerminalPid": 5564,
+    "OriginalLauncherPid": 22176,
+    "OriginalLauncherStillExists": false,
+    "TrainerPid": 21096,
+    "TrainerParentPid": 19808
+  },
+  "heartbeat_evidence": [
+    {
+      "job": "jobs\\gated_neighbor\\subject_02_seed_13",
+      "pid": 21096,
+      "epoch": 16,
+      "time": "2026-10-28T15:10:40.240760+05:30"
+    },
+    {
+      "job": "jobs\\local_control\\subject_02_seed_13",
+      "pid": 21096,
+      "epoch": 16,
+      "time": "2026-10-28T15:09:06.428761+05:30"
+    },
+    {
+      "job": "jobs\\none\\subject_02_seed_13",
+      "pid": 21096,
+      "epoch": 16,
+      "time": "2026-10-28T15:08:06.210415+05:30"
+    },
+    {
+      "job": "jobs\\none\\subject_02_seed_29",
+      "pid": 21096,
+      "epoch": 12,
+      "time": "2026-10-28T15:11:20.301034+05:30"
+    }
+  ],
+  "resume_command": ".\\Prabhat\\Scripts\\python.exe -u run_o1_selection.py --output results/o1_t01_t08_20261028/full --epochs 16 --subjects 2,5 --seeds 13,29 --batch-size 64",
+  "estimated_total_minutes": 15,
+  "limitation": "Verified original launcher process exited while terminal and trainer continued. Did not close the current desktop application or reproduce every Codex CLI lifecycle. Keep the independent training terminal open."
+}

@@ -1,0 +1,63 @@
+{
+  "means": {
+    "gated_neighbor": {
+      "val_ideal": 0.8131706314511902,
+      "val_self": 0.7878292585490444
+    },
+    "local_control": {
+      "val_ideal": 0.8136635991335524,
+      "val_self": 0.788640611377957
+    },
+    "none": {
+      "val_ideal": 0.8133808665504599,
+      "val_self": 0.7895859832317621
+    }
+  },
+  "paired": [
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.8131706314511902,
+      "accuracy": 0.8998133167392657,
+      "best_epoch": 3,
+      "control": "none",
+      "difference_pp": -0.021023509926976214
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.8131706314511902,
+      "accuracy": 0.8998133167392657,
+      "best_epoch": 3,
+      "control": "local_control",
+      "difference_pp": -0.04929676823621776
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.7878292585490444,
+      "accuracy": 0.8362068965517241,
+      "best_epoch": 3,
+      "control": "none",
+      "difference_pp": -0.1756724682717703
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.7878292585490444,
+      "accuracy": 0.8362068965517241,
+      "best_epoch": 3,
+      "control": "local_control",
+      "difference_pp": -0.08113528289126481
+    }
+  ],
+  "source_only": true
+}

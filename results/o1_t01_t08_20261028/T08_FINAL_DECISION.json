@@ -1,0 +1,106 @@
+{
+  "review_date": "2026-10-29",
+  "T08_state": "REVIEW_COMPLETE_NO_PROMOTION",
+  "qualified_candidate": null,
+  "retained_research_reference": "original_correction",
+  "retention_reason": "Largest observed improvement over its own no-graph control; not a controlled cross-family ranking and not a promotion.",
+  "studies": [
+    {
+      "study": "neighbor_gate_low",
+      "path": "results\\o1_t01_t08_20261028\\full",
+      "graph_arm": "gated_neighbor",
+      "means": {
+        "gated_neighbor": {
+          "val_ideal": 0.9381850112548711,
+          "val_self": 0.9222142360635395
+        },
+        "local_control": {
+          "val_ideal": 0.9400506954073022,
+          "val_self": 0.9254507002751181
+        },
+        "none": {
+          "val_ideal": 0.9380238323398616,
+          "val_self": 0.923277915257914
+        }
+      },
+      "self_accuracy": {
+        "gated_neighbor": 0.9254007752492237,
+        "none": 0.9262089649043961,
+        "local_control": 0.92808069639647
+      },
+      "graph_minus_none_pp": -0.1063679194374556,
+      "graph_minus_local_pp": -0.3236464211578638,
+      "donor_self_effect_pp": -0.17082747200128645,
+      "promotion_passed": false,
+      "completed_jobs": 12,
+      "source_hashes_verified": true,
+      "summed_job_seconds": 820.7256364000023
+    },
+    {
+      "study": "neighbor_gate_open",
+      "path": "results\\o1_gate_ablation_20261028\\full",
+      "graph_arm": "gated_neighbor",
+      "means": {
+        "gated_neighbor": {
+          "val_ideal": 0.9380657665384178,
+          "val_self": 0.9256886697549995
+        },
+        "local_control": {
+          "val_ideal": 0.9385092296979779,
+          "val_self": 0.9284000964192599
+        },
+        "none": {
+          "val_ideal": 0.9380238323398616,
+          "val_self": 0.923277915257914
+        }
+      },
+      "self_accuracy": {
+        "gated_neighbor": 0.9283373253391076,
+        "none": 0.9262089649043961,
+        "local_control": 0.9308691422209511
+      },
+      "graph_minus_none_pp": 0.24107544970854988,
+      "graph_minus_local_pp": -0.27114266642603857,
+      "donor_self_effect_pp": -0.42662282859334266,
+      "promotion_passed": false,
+      "completed_jobs": 12,
+      "source_hashes_verified": true,
+      "summed_job_seconds": 1609.3924226999952
+    },
+    {
+      "study": "original_correction",
+      "path": "results\\o1_reference_selection_20261028\\full",
+      "graph_arm": "message_correction",
+      "means": {
+        "local_control": {
+          "val_ideal": 0.9389939483978892,
+          "val_self": 0.9300900488139412
+        },
+        "message_correction": {
+          "val_ideal": 0.9385430839732214,
+          "val_self": 0.927116776047517
+        },
+        "none": {
+          "val_ideal": 0.9382992613096315,
+          "val_self": 0.9222494846141465
+        }
+      },
+      "self_accuracy": {
+        "message_correction": 0.9276766015688838,
+        "none": 0.9248351701666939,
+        "local_control": 0.9298445415917633
+      },
+      "graph_minus_none_pp": 0.4867291433370502,
+      "graph_minus_local_pp": -0.29732727664242287,
+      "donor_self_effect_pp": 0.06895765265861054,
+      "promotion_passed": false,
+      "completed_jobs": 12,
+      "source_hashes_verified": true,
+      "summed_job_seconds": 1160.324248699988
+    }
+  ],
+  "total_full_jobs": 36,
+  "total_smoke_jobs": 9,
+  "held_out_displacement_evaluated": false,
+  "next_action": "Research specification for a graph-specific benefit beyond local capacity; T09 Mamba implementation can proceed independently. No automatic new training."
+}

@@ -1,0 +1,39 @@
+{
+  "experiment": "t08_predictive_20261114_r1",
+  "arm": "none_clean",
+  "subject": 2,
+  "validation_subject": 3,
+  "seed": 13,
+  "epochs": 4,
+  "batch_size": 64,
+  "hidden": 16,
+  "features": "mag_dot",
+  "lr": 0.0001,
+  "weight_decay": 0.0005,
+  "selection": "source ideal fixed33 macro-F1",
+  "teacher_decay": 0.99,
+  "warmup_epochs": 2,
+  "loss_weights": {
+    "consistency": 0.5,
+    "repair": 0.1,
+    "quality": 0.1
+  },
+  "temperature": 2.0,
+  "ramp_epochs": 3,
+  "corruption": {
+    "type": "unit-free predictive repair gain/drift proxy",
+    "window_probability": 0.75,
+    "sensors": [
+      1,
+      7
+    ],
+    "modality_gain": [
+      0.6,
+      1.4
+    ],
+    "drift_scale": 0.3,
+    "knots": 4
+  },
+  "precision": "bf16",
+  "evaluation_model": "student"
+}

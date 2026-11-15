@@ -1,0 +1,32 @@
+{
+  "subject": 2,
+  "seed": 29,
+  "branch": "graph_repair",
+  "freeze": "candidate_frozen",
+  "reference_trainable": 219069,
+  "candidate_trainable": 3674,
+  "initial_passed": false,
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\experiments\\t08_utility_diagnostics\\run_r5.py\", line 29, in main\n    try:initial_checks(candidate,ref,fold,job);row['initial_passed']=True\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\experiments\\t08_utility_gate_20261114\\run.py\", line 103, in initial_checks\n    _initial_checks(model,original,fold,job)\n  File \"C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\experiments\\t08_utility_gate_20261114\\run.py\", line 121, in _initial_checks\n    torch.testing.assert_close(out,reference,rtol=0,atol=1e-6)\n  File \"C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\Prabhat\\Lib\\site-packages\\torch\\testing\\_comparison.py\", line 1530, in assert_close\n    raise error_metas[0].to_error(msg)\nAssertionError: Tensor-likes are not close!\n\nMismatched elements: 1 / 264 (0.4%)\nGreatest absolute difference: 1.9073486328125e-06 at index (6, 0) (up to 1e-06 allowed)\nGreatest relative difference: 1.4153371807879012e-07 at index (6, 0) (up to 0 allowed)\n",
+  "input_equal": true,
+  "reference_stride": [
+    7200,
+    144,
+    1
+  ],
+  "candidate_stride": [
+    7200,
+    144,
+    1
+  ],
+  "input_max": 0.0,
+  "mamba_max": 5.960464477539062e-07,
+  "logit_max": 1.9073486328125e-06,
+  "reference_repeat_max": 0.0,
+  "candidate_repeat_max": 0.0,
+  "identical_input_mamba_max": 5.960464477539062e-07,
+  "canonical_stride": [
+    7200,
+    144,
+    1
+  ]
+}

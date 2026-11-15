@@ -1,0 +1,280 @@
+{
+  "candidate": "message_correction",
+  "promotion_criteria_passed": false,
+  "state": "provisional_candidate_not_promoted",
+  "means": {
+    "local_control": {
+      "val_ideal": 0.9389939483978892,
+      "val_self": 0.9300900488139412
+    },
+    "message_correction": {
+      "val_ideal": 0.9385430839732214,
+      "val_self": 0.927116776047517
+    },
+    "none": {
+      "val_ideal": 0.9382992613096315,
+      "val_self": 0.9222494846141465
+    }
+  },
+  "effects": {
+    "val_ideal": {
+      "vs_none_pp": 0.02438226635899099,
+      "vs_local_pp": -0.04508644246677962
+    },
+    "val_self": {
+      "vs_none_pp": 0.4867291433370502,
+      "vs_local_pp": -0.29732727664242287
+    }
+  },
+  "paired": [
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9265308471609526,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 6,
+      "control": "none",
+      "difference_pp": 0.12608426008495766
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9265308471609526,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 6,
+      "control": "local_control",
+      "difference_pp": 0.07340484877540465
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9037250090854196,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 6,
+      "control": "none",
+      "difference_pp": 0.4511822786849362
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9037250090854196,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 6,
+      "control": "local_control",
+      "difference_pp": -0.10267442332673182
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9233522131845648,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 15,
+      "control": "none",
+      "difference_pp": 0.13632139923399622
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9233522131845648,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 15,
+      "control": "local_control",
+      "difference_pp": -0.10514558602299218
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9054318739309539,
+      "accuracy": 0.9057112068965517,
+      "best_epoch": 15,
+      "control": "none",
+      "difference_pp": 0.3069490333215352
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9054318739309539,
+      "accuracy": 0.9057112068965517,
+      "best_epoch": 15,
+      "control": "local_control",
+      "difference_pp": -0.3286863466491208
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9466365443152247,
+      "accuracy": 0.9474313022700119,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": -0.06384258944204246
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9466365443152247,
+      "accuracy": 0.9474313022700119,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": 0.031655623831605695
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9590005470347935,
+      "accuracy": 0.965047393364929,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": 1.1384069330553248
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9590005470347935,
+      "accuracy": 0.965047393364929,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": -0.1658725872215494
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9576527312321435,
+      "accuracy": 0.961768219832736,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": -0.10103400444090305
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9576527312321435,
+      "accuracy": 0.961768219832736,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.18026065645113665
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.940309674138901,
+      "accuracy": 0.9460900473933649,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": 0.05037832828644895
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.940309674138901,
+      "accuracy": 0.9460900473933649,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.5920757493722673
+    }
+  ],
+  "interventions": [
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.3612976195054074,
+      "window_shuffle_minus_normal_pp": -0.006796495941152614,
+      "zero_correction_minus_normal_pp": -1.7115980553119248
+    },
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": -0.16906959399387578,
+      "window_shuffle_minus_normal_pp": -0.23689582354164962,
+      "zero_correction_minus_normal_pp": -2.03907626227543
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": 0.09870485505136806,
+      "window_shuffle_minus_normal_pp": -0.12670057959719427,
+      "zero_correction_minus_normal_pp": -1.5665560454330874
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.11605302639716708,
+      "window_shuffle_minus_normal_pp": 0.008773284900376321,
+      "zero_correction_minus_normal_pp": -2.069321272534874
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.22103563753451683,
+      "window_shuffle_minus_normal_pp": -0.12281668475173646,
+      "zero_correction_minus_normal_pp": -3.058436257005448
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.5497458253031717,
+      "window_shuffle_minus_normal_pp": 0.364969722988695,
+      "zero_correction_minus_normal_pp": -0.178222268225825
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": 0.32324497798187357,
+      "window_shuffle_minus_normal_pp": 0.06550853126745526,
+      "zero_correction_minus_normal_pp": -0.7681980095502139
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.6997372720209727,
+      "window_shuffle_minus_normal_pp": 0.20346327281659526,
+      "zero_correction_minus_normal_pp": 0.6087502668842948
+    }
+  ],
+  "graph_superiority_on_displacement": "NOT EVALUATED",
+  "scope": "Two source-validation folds, two seeds, sixteen epochs; not independent displacement confirmation.",
+  "distant_donor_mean_effect_pp": {
+    "val_ideal": -0.30899547907080605,
+    "val_self": 0.06895765265861054
+  },
+  "interpretation": "Neighbor values are useful versus distant donors on average, but the trained graph fails the matched source-self promotion criterion. No displacement superiority established."
+}

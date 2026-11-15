@@ -1,0 +1,280 @@
+{
+  "candidate": "gated_neighbor",
+  "promotion_criteria_passed": false,
+  "state": "provisional_candidate_not_promoted",
+  "means": {
+    "gated_neighbor": {
+      "val_ideal": 0.9380657665384178,
+      "val_self": 0.9256886697549995
+    },
+    "local_control": {
+      "val_ideal": 0.9385092296979779,
+      "val_self": 0.9284000964192599
+    },
+    "none": {
+      "val_ideal": 0.9380238323398616,
+      "val_self": 0.923277915257914
+    }
+  },
+  "effects": {
+    "val_ideal": {
+      "vs_none_pp": 0.0041934198556137225,
+      "vs_local_pp": -0.04434631595601202
+    },
+    "val_self": {
+      "vs_none_pp": 0.24107544970854988,
+      "vs_local_pp": -0.27114266642603857
+    }
+  },
+  "paired": [
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9275738656650124,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 13,
+      "control": "none",
+      "difference_pp": 0.17590039939703317
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9275738656650124,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 13,
+      "control": "local_control",
+      "difference_pp": 0.11388628711281878
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9151323052685709,
+      "accuracy": 0.9035560344827587,
+      "best_epoch": 13,
+      "control": "none",
+      "difference_pp": -0.01717755310782776
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9151323052685709,
+      "accuracy": 0.9035560344827587,
+      "best_epoch": 13,
+      "control": "local_control",
+      "difference_pp": -0.402445338925117
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9202256593254765,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": 0.016407322855338524
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9202256593254765,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.17033955639925713
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9032807391496995,
+      "accuracy": 0.9051724137931034,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": 1.2396721132797772
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9032807391496995,
+      "accuracy": 0.9051724137931034,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.1527906383204658
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9530057614636798,
+      "accuracy": 0.954599761051374,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": -0.14500042822304104
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9530057614636798,
+      "accuracy": 0.954599761051374,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": 0.058510811360712456
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9499127482290605,
+      "accuracy": 0.9626777251184834,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": -0.32550605831414003
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9499127482290605,
+      "accuracy": 0.9626777251184834,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": -0.31087021078523014
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9514577796995021,
+      "accuracy": 0.956989247311828,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": -0.030533614606909065
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9514577796995021,
+      "accuracy": 0.956989247311828,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": -0.17944280589835548
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9344288863726671,
+      "accuracy": 0.9419431279620853,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": 0.067313296976379
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9344288863726671,
+      "accuracy": 0.9419431279620853,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": -0.21846447767338573
+    }
+  ],
+  "interventions": [
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -1.6980464657741612,
+      "window_shuffle_minus_normal_pp": 0.005447955629345191,
+      "zero_correction_minus_normal_pp": -1.6980464657741612
+    },
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": -0.34054897574525844,
+      "window_shuffle_minus_normal_pp": -0.013314965841138005,
+      "zero_correction_minus_normal_pp": -0.34054897574525844
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": 0.5414377417997329,
+      "window_shuffle_minus_normal_pp": -0.06774125234532136,
+      "zero_correction_minus_normal_pp": 0.5414377417997329
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.0385188381542112,
+      "window_shuffle_minus_normal_pp": -0.23034281764089393,
+      "zero_correction_minus_normal_pp": 0.0385188381542112
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.1642852250499649,
+      "window_shuffle_minus_normal_pp": 0.028128610214628313,
+      "zero_correction_minus_normal_pp": -0.1642852250499649
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.32221371937413146,
+      "window_shuffle_minus_normal_pp": 0.2343662598284002,
+      "zero_correction_minus_normal_pp": 0.32221371937413146
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": 0.4338913489704832,
+      "window_shuffle_minus_normal_pp": 0.09923661670691031,
+      "zero_correction_minus_normal_pp": 0.4338913489704832
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.6780074256596547,
+      "window_shuffle_minus_normal_pp": 0.022476359732548357,
+      "zero_correction_minus_normal_pp": 0.6780074256596547
+    }
+  ],
+  "graph_superiority_on_displacement": "NOT EVALUATED",
+  "scope": "Two source-validation folds, two seeds, sixteen epochs; not independent displacement confirmation.",
+  "distant_donor_mean_effect_pp": {
+    "val_ideal": -0.921144233788293,
+    "val_self": -0.42662282859334266
+  },
+  "interpretation": "Neighbor values are useful versus distant donors on average, but the trained graph fails the matched source-self promotion criterion. No displacement superiority established."
+}

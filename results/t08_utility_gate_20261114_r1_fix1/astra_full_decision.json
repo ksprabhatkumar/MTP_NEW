@@ -1,0 +1,44 @@
+{
+  "task": "t08_utility_gate_20261114_r1_fix1",
+  "revision": 3,
+  "reviewed_at": "2026-11-14T12:43:02.484Z",
+  "decision": "APPROVED_FOR_BOUNDED_FULL_PILOT",
+  "T08_complete": false,
+  "training_executed_by_astra": false,
+  "evidence": {
+    "smoke_status": "complete",
+    "smoke_audit_passed": true,
+    "both_initial_checks_passed": true,
+    "both_phase_recovery_checks_passed": true,
+    "source_hash_mismatches": [],
+    "maximum_equivalence_difference": 9.5367431640625e-7,
+    "equivalence_atol": 0.000001,
+    "archive_replay": "Passed by smoke runner at original unchanged tolerances"
+  },
+  "scope": {
+    "excluded_subjects": [
+      2,
+      5
+    ],
+    "seeds": [
+      13,
+      29
+    ],
+    "branches": [
+      "local_repair",
+      "graph_repair"
+    ],
+    "jobs": 8,
+    "epochs_per_job": {
+      "correction": 8,
+      "gate": 4
+    },
+    "induced_evaluation": false
+  },
+  "limitations": [
+    "Smoke validates execution, not graph superiority.",
+    "Data and checkpoint hashes must pass the runner preflight on execution.",
+    "Numerical fix does not independently isolate TF32 versus layout as the original cause.",
+    "T08 requires separate scientific review after full results."
+  ]
+}

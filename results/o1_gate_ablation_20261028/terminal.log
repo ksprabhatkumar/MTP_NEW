@@ -1,0 +1,51 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261028215151
+Username: PRABHAT\prabh
+RunAs User: PRABHAT\prabh
+Configuration Name: 
+Machine: PRABHAT (Microsoft Windows NT 10.0.26300.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit -ExecutionPolicy Bypass -File C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\start_o1_gate_ablation.ps1
+Process ID: 16528
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is results/o1_gate_ablation_20261028/terminal.log
+PREFLIGHT PASSED: no-graph equivalence, masks, gradients, real-data GPU smoke and checkpoint recovery.
+JOB 2/3: local_control fold=2 seed=13
+local_control S02 epoch 1/4 loss=3.5528 source_val_F1=0.0461 train=3.8s VRAM=54MB [checkpoint saved]
+local_control S02 epoch 2/4 loss=1.2732 source_val_F1=0.7875 train=3.6s VRAM=54MB [checkpoint saved]
+local_control S02 epoch 3/4 loss=0.3351 source_val_F1=0.8139 train=3.6s VRAM=54MB [checkpoint saved]
+local_control S02 epoch 4/4 loss=0.2762 source_val_F1=0.8125 train=3.6s VRAM=54MB [checkpoint saved]
+JOB 3/3: gated_neighbor fold=2 seed=13
+gated_neighbor S02 epoch 1/4 loss=3.5528 source_val_F1=0.0460 train=5.5s VRAM=70MB [checkpoint saved]
+gated_neighbor S02 epoch 2/4 loss=1.2744 source_val_F1=0.7870 train=5.5s VRAM=70MB [checkpoint saved]
+gated_neighbor S02 epoch 3/4 loss=0.3357 source_val_F1=0.8134 train=5.4s VRAM=70MB [checkpoint saved]
+gated_neighbor S02 epoch 4/4 loss=0.2768 source_val_F1=0.8128 train=5.5s VRAM=70MB [checkpoint saved]
+{
+  "gated_neighbor": {
+    "val_ideal": 0.8133808665504599,
+    "val_self": 0.7919154641628818
+  },
+  "local_control": {
+    "val_ideal": 0.8138985726704824,
+    "val_self": 0.7906090344199447
+  },
+  "none": {
+    "val_ideal": 0.8133808665504599,
+    "val_self": 0.7895859832317621
+  }
+}
+
+
+Gate ablation completed and artifacts audited.
+**********************
+Windows PowerShell transcript end
+End time: 20261028222010
+**********************

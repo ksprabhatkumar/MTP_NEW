@@ -1,0 +1,13 @@
+{
+  "task": "t08_donor_audit_20261114_r1_fix1",
+  "revision": 3,
+  "cause": "zero_correction intervention persisted across validation splits",
+  "repair": "try/finally restores prior state; zero-to-normal regression and identity-donor checks added",
+  "runtime_tested_by_astra": false,
+  "thresholds_changed": false,
+  "hashes": {
+    "run.py": "4b9ef735e9fe775547e07c9534162855f8e56ba434e16fa2d17bf31ab2065450",
+    "model.py": "03ee2eec27f48cefb3326f45da97696c76fa63e85bed7f77a064755bcaeb98d7",
+    "launch.ps1": "dea453ddb4b4622ee1dfb85fb928cc82cb364b60b579e458138f272f453e6c2e"
+  }
+}

@@ -1,0 +1,7 @@
+# Repair attempt 1
+
+Previous error occurred at initial_checks live new-versus-original comparison, not archived-logit replay. Shared mathematical backbone path is the same, but endpoint dispatch/layout and TF32-enabled verification differed. A numerical/kernel explanation is a hypothesis, not a GPU-confirmed diagnosis. No evidence yet of mismatched checkpoint weights.
+
+Changes: materialize contiguous latent tensors for all endpoints and explicitly add zero residual for p0 as in the archived model; assert bitwise equality of every loaded backbone parameter/buffer; run strict1e-6 live equivalence and continuation checks in IEEE FP32 with TF32 disabled for BOTH reference and candidate, restoring the original backend settings afterwards. Add encoder/temporal/norm/head absolute differences on success/failure. Baseline archived replay stays at1e-5 in the original evaluation precision. Training settings and original training sources unchanged.
+
+Astra has not run terminal/Python checks. This is a corrective attempt requiring Luna validation. Failed output results/t08_utility_gate_20261114_r1/smoke and its source snapshot remain unchanged. Fresh output results/t08_utility_gate_20261114_r1_fix1/smoke. Launcher now runs SMOKE ONLY; no full queue starts. If mismatch persists, return diagnostics rather than increase tolerance. If smoke succeeds, report archived replay/recovery/frozen-state checks as well as initial equivalence before a full-training decision.

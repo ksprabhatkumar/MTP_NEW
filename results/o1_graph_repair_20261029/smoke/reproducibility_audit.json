@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "jobs": 4,
+  "checks": [
+    "source hashes unchanged",
+    "data hashes unchanged",
+    "all arms share original prediction row identities",
+    "all arms share order RNG state each epoch",
+    "robust arms share corruption RNG state each epoch",
+    "paired classification errors exported",
+    "per-class metrics and confusion matrices exported",
+    "graph reliability/null/intervention diagnostics exported"
+  ],
+  "limitations": [
+    "one seed and two source-validation subjects",
+    "overlapping windows are not independent replicates",
+    "no held-out induced performance claim"
+  ]
+}

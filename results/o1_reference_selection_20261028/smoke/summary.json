@@ -1,0 +1,63 @@
+{
+  "means": {
+    "local_control": {
+      "val_ideal": 0.8153006586308603,
+      "val_self": 0.7959156190416798
+    },
+    "message_correction": {
+      "val_ideal": 0.8153006586308603,
+      "val_self": 0.7965860976236926
+    },
+    "none": {
+      "val_ideal": 0.813657561444269,
+      "val_self": 0.7878105860053339
+    }
+  },
+  "paired": [
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.8153006586308603,
+      "accuracy": 0.9035469819539514,
+      "best_epoch": 3,
+      "control": "none",
+      "difference_pp": 0.16430971865912802
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.8153006586308603,
+      "accuracy": 0.9035469819539514,
+      "best_epoch": 3,
+      "control": "local_control",
+      "difference_pp": 0.0
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.7965860976236926,
+      "accuracy": 0.8410560344827587,
+      "best_epoch": 3,
+      "control": "none",
+      "difference_pp": 0.8775511618358656
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.7965860976236926,
+      "accuracy": 0.8410560344827587,
+      "best_epoch": 3,
+      "control": "local_control",
+      "difference_pp": 0.06704785820127457
+    }
+  ],
+  "source_only": true
+}

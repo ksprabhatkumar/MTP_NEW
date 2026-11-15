@@ -1,0 +1,79 @@
+{
+  "means": {
+    "none_clean": {
+      "val_ideal": {
+        "accuracy": 0.9004355942750467,
+        "macro_f1": 0.814822956468055
+      },
+      "val_self": {
+        "accuracy": 0.8265086206896551,
+        "macro_f1": 0.7831569594313624
+      }
+    },
+    "none_robust": {
+      "val_ideal": {
+        "accuracy": 0.9029247044181705,
+        "macro_f1": 0.8168630668589558
+      },
+      "val_self": {
+        "accuracy": 0.8216594827586207,
+        "macro_f1": 0.7780874613356625
+      }
+    },
+    "local_repair": {
+      "val_ideal": {
+        "accuracy": 0.9060360920970753,
+        "macro_f1": 0.821001105801524
+      },
+      "val_self": {
+        "accuracy": 0.8243534482758621,
+        "macro_f1": 0.7798973071185402
+      }
+    },
+    "graph_repair": {
+      "val_ideal": {
+        "accuracy": 0.9029247044181705,
+        "macro_f1": 0.8167655553021739
+      },
+      "val_self": {
+        "accuracy": 0.8227370689655172,
+        "macro_f1": 0.7791308572561751
+      }
+    }
+  },
+  "graph_minus_control_percentage_points": {
+    "none_clean": {
+      "val_ideal": {
+        "accuracy": 0.24891101431238072,
+        "macro_f1": 0.19425988341188472
+      },
+      "val_self": {
+        "accuracy": -0.37715517241379004,
+        "macro_f1": -0.4026102175187285
+      }
+    },
+    "none_robust": {
+      "val_ideal": {
+        "accuracy": 0.0,
+        "macro_f1": -0.009751155678194845
+      },
+      "val_self": {
+        "accuracy": 0.10775862068965747,
+        "macro_f1": 0.10433959205126131
+      }
+    },
+    "local_repair": {
+      "val_ideal": {
+        "accuracy": -0.3111387678904731,
+        "macro_f1": -0.42355504993500936
+      },
+      "val_self": {
+        "accuracy": -0.1616379310344862,
+        "macro_f1": -0.07664498623650706
+      }
+    }
+  },
+  "completed_jobs": 4,
+  "test_evaluated": false,
+  "interpretation": "One-seed source-validation pilot, not a held-out displacement claim"
+}

@@ -1,0 +1,51 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261029074947
+Username: PRABHAT\prabh
+RunAs User: PRABHAT\prabh
+Configuration Name: 
+Machine: PRABHAT (Microsoft Windows NT 10.0.26300.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit -ExecutionPolicy Bypass -File C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\start_graph_repair.ps1
+Process ID: 21912
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is results/o1_graph_repair_20261029/terminal.log
+PREFLIGHT PASSED: All four arms initialize to the established no-graph output; Null probability, no self edges, missing-
+sender masking, zero-sender cancellation, and local control isolation; Finite augmented losses/gradients, frozen teacher
+, and exact optimizer/scheduler/EMA/RNG recovery within 1e-6
+local_repair fold2 epoch4/4 loss=0.3291 ideal_acc=0.9060 self_acc=0.8244 train=25.9s [checkpoint saved]
+JOB 4/4: graph_repair, excluded subject2, seed13
+graph_repair fold2 epoch1/4 loss=3.5527 ideal_acc=0.0909 self_acc=0.0695 train=12.1s [checkpoint saved]
+graph_repair fold2 epoch2/4 loss=1.2740 ideal_acc=0.8930 self_acc=0.8001 train=11.5s [checkpoint saved]
+graph_repair fold2 epoch3/4 loss=0.3733 ideal_acc=0.9023 self_acc=0.8270 train=23.9s [checkpoint saved]
+graph_repair fold2 epoch4/4 loss=0.3310 ideal_acc=0.9029 self_acc=0.8227 train=24.1s [checkpoint saved]
+# Graph repair validation pilot
+
+Checkpoints selected only by source ideal macro-F1. Values are means over validation subjects; no held-out test evaluate
+d.
+
+| Arm | Ideal accuracy | Self-placement accuracy | Self-placement macro-F1 |
+|---|---:|---:|---:|
+| none_clean | 90.044% | 82.651% | 78.316% |
+| none_robust | 90.292% | 82.166% | 77.809% |
+| local_repair | 90.604% | 82.435% | 77.990% |
+| graph_repair | 90.292% | 82.274% | 77.913% |
+
+Graph minus robust no-graph self-placement accuracy: +0.108 percentage points.
+
+See metrics.csv for individual folds, learning_curves.csv for every epoch, and jobs/*/* for predictions, class metrics,
+checkpoints, and graph interventions.
+
+
+Graph repair pilot completed; validation predictions and checkpoints audited.
+**********************
+Windows PowerShell transcript end
+End time: 20261029082520
+**********************

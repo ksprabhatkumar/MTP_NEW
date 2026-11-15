@@ -1,0 +1,195 @@
+{
+  "means": {
+    "local_control": {
+      "val_ideal": 0.9389939483978892,
+      "val_self": 0.9300900488139412
+    },
+    "message_correction": {
+      "val_ideal": 0.9385430839732214,
+      "val_self": 0.927116776047517
+    },
+    "none": {
+      "val_ideal": 0.9382992613096315,
+      "val_self": 0.9222494846141465
+    }
+  },
+  "paired": [
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9265308471609526,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 6,
+      "control": "none",
+      "difference_pp": 0.12608426008495766
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9265308471609526,
+      "accuracy": 0.9483509645301804,
+      "best_epoch": 6,
+      "control": "local_control",
+      "difference_pp": 0.07340484877540465
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9037250090854196,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 6,
+      "control": "none",
+      "difference_pp": 0.4511822786849362
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9037250090854196,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 6,
+      "control": "local_control",
+      "difference_pp": -0.10267442332673182
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9233522131845648,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 15,
+      "control": "none",
+      "difference_pp": 0.13632139923399622
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9233522131845648,
+      "accuracy": 0.9471064094586186,
+      "best_epoch": 15,
+      "control": "local_control",
+      "difference_pp": -0.10514558602299218
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9054318739309539,
+      "accuracy": 0.9057112068965517,
+      "best_epoch": 15,
+      "control": "none",
+      "difference_pp": 0.3069490333215352
+    },
+    {
+      "arm": "message_correction",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9054318739309539,
+      "accuracy": 0.9057112068965517,
+      "best_epoch": 15,
+      "control": "local_control",
+      "difference_pp": -0.3286863466491208
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9466365443152247,
+      "accuracy": 0.9474313022700119,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": -0.06384258944204246
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9466365443152247,
+      "accuracy": 0.9474313022700119,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": 0.031655623831605695
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9590005470347935,
+      "accuracy": 0.965047393364929,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": 1.1384069330553248
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9590005470347935,
+      "accuracy": 0.965047393364929,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": -0.1658725872215494
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9576527312321435,
+      "accuracy": 0.961768219832736,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": -0.10103400444090305
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9576527312321435,
+      "accuracy": 0.961768219832736,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.18026065645113665
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.940309674138901,
+      "accuracy": 0.9460900473933649,
+      "best_epoch": 9,
+      "control": "none",
+      "difference_pp": 0.05037832828644895
+    },
+    {
+      "arm": "message_correction",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.940309674138901,
+      "accuracy": 0.9460900473933649,
+      "best_epoch": 9,
+      "control": "local_control",
+      "difference_pp": -0.5920757493722673
+    }
+  ],
+  "source_only": true
+}

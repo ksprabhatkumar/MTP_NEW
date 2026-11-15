@@ -1,0 +1,138 @@
+PROJECT FOLDER STRUCTURE
+Project: C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2
+
+Existing folders:
+  .git/ - project directory
+  __pycache__/ - Python cache
+  dataset/ - processed datasets
+  docs/ - plans, research and agent handoffs
+  har_data/ - raw sensor data
+  models/ - model implementations
+  Prabhat/ - local Python environment
+  resources/ - research documents and reports
+  results/ - training results, checkpoints, figures and historical logs
+  tests/ - tests
+  tmp/ - temporary work files
+  utils/ - shared utilities
+
+Organized root artifacts:
+  results/legacy_root_logs/
+    objective1_full_training.log
+    objective1_preprocess.err.log
+    objective1_preprocess.log
+    objective1_smoke.log
+    pytorch_cuda_install.log
+  results/legacy_root_figures/
+    accuracy_comparison.png
+
+Root files retained in place:
+  Python modules and PowerShell launchers: entry points and shared imports.
+  JSON files: split manifests and experiment/session configurations.
+  requirements*.txt: environment installation.
+  README.md, context.text and plans/handoffs: existing documentation and references.
+  results_log.txt: active output path used by objective1.py and utilities.
+  .gitignore: repository configuration.
+
+Root file inventory:
+  .gitignore
+  analyze_graph_repair.py
+  analyze_o1_reference_selection.py
+  analyze_o1_results.py
+  analyze_o1_selection.py
+  analyze_summer_o1.py
+  analyze_summer_o1_alternatives.py
+  analyze_summer_o2.py
+  analyze_summer_o3.py
+  audit_global_message.py
+  audit_message_operator.py
+  audit_realdisp_next.py
+  audit_routing_next.py
+  audit_summer_o2_data.py
+  audit_summer_routing.py
+  benchmark_mamba.py
+  bridge_summer_o3.py
+  check_graph_repair.py
+  check_local_message_training.py
+  check_o1_gate_ablation.py
+  check_o1_reference_selection.py
+  check_o1_selection.py
+  check_summer_o1_alternatives.py
+  check_summer_o2_invariance.py
+  check_summer_o3_cpu.py
+  closeout_summer_o1.py
+  context.text
+  correct_o1_quality_results.py
+  current_step_update.txt
+  entire_plan.md
+  finalize_summer_o3_config.py
+  get_sys_info.py
+  graph_repair_training.py
+  launch_independent.py
+  main.py
+  make_summer_reference.py
+  n2_split_logs_dsads.json
+  n2_split_logs_opportunity.json
+  n2_split_logs_realdisp.json
+  NEXT_STEP_PLAN.md
+  NEXT_TWO_OBJECTIVES_TRAINING_PLAN.md
+  O1_ALTERNATIVES_PLAN.md
+  o2_experiments.py
+  o2_features.py
+  objective1.py
+  pilot_affinity_decay.py
+  plot_o2_results.py
+  plot_result_explanations.py
+  plot_training_results.py
+  prepare_o3_clients.py
+  prepare_workstation_data.py
+  process_all_data.py
+  README.md
+  requirements.txt
+  requirements_local_gpu.txt
+  results_log.txt
+  resume_summer_o1.ps1
+  review_graph_repair.py
+  review_summer_o2.py
+  run_epoch_ablation.py
+  run_graph_repair.py
+  run_local_message_pilot.py
+  run_long_training.py
+  run_o1_gate_ablation.py
+  run_o1_reference_selection.py
+  run_o1_selection.py
+  run_o2.py
+  run_objective1_preprocess.py
+  run_summer_o1.py
+  run_summer_o1_alternatives.py
+  run_summer_o2.py
+  run_summer_o2_clean_analysis.py
+  run_summer_o2_source_pilot.py
+  run_summer_o3.py
+  run_training.py
+  start_graph_repair.ps1
+  start_local_message_training.ps1
+  start_o1_gate_ablation.ps1
+  start_o1_reference_selection.ps1
+  start_o1_selection.ps1
+  start_summer_o1_alternatives.ps1
+  start_summer_o2.ps1
+  start_summer_o3.ps1
+  start_t01_t08.ps1
+  summarize_o1_decision.py
+  summer_o1_alternatives_session.json
+  SUMMER_O1_AUDIT.md
+  summer_o1_experiments.py
+  SUMMER_O1_HANDOFF.txt
+  summer_o1_session.json
+  summer_o2_experiments.py
+  summer_o2_session.json
+  summer_o3_experiments.py
+  summer_o3_federation.py
+  summer_o3_session.json
+  summer_o3_study.json
+  SUMMER_PHASE_HANDOFF.txt
+  TRAINING_PLAN.md
+  verify_summer_o2_bridge.py
+  workstation_experiments.py
+
+experiments/t08_predictive_20261114/ - isolated T08 candidate, frozen spec, model/loss, runner/checks, analysis/review and launcher.

@@ -1,0 +1,280 @@
+{
+  "candidate": "gated_neighbor",
+  "promotion_criteria_passed": false,
+  "state": "provisional_candidate_not_promoted",
+  "means": {
+    "gated_neighbor": {
+      "val_ideal": 0.9381850112548711,
+      "val_self": 0.9222142360635395
+    },
+    "local_control": {
+      "val_ideal": 0.9400506954073022,
+      "val_self": 0.9254507002751181
+    },
+    "none": {
+      "val_ideal": 0.9380238323398616,
+      "val_self": 0.923277915257914
+    }
+  },
+  "effects": {
+    "val_ideal": {
+      "vs_none_pp": 0.016117891500944115,
+      "vs_local_pp": -0.18656841524311574
+    },
+    "val_self": {
+      "vs_none_pp": -0.1063679194374556,
+      "vs_local_pp": -0.3236464211578638
+    }
+  },
+  "paired": [
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9258148616710421,
+      "accuracy": 0.9458618543870566,
+      "best_epoch": 13,
+      "control": "none",
+      "difference_pp": 0.0
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9258148616710421,
+      "accuracy": 0.9458618543870566,
+      "best_epoch": 13,
+      "control": "local_control",
+      "difference_pp": -0.1943976747811993
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9133293299926712,
+      "accuracy": 0.9019396551724138,
+      "best_epoch": 13,
+      "control": "none",
+      "difference_pp": -0.1974750806977954
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9133293299926712,
+      "accuracy": 0.9019396551724138,
+      "best_epoch": 13,
+      "control": "local_control",
+      "difference_pp": -0.23942366768034962
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9200615860969231,
+      "accuracy": 0.9452395768512757,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": 0.0
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9200615860969231,
+      "accuracy": 0.9452395768512757,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": -0.37928683688359666
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.8908840180169018,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": 0.0
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.8908840180169018,
+      "accuracy": 0.8938577586206896,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": -0.5743523166382047
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9544557657459102,
+      "accuracy": 0.954599761051374,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": 0.0
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "macro_f1": 0.9544557657459102,
+      "accuracy": 0.954599761051374,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": 0.01012191219799119
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9505366722364909,
+      "accuracy": 0.9632701421800948,
+      "best_epoch": 8,
+      "control": "none",
+      "difference_pp": -0.2631136575711013
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "macro_f1": 0.9505366722364909,
+      "accuracy": 0.9632701421800948,
+      "best_epoch": 8,
+      "control": "local_control",
+      "difference_pp": -0.5253916383131996
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9524078315056086,
+      "accuracy": 0.9581839904420549,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": 0.06447156600374315
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "macro_f1": 0.9524078315056086,
+      "accuracy": 0.9581839904420549,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": -0.1827110615057026
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9341069240080937,
+      "accuracy": 0.9425355450236966,
+      "best_epoch": 14,
+      "control": "none",
+      "difference_pp": 0.035117060519040955
+    },
+    {
+      "arm": "gated_neighbor",
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "macro_f1": 0.9341069240080937,
+      "accuracy": 0.9425355450236966,
+      "best_epoch": 14,
+      "control": "local_control",
+      "difference_pp": 0.04458193800026544
+    }
+  ],
+  "interventions": [
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.018411080691793646,
+      "window_shuffle_minus_normal_pp": -0.0498969035220731,
+      "zero_correction_minus_normal_pp": -0.018411080691793646
+    },
+    {
+      "subject": 2,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": -0.051662181283718134,
+      "window_shuffle_minus_normal_pp": 0.03299451275299292,
+      "zero_correction_minus_normal_pp": -0.051662181283718134
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.030046395914462565,
+      "window_shuffle_minus_normal_pp": 0.0,
+      "zero_correction_minus_normal_pp": -0.030046395914462565
+    },
+    {
+      "subject": 2,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": 0.07974865265470976,
+      "window_shuffle_minus_normal_pp": 0.07974865265470976,
+      "zero_correction_minus_normal_pp": 0.07974865265470976
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.06263725889893434,
+      "window_shuffle_minus_normal_pp": -0.11191690461497261,
+      "zero_correction_minus_normal_pp": -0.06263725889893434
+    },
+    {
+      "subject": 5,
+      "seed": 13,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": -0.010269337322732497,
+      "window_shuffle_minus_normal_pp": -0.002898398730488694,
+      "zero_correction_minus_normal_pp": -0.010269337322732497
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_ideal",
+      "zero_message_minus_normal_pp": -0.09528599774834001,
+      "window_shuffle_minus_normal_pp": -0.03967879073422109,
+      "zero_correction_minus_normal_pp": -0.09528599774834001
+    },
+    {
+      "subject": 5,
+      "seed": 29,
+      "split": "val_self",
+      "zero_message_minus_normal_pp": -0.12283511146958803,
+      "window_shuffle_minus_normal_pp": 0.0,
+      "zero_correction_minus_normal_pp": -0.12283511146958803
+    }
+  ],
+  "graph_superiority_on_displacement": "NOT EVALUATED",
+  "scope": "Two source-validation folds, two seeds, sixteen epochs; not independent displacement confirmation.",
+  "distant_donor_mean_effect_pp": {
+    "val_ideal": -0.18789237603393238,
+    "val_self": -0.17082747200128645
+  },
+  "interpretation": "Real neighbor values affect predictions and outperform distant donor values on average, but the trained graph still trails matched no graph and local control on source self placement. Mechanistic dependence is not overall superiority."
+}

@@ -1,0 +1,67 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261028222341
+Username: PRABHAT\prabh
+RunAs User: PRABHAT\prabh
+Configuration Name: 
+Machine: PRABHAT (Microsoft Windows NT 10.0.26300.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoExit -ExecutionPolicy Bypass -File C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\start_o1_reference_selection.ps1
+Process ID: 24960
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is results/o1_reference_selection_20261028/terminal.log
+PREFLIGHT PASSED: no-graph equivalence, masks, gradients, real-data GPU smoke and checkpoint recovery.
+JOB 2/3: local_control fold=2 seed=13
+local_control S02 epoch 1/4 loss=3.5531 source_val_F1=0.0493 train=3.4s VRAM=50MB [checkpoint saved]
+local_control S02 epoch 2/4 loss=1.2644 source_val_F1=0.7987 train=3.4s VRAM=50MB [checkpoint saved]
+local_control S02 epoch 3/4 loss=0.3323 source_val_F1=0.8153 train=3.3s VRAM=50MB [checkpoint saved]
+local_control S02 epoch 4/4 loss=0.2719 source_val_F1=0.8140 train=3.6s VRAM=50MB [checkpoint saved]
+JOB 3/3: message_correction fold=2 seed=13
+message_correction S02 epoch 1/4 loss=3.5531 source_val_F1=0.0493 train=5.1s VRAM=68MB [checkpoint saved]
+message_correction S02 epoch 2/4 loss=1.2647 source_val_F1=0.7975 train=5.4s VRAM=68MB [checkpoint saved]
+message_correction S02 epoch 3/4 loss=0.3323 source_val_F1=0.8153 train=5.1s VRAM=68MB [checkpoint saved]
+message_correction S02 epoch 4/4 loss=0.2718 source_val_F1=0.8137 train=5.0s VRAM=68MB [checkpoint saved]
+{
+  "local_control": {
+    "val_ideal": 0.8153006586308603,
+    "val_self": 0.7959156190416798
+  },
+  "message_correction": {
+    "val_ideal": 0.8153006586308603,
+    "val_self": 0.7965860976236926
+  },
+  "none": {
+    "val_ideal": 0.813657561444269,
+    "val_self": 0.7878105860053339
+  }
+}
+
+message_correction S05 epoch 14/16 loss=0.0278 source_val_F1=0.9530 train=5.0s VRAM=68MB [checkpoint saved]
+message_correction S05 epoch 15/16 loss=0.0269 source_val_F1=0.9557 train=5.4s VRAM=68MB [checkpoint saved]
+message_correction S05 epoch 16/16 loss=0.0270 source_val_F1=0.9531 train=5.1s VRAM=68MB [checkpoint saved]
+{
+  "local_control": {
+    "val_ideal": 0.9389939483978892,
+    "val_self": 0.9300900488139412
+  },
+  "message_correction": {
+    "val_ideal": 0.9385430839732214,
+    "val_self": 0.927116776047517
+  },
+  "none": {
+    "val_ideal": 0.9382992613096315,
+    "val_self": 0.9222494846141465
+  }
+}
+Reference correction completed and artifacts audited.
+**********************
+Windows PowerShell transcript end
+End time: 20261028224420
+**********************

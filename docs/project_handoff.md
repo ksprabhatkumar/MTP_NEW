@@ -1,6 +1,35 @@
 # Project handoff
 
-Updated: 27 October 2026 (Asia/Calcutta).
+## T08 execution handoff - 14 November 2026
+
+Astra finalized receiver-blind predictive repair revision1 and its code. READY_FOR_LUNA_VALIDATION; runtime checks not executed. Read docs/agent_exchange/Astra_to_Luna.md. The exact four-job smoke followed by sixteen-job full source-validation pilot is authorized only through the passed-smoke gate. T08 remains OPEN until candidate review. This supersedes earlier statements that the next method/commands are unspecified. No terminal or training was run by Astra.
+
+
+## T08 status correction - 14 November 2026
+
+T08 is OPEN / INCOMPLETE: no graph candidate has passed the frozen source promotion criteria for displacement confirmation. Completed training and reviews do not constitute completion of candidate selection. The earlier REVIEW_COMPLETE_NO_PROMOTION records describe finished reviews, not a completed T08 milestone. The original three studies and later repair pilot remain completed evidence; do not rerun them automatically. Next: Astra specifies a justified revision, Luna executes the explicitly authorized smoke/pilot, and Astra selects a candidate only if the unchanged acceptance criteria pass. No new training is authorized by this correction.
+
+
+## Current reviewed state - 12 November 2026
+
+Current handoff, 12 November 2026: read docs/agent_exchange/current.json and protocol.md first. The 29 October repair run is COMPLETE (8/8 full, 4/4 smoke), audited and not promoted. Read results/research_review_20261112/RESEARCH_REVIEW.md and docs/experiments/placement_diagnostics_plan_20261112.md. Next owner Astra must freeze protocol/labels/acceptance before Luna/Terra implementation. No new training authorized; do not duplicate completed runs. Historical T08 decision unchanged. All Git actions are user-only.
+
+
+## T08 closed — 29 October 2026
+
+T08 review and handoff are COMPLETE. Decision: REVIEW_COMPLETE_NO_PROMOTION. Read results/o1_t01_t08_20261028/T08_FINAL_REVIEW.md and its accompanying T08_FINAL_DECISION.json. All three source studies completed (36 full jobs, 9 smoke jobs). The final training finished28 October at22:44:19 IST; no new training was launched by the final review.
+
+Original correction source-self F1:92.7117%; matched no graph:92.2249%; local control:93.0090%. The graph gains0.4867pp over no graph but trails local control by0.2973pp. It is retained as a research reference, not promoted as a qualified winner. None of the candidates meets the frozen full promotion rule. Held-out induced displacement has NOT been evaluated; the user's graph-superiority objective remains OPEN.
+
+Next: research chat freezes the next graph-specific mechanism/objective and controls. CLI must not rerun completed pilots or launch an unspecified final study. T09 genuine-Mamba implementation can proceed independently from docs/experiments/mamba_temporal_spec_20261028.md. Workstation setup remains to be verified. All Git actions remain user-only.
+
+## Current two-machine workflow
+
+`docs/project_plan.md` now contains the dependency-ordered D01-D10 completed foundation and T01-T24 completion plan, plus the detailed experiment-specification contract. Research decisions belong on the laptop in ChatGPT Work with GPT-6 Astra Medium; implementation/integration uses Codex CLI with GPT-6 Sol Medium. Routine frozen launch/report tasks may use Luna or no model at all. The user handles every Git operation manually; do not run even read-only Git commands or modify Git configuration.
+
+The user intends to close both research chats and CLI sessions after handoff/launch. Before future long runs, implement and verify training survival after closing the CLI in ONE independent visible terminal, while leaving that terminal and the machine running. The completed laptop pilot verified checkpoint recovery but did not test CLI-close survival. Prefer required jobs grouped into 5-7-hour sessions (hours assumed); do not add training to fill the window. A deterministic supervisor must log, checkpoint and stop safely on errors because a closed CLI cannot debug them.
+
+Next: follow the completed T08 decision above and the shared execution_handoff.md contract. Earlier scheduling/status paragraphs are historical; no training is currently pending from the closed candidate matrix.
 
 ## Local message-passing pilot authorized on 27 October
 
@@ -28,8 +57,8 @@ Historical launch commands often reference `C:/Users/General/Desktop/prabhat/MTP
 
 - The research target is a useful graph-based extension of the summer pipeline that beats fair no-graph controls; do not manufacture a positive conclusion.
 - User asks when the SSM/Mamba proposal in the summer PDF will be used. The recovered summer pipeline is already used, but its temporal block is gated convolution, not selective SSM. A separate genuine-Mamba factorial experiment is proposed before O3; it has not been implemented or launched.
-- Recent brainstorming proposes preserving the local encoder and learning a latent neighbor correction, then selective edge gates if justified. These are proposals, not validated methods.
-- Current request authorizes documentation consolidation and a manual deletion list. Delete or rename nothing. Preserve programming, configurations, results, data, installation files and research resources. The open LaTeX document is context only and was not edited.
+- The local-encoder/latent-correction idea has now been implemented and piloted; the small source-validation gains do not establish graph superiority. Selective edge gates and further message operators remain conditional proposals.
+- Current request is dependency-ordered research/execution planning across laptop and workstation. No Git operations, new training, deletion or renaming. Preserve existing results and research resources.
 
 ## Latest experiment status
 
