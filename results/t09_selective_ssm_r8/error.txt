@@ -1,0 +1,56 @@
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 1348, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1323, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1369, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1318, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1078, in _send_output
+    self.send(msg)
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1016, in send
+    self.connect()
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 1488, in connect
+    super().connect()
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\http\client.py", line 982, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\socket.py", line 839, in create_connection
+    for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\socket.py", line 974, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t09_selective_ssm\check.py", line 108, in main
+    scan=reference(out);result=validation(scan,out);write(out/'validation.json',result);rows=calibration(out)
+         ^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t09_selective_ssm\check.py", line 14, in reference
+    commit=json.loads(fetch('https://api.github.com/repos/state-spaces/mamba/commits/main'))['sha']
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t09_selective_ssm\check.py", line 12, in fetch
+    with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'T09-reference-audit'}),timeout=30) as r:return r.read()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 216, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 519, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 536, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 496, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 1391, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\GAE_Mamba_WHAR\.python\cpython-3.11.15-windows-x86_64-none\Lib\urllib\request.py", line 1351, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 11001] getaddrinfo failed>

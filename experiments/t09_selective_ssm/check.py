@@ -10,20 +10,40 @@ def write(p,x):p.write_text(json.dumps(x,indent=2),encoding='utf8')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def fetch(url):
     with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'T09-reference-audit'}),timeout=30) as r:return r.read()
-def reference(out):
-    commit=json.loads(fetch('https://api.github.com/repos/state-spaces/mamba/commits/main'))['sha']
-    paths=['mamba_ssm/modules/mamba_simple.py','mamba_ssm/ops/selective_scan_interface.py']
-    refs={}
-    for path in paths:
-        data=fetch(f'https://raw.githubusercontent.com/state-spaces/mamba/{commit}/{path}')
-        dest=out/Path(path).name;dest.write_bytes(data);refs[path]=sha(dest)
-    write(out/'reference.json',dict(commit=commit,hashes=refs))
+def reference(out,reference_dir):
+    cache=Path(reference_dir)
+    manifest=json.loads((cache/'reference.json').read_text(encoding='utf8'))
+    commit=manifest['commit']
+    assert len(commit)==40 and all(c in '0123456789abcdef' for c in commit)
+    required=['mamba_ssm/modules/mamba_simple.py','mamba_ssm/ops/selective_scan_interface.py','LICENSE']
+    for path in required:
+        source=cache/Path(path).name
+        assert sha(source)==manifest['hashes'][path], 'Reference hash mismatch: '+path
+        (out/source.name).write_bytes(source.read_bytes())
+    write(out/'reference.json',manifest)
     tree=ast.parse((out/'selective_scan_interface.py').read_text(encoding='utf8'))
     fn=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='selective_scan_ref')
-    from einops import rearrange,repeat
+    # The pinned real-valued, variable-B/C rank-3 scan uses only d -> d 1.
+    # Keep the author function unchanged; provide that exact shape operation.
+    # Never silently emulate unsupported complex/grouped reference branches.
+    def rearrange(tensor,pattern,**axes):
+        if pattern=='d -> d 1' and tensor.ndim==1 and not axes:
+            return tensor.unsqueeze(-1)
+        raise NotImplementedError('Unsupported reference rearrangement: '+pattern)
+    def repeat(*args,**kwargs):
+        raise NotImplementedError('Grouped reference scan is outside this validation scope')
+    probe=torch.arange(3.,requires_grad=True)
+    shaped=rearrange(probe,'d -> d 1')
+    assert shaped.shape==(3,1) and torch.equal(shaped[:,0],probe)
+    shaped.sum().backward();assert torch.equal(probe.grad,torch.ones_like(probe))
+    write(out/'reference_adapter.json',dict(operation='d -> d 1 = unsqueeze(-1)',shape_and_gradient_checked=True,scope='real A; rank-3 variable B/C',author_function_unchanged=True))
     env=dict(torch=torch,F=F,rearrange=rearrange,repeat=repeat)
     exec(compile(ast.Module(body=[fn],type_ignores=[]),'author_selective_scan_ref','exec'),env)
-    return env['selective_scan_ref']
+    author_scan=env['selective_scan_ref']
+    def scoped_scan(u,delta,A,B,C,*args,**kwargs):
+        assert not A.is_complex() and B.ndim==3 and C.ndim==3, 'Unsupported reference scope'
+        return author_scan(u,delta,A,B,C,*args,**kwargs)
+    return scoped_scan
 def independent(m,x,scan):
     u,z=m.in_proj(m.norm(x)).chunk(2,-1)
     u=F.silu(m.conv1d(u.transpose(1,2))[...,:x.shape[1]])
@@ -98,14 +118,14 @@ class Tee:
     def write(self,s):self.a.write(s);self.b.write(s);self.b.flush()
     def flush(self):self.a.flush();self.b.flush()
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);args=p.parse_args();out=Path(args.output);out.mkdir(parents=True,exist_ok=False)
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--reference-dir',required=True);args=p.parse_args();out=Path(args.output);out.mkdir(parents=True,exist_ok=False)
     log=(out/'console.log').open('w',encoding='utf8');sys.stdout=Tee(sys.stdout,log);sys.stderr=Tee(sys.stderr,log)
     start=time.perf_counter();write(out/'status.json',dict(state='running',full_training=False))
     try:
         assert torch.cuda.is_available();torch.set_num_threads(4);torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False;torch.backends.cudnn.benchmark=False
         write(out/'environment.json',dict(python=sys.version,platform=platform.platform(),torch=torch.__version__,cuda=torch.version.cuda,device=torch.cuda.get_device_name(),precision='FP32',batch=64,backend='unoptimized reference'))
         write(out/'sources.json',{str(p.relative_to(ROOT)):sha(p) for p in [Path(__file__),ROOT/'models/selective_mamba_temporal.py',ROOT/'models/summer_dynamic.py',ROOT/'run_o1_selection.py']})
-        scan=reference(out);result=validation(scan,out);write(out/'validation.json',result);rows=calibration(out)
+        scan=reference(out,args.reference_dir);result=validation(scan,out);write(out/'validation.json',result);rows=calibration(out)
         write(out/'audit.json',dict(passed=True,combinations=len(rows),full_training=False,T08_complete=False))
         write(out/'status.json',dict(state='complete',seconds=time.perf_counter()-start))
     except BaseException:

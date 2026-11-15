@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "output_max": 0.0,
+  "gradient_max": {
+    "A_log": 7.275957614183426e-12,
+    "D": 7.450580596923828e-09,
+    "norm.weight": 0.0,
+    "norm.bias": 0.0,
+    "in_proj.weight": 0.0,
+    "conv1d.weight": 1.862645149230957e-09,
+    "conv1d.bias": 0.0,
+    "x_proj.weight": 1.1641532182693481e-10,
+    "dt_proj.weight": 0.0,
+    "dt_proj.bias": 1.4551915228366852e-11,
+    "out_proj.weight": 0.0
+  },
+  "input_gradient_max": 0.0,
+  "checks": [
+    "author scan and full projection wiring",
+    "suffix causality",
+    "prefix/step endpoint equality",
+    "reset determinism",
+    "finite nonzero selective gradients",
+    "checkpoint roundtrip"
+  ]
+}

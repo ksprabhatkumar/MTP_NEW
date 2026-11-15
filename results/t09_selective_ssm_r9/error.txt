@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t09_selective_ssm\check.py", line 111, in main
+    scan=reference(out,args.reference_dir);result=validation(scan,out);write(out/'validation.json',result);rows=calibration(out)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t09_selective_ssm\check.py", line 26, in reference
+    from einops import rearrange,repeat
+ModuleNotFoundError: No module named 'einops'

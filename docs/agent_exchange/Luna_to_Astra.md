@@ -1,5 +1,12 @@
 # Luna to Astra
 
+## Revision 11 — Colab readiness: awaiting Colab evidence
+
+- Status: NOT VERIFIED. This side conversation has no accessible Colab notebook or mounted Colab Drive execution surface. The previous pasted output reports a T4 validation pass, but the actual artifacts, current Colab source and reference hashes, GPU environment, and persistent cache have not been independently inspected.
+- The pasted command omitted `--reference-dir`, whereas the current local T09 harness requires it. Source/reference provenance remains unresolved; do not accept the reported run as equivalent to the current harness without comparison.
+- `experiments.colab_readiness.check` was inspected locally but not executed in Colab. No cache copy, training, or Git operation was performed. User must run the revision 11 readiness command in Colab and provide its report. T08 remains OPEN.
+- Once available, inspect `readiness.json` and actual T09 artifacts; verify both cache copies by hash and copy missing cache without deletion as authorized. Report Colab GPU/RAM/dependencies and discrepancy before any new training decision.
+
 ## Current return
 
 - Task/revision: `t08_utility_gate_20261114_r1_fix1` / 2
@@ -58,3 +65,35 @@ Execution attempted exactly as handed off: Prabhat\Scripts\python.exe -u -m expe
 ## Astra correction after revision 7
 
 Harness implementation was already explicitly authorized. Its absence was an unperformed implementation step, not a failed SSM check or a need for further authorization. Astra created the package and executable check.py and prepared revision 8 with a fresh output. File contents read back; runtime tests not executed by Astra. T09 remains pending validation, T08 OPEN.
+
+
+## Revision 8 T09 harness attempt
+
+Stopped before numerical validation or calibration. Fresh output results/t09_selective_ssm_r8/status.json reports failed; error.txt preserves traceback. Failure: DNS/network unavailable while retrieving the pinned Mamba author reference from api.github.com. No tolerance change, calibration, or scientific/full training occurred. T09 remains incomplete; T08 remains open. Next action: provide the exact official reference sources locally or allow network access, then rerun into a fresh output folder.
+
+
+## Astra revision 9 preparation
+
+Revision 8 network failure did not execute any SSM checks and did not pin a commit. Added source-only fetch_reference.py and an offline --reference-dir validation path with SHA256 verification and license/provenance copying. Archived prior harness source under the failed r8 output. Luna must request the specified network escalation for reference download, then validate offline. Prepared only, not executed; no tolerance changes.
+
+
+## Revision 9 T09 execution
+
+Network approval granted; official reference downloaded and pinned to commit e9594ce1c732d97440f0332fdc43170a2294dbfa in results/t09_reference_r9. Offline harness stopped before numerical validation/calibration: ModuleNotFoundError: einops is missing from Prabhat. Error and environment/source records are preserved in results/t09_selective_ssm_r9. No SSM parity check, calibration or scientific training occurred; no tolerance was changed. T09 incomplete; T08 open. Next: Astra should replace the harness reference extractor with a dependency-free isolated loader or formally specify/install the needed dependency, then rerun fresh output.
+
+
+## Astra correction for revision 10
+
+Inspected pinned author selective_scan_ref. For real A and variable B/C rank3, the only invoked einops helper is rearrange(D, "d -> d 1"). Harness now supplies the exact unsqueeze operation with shape/gradient validation; author function is unchanged and unsupported grouped/complex branches are rejected. No package installation needed. Prior failed artifacts/source preserved. Static preparation only; Luna must run revision 10 offline.
+
+
+## Revision 10 T09 completed
+
+Harness completed successfully on Prabhat / NVIDIA GeForce RTX 2050, PyTorch 2.5.1+cu121, FP32; elapsed 13.52 s for tests/calibration (preprocessing 5.05 s). Official Mamba reference commit e9594ce1c732d97440f0332fdc43170a2294dbfa; SHA256 provenance in results/t09_selective_ssm_r10/reference.json. Output parity exact (max abs 0), input gradient max difference 0, max parameter-gradient difference 7.45e-9. Passed suffix causality, prefix/step endpoint equality, reset determinism, finite/nonzero selective gradients, checkpoint roundtrip and optimizer/model/order/global-RNG recovery for all four real-data combinations. No full scientific training. audit passed=true; T08 remains open.
+
+Calibration: batch64 median step times approx none/old 10.6 ms, none/SSM 97.7 ms, physical/old 13.2 ms, physical/SSM 101.2 ms. Projected 25,038-window train epoch from measured steps: 4.16 s, 38.29 s, 5.16 s, 39.61 s respectively, excluding full validation/checkpoint overhead. Batch-one latency samples and peak allocation are in calibration.json; SSM peak allocations ~282-287 MB, old ~84-88 MB. Diagnostic two-step/recovery/timing only, not scientific training or accuracy evidence. Backend is transparent unoptimized PyTorch reference, not fused CUDA Mamba.
+
+
+## Astra acceptance of revision 10
+
+Reference validation/calibration accepted after reading saved evidence and confirming recorded source hashes unchanged. Review: results/t09_selective_ssm_r10/ASTRA_REVIEW.md. Reference backend readiness accepted for covered none/physical interfaces; accuracy benefit and full-epoch runner performance untested. Prefix recomputation is not a streaming-state API test. Real full-epoch smoke required for eventual T10 runner. T08 remains OPEN; no new training command authorized by this review.

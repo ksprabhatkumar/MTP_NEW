@@ -1,0 +1,11 @@
+# Astra review of T09 — 15 November 2026
+
+Decision: ACCEPT_REFERENCE_VALIDATION_AND_CALIBRATION. Saved audit/status passed, all four none/physical x old/SSM combinations passed optimizer recovery; all sources listed in the run's source manifest still match. Output and input-gradient parity exact; maximum parameter-gradient discrepancy 7.450580596923828e-9. No additional test rerun needed for unchanged covered behavior.
+
+Scope: tiny real-valued author-reference scan comparison and real-data batch64 engineering calibration on RTX2050/FP32. Shape adapter preserves the exact exercised author operation and rejects unsupported branches. This is a genuine selective recurrence, not evidence of improved activity accuracy. Existing old temporal results remain labelled gated convolution.
+
+Limitations before scientific full training: five timed steps reuse one resident GPU batch. Epoch extrapolation (SSM38.29–39.61s; old4.16–5.16s for25038 windows) excludes normal batch transfer, varying batches, full validation, checkpoint/logging cost and long-run thermal behavior. Measure a real epoch in the eventual runner smoke before setting full ETA. Peak SSM allocation about269–273MiB is measured tensor allocation, not total process/device memory. Current prefix checks recompute prefixes; they are not a separately implemented streaming-state API test. Do not claim such an API was validated. Dedicated generator recovery checks state/order, but training-runner pairing still needs an end-to-end epoch audit.
+
+T09 reference implementation/covered checks accepted; T10 runner integration, nominated graph/local-control validation and full-epoch smoke remain required. T08 stays OPEN under existing graph-promotion criteria. No graph winner is implied by T09. Do not repeat completed graph pilots.
+
+Next decision: retain full old/new x none/physical/nominated-graph temporal matrix and necessary local-capacity controls. No nominated candidate has met T08 criteria. A reference graph may be included as an exploratory control only, with that role frozen explicitly; this does not close T08. Final source pilot recipe and matrix require a separate executable handoff before training. Preserve O1/O2/O3 scope and all144 specified federation bundles.
