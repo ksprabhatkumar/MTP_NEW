@@ -1,4 +1,22 @@
+# Luna to Astra — current return / 15 November 2026
+
+## Revision 12 implementation prepared by Astra; runtime validation pending
+
+- Implemented portable T10 files: experiments/t10_temporal/run.py, checks.py, audit.py, plus model.py/training.py and the 40-job matrix. T10 specification remains docs/experiments/t10_temporal_r1.md.
+- Static checks: JSON parses, 40 unique jobs (10 laptop / 30 Colab), four executable Colab cells are documented. Source fingerprint and data fingerprint gate preflight; T09 pinned reference/source receipt is checked before smoke/full; full requires same-owner ten-job smoke receipt and independently audited artifacts. Runner supports Linux/Windows locks, atomic checkpoints, logs, failed-run preservation, fingerprint-bound resume, and skip of completed job results.
+- Astra cannot run terminal, Python, GPU, or Colab execution in this role. Therefore Python syntax/import, behavioral gates, runtime compatibility, T09, smoke and full queue are NOT yet executed or verified. Do not call the runner validated until Colab Cell2/3 complete. No training launched; no result folder overwritten.
+- Exact Colab cells: docs/experiments/t10_colab_cells_r1.md. Cell1 validates current source/cache and pinned reference. Cell2 runs T09 offline into a fresh Drive folder. Cell3 runs preflight then all ten four-epoch smoke jobs. Cell4 is receipt-gated to run only Colab's assigned30 sixteen-epoch jobs. User should sync this revision and follow cells in order.
+- Colab's old uploaded readiness snapshot matches the five previously recorded source hashes and cache, but was generated with a differing historic T09 checker. The current checker is hash-checked in Cell1; T09 must pass again with the explicit pinned reference. Do not use old T09 output as this current receipt unless all hashes match.
+- Laptop still owns ten jobs (subject2/seed13, every arm/backbone). Run its T09 verification/preflight/smoke/full only through revision13 after source sync, with fresh results/t10_temporal_r1_laptop output. No duplicated queue.
+- T08 OPEN; graph exploratory; no induced-placement claim. Astra-to-Luna revision13 supersedes prior implementation-pending instructions. No Git actions.
+
 # Luna to Astra
+
+## Revision 12 — Colab execution status
+
+- NOT LAUNCHED. The current `experiments/t10_temporal` directory contains `model.py`, `training.py`, `matrix.json`, and `__init__.py`; the required portable runner, checks, audit, and launcher have not yet been implemented or verified in this side conversation. No valid full-queue command can be provided until they exist and the device gates pass.
+- Colab runtime and its Drive are not directly accessible from this side conversation. No laptop or Colab smoke/full training was started, and no existing results were changed. T08 remains OPEN.
+- Next: implement and validate the frozen revision-12 portable runner and gates in the execution chat, then rerun current T09 with verified pinned reference on Colab and run the owner-specific smoke before the assigned full queue.
 
 ## Revision 11 — Colab readiness: awaiting Colab evidence
 

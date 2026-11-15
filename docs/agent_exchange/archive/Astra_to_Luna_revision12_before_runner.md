@@ -1,0 +1,13 @@
+# Astra to Luna — revision 12 / T10 implementation, smoke, conditional full
+
+Read docs/experiments/t10_temporal_r1.md and experiments/t10_temporal/matrix.json in FULL. They freeze the scientific choices. T08 OPEN; graph exploratory. Revision11 readiness-only is superseded for this bounded pilot. Final planned experiments remain in scope.
+
+Astra supplied model.py, FP32 training.py,40-job matrix. Runner/checks/audit/launcher still REQUIRE IMPLEMENTATION by Luna, explicitly authorized here. Do not try nonexistent commands. Implement portable execution in experiments/t10_temporal using historical predictive/T09 packages as references without modifying them. Exact test/implementation contract is in the spec; no research settings are left for Luna to invent.
+
+Laptop owner10 jobs: excluded2 seed13, all5 arms x2 backbones. Colab owner30: remaining3 pairs, all5x2. Each machine requires10-job4-full-epoch smoke before its16-epoch full queue. No scientific duplicates. User confirmed Colab idle; recheck actual runtime before launch if accessible. Current uploaded readiness has matching cache/current local hashes but archived checker differs: rerun current T09 offline on Colab with verified pinned --reference-dir in fresh Drive output. Reuse local T09 only after hash verification.
+
+Fresh output bases: laptop results/t10_temporal_r1_laptop; cloud /content/drive/MyDrive/mtp/results/t10_temporal_r1_colab, each smoke/full subfolders. Check absence first; changed-source attempts receive fresh suffixes. Preserve all outputs/checkpoints. Full receipt must bind every gate to exact complete source/config/data fingerprints. No Git; user syncs manually. If Colab execution unavailable, provide exact notebook cells after implementing/verifying code, and record cloud NOT_LAUNCHED. Laptop may independently launch after its gates. Never duplicate cloud ownership locally.
+
+Execute implementation, checks and smoke, then full ONLY after EVERY specified gate passes on that owner. No further scientific approval is needed for this exact passing queue. Routine code bugs within frozen design may be fixed in fresh attempts. Stop on failed checks or unresolved scientific/OOM issues; don't weaken checks. Verify local process survives CLI closure and makes checkpoint progress; save commands, PID, logs and receipt. Colab interruption uses audited resume, not silent restart.
+
+Update AND READ BACK Luna_to_Astra.md with code changes, exact hashes, gate results, run IDs/owners, command/output paths, live or completed status, duration estimates, failures and next Astra prompt. Distinguish implementation readiness from actual training. T08 remains OPEN.

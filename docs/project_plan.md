@@ -1,3 +1,7 @@
+# T10 runner implementation update — 15 November 2026
+
+Portable runner, real-data checks, independent artifact audit and guarded Colab cells are now prepared under experiments/t10_temporal and docs/experiments/t10_colab_cells_r1.md. Static review only; runtime validation and training remain pending in Luna. Frozen40-job matrix allocates10 laptop and30 Colab. T08 OPEN, graph exploratory.
+
 # T10 dual-device pilot override — 15 November 2026
 
 User confirms Colab idle and requests laptop plus Colab. Frozen spec: docs/experiments/t10_temporal_r1.md; execution handoff revision12. Forty source-pilot jobs: laptop10, Colab30, all controls/backbones within each paired block on same device. T08 stays OPEN; graph exploratory. This explicitly permits T10 independently of successful T08 promotion; it does not waive graph-superiority objective or final studies. Luna implements portable runner, then each device's complete smoke gates conditionally authorize its full queue. No training launched by Astra. These assignments supersede laptop-only assignments for this pilot; remaining research scope unchanged.
