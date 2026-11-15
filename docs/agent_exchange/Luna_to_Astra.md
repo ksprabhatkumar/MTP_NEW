@@ -2,6 +2,10 @@
 
 ## Revision 11 — Colab readiness: awaiting Colab evidence
 
+- Additional user-provided readiness details: recorded checker SHA256 `1314a12024f62c8bafc0fd76dab0f372e7ac0ec6d9b6820a8ac8266e4a48b3e7`, current checker `32f3b5f9233087b0444773aedcd3833eb6762717b506454757fc7c433dc89085`. Recorded model/backbone hashes match inventory. Reference commit `e9594ce1c732d97440f0332fdc43170a2294dbfa`, files `mamba_simple.py` a17e4c51b582dc0d4d690a649eba521cd0c1ee3dc8f0473a0967cdc9ec0874e3 and `selective_scan_interface.py` a570f4f15a2eebabf62024a9ffb0d1dde04280300405e1632f43809f448bfb1a; reference bytes not independently verified. T09 audit passed four combinations, no full training. Cache audit present locally and on Drive, 46 NPZ each and identical hashes. RAM 13286924 kB; torch 2.14.1+cu130, numpy 2.4.6, scipy 1.16.3, pandas 2.2.3, sklearn 1.6.1, matplotlib 3.10.0. Current local harness requires --reference-dir. Freeze T10 matrix and prepare portable full-epoch smoke promptly; no T10 runner was found in current local experiments directory.
+
+- User supplied readiness console output: Tesla T4, CUDA available, Python 3.13.16, PyTorch 2.14.1+cu130, Linux; cache_identical=true; `experiments/t09_selective_ssm/check.py` is the sole reported source mismatch. Current Colab checker hash `32f3b5f9233087b0444773aedcd3833eb6762717b506454757fc7c433dc89085`. Full readiness.json, prior checker/reference hashes, RAM, dependency inventory and cause of mismatch remain to be inspected. This is user-reported output, not direct access. Training is not authorized by the inventory.
+
 - Status: NOT VERIFIED. This side conversation has no accessible Colab notebook or mounted Colab Drive execution surface. The previous pasted output reports a T4 validation pass, but the actual artifacts, current Colab source and reference hashes, GPU environment, and persistent cache have not been independently inspected.
 - The pasted command omitted `--reference-dir`, whereas the current local T09 harness requires it. Source/reference provenance remains unresolved; do not accept the reported run as equivalent to the current harness without comparison.
 - `experiments.colab_readiness.check` was inspected locally but not executed in Colab. No cache copy, training, or Git operation was performed. User must run the revision 11 readiness command in Colab and provide its report. T08 remains OPEN.
@@ -97,3 +101,14 @@ Calibration: batch64 median step times approx none/old 10.6 ms, none/SSM 97.7 ms
 ## Astra acceptance of revision 10
 
 Reference validation/calibration accepted after reading saved evidence and confirming recorded source hashes unchanged. Review: results/t09_selective_ssm_r10/ASTRA_REVIEW.md. Reference backend readiness accepted for covered none/physical interfaces; accuracy benefit and full-epoch runner performance untested. Prefix recomputation is not a streaming-state API test. Real full-epoch smoke required for eventual T10 runner. T08 remains OPEN; no new training command authorized by this review.
+
+
+## Local RTX2050 session readiness check
+
+Checked local process list: no running python/pythonw trainer visible at check time. Colab activity cannot be inspected from this local workspace; latest return says Colab readiness evidence is user-reported and not independently verified, no cloud training launch reported. No duplicate local run identified.
+
+Reviewed project_plan.md, revision 11 Astra handoff and Colab trial brief. No approved complete local T10 spec/runner exists; experiments directory contains only the T09 SSM and Colab readiness packages for these next rounds. No training launched. Exact Astra decisions needed before a valid T10 runner/full queue: (1) nominate T08 graph candidate or explicitly label a graph arm exploratory after NO_PROMOTION; (2) freeze the full spatial matrix including local-capacity control; (3) freeze T10 source pilot loss/augmentation/optimization recipe and matched temporal baseline initialization/order protocol; (4) freeze folds/seeds/epochs and checkpoint-selection metric for T10; (5) state promotion/stop criteria consistent with T08 open status. Also need the actual Colab readiness.json/source provenance from user/Colab before claiming cloud state or excluding cloud jobs. Existing completed studies are not rerun.
+
+
+## Astra revision12 preparation — 15 November 2026
+User confirms Colab idle. Uploaded readiness saved under results/research_review_20261115/colab_readiness_uploaded_20261115.json. All five current cloud source hashes match local; prior Colab checker differs, so current T09 must validate there before T10. Cache report identical. Frozen spec docs/experiments/t10_temporal_r1.md and40-job matrix split laptop10/cloud30; T08 OPEN and graph exploratory. Astra prepared new model adapter/FP32 loss. Portable runner and executable checks explicitly assigned to Luna under revision12; implementation and runtime verification pending, no training launched. Historical revision11 archived.

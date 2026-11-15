@@ -1,0 +1,358 @@
+{
+  "experiment": "t10_temporal_r1",
+  "status": "SPEC_FROZEN_IMPLEMENTATION_AND_SMOKE_REQUIRED",
+  "features": "mag_dot",
+  "temporal": [
+    "old",
+    "ssm"
+  ],
+  "arms": [
+    "none_clean",
+    "none_robust",
+    "physical_robust",
+    "local_repair",
+    "graph_repair"
+  ],
+  "epochs": 16,
+  "batch_size": 64,
+  "precision": "fp32",
+  "seeds": [
+    13,
+    29
+  ],
+  "excluded_subjects": [
+    2,
+    5
+  ],
+  "smoke": {
+    "epochs": 4,
+    "pair": [
+      2,
+      13
+    ],
+    "all_arms": true,
+    "all_temporals": true
+  },
+  "jobs": [
+    {
+      "id": "old__none_clean__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "none_clean",
+      "owner": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "none_robust",
+      "owner": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "physical_robust",
+      "owner": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "local_repair",
+      "owner": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "graph_repair",
+      "owner": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "owner": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "owner": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "owner": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "owner": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_2__seed_13",
+      "subject": 2,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "owner": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "old__none_robust__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__physical_robust__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__local_repair__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "old__graph_repair__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "graph_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_clean__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_robust__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__physical_robust__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__local_repair__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__graph_repair__subject_2__seed_29",
+      "subject": 2,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "old__none_clean__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "old__none_robust__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__physical_robust__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__local_repair__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "old__graph_repair__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "old",
+      "arm": "graph_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_clean__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_robust__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__physical_robust__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__local_repair__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__graph_repair__subject_5__seed_13",
+      "subject": 5,
+      "seed": 13,
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "old__none_clean__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "old__none_robust__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__physical_robust__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "old__local_repair__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "old__graph_repair__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "old",
+      "arm": "graph_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_clean__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__none_robust__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__physical_robust__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__local_repair__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "owner": "colab"
+    },
+    {
+      "id": "ssm__graph_repair__subject_5__seed_29",
+      "subject": 5,
+      "seed": 29,
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "owner": "colab"
+    }
+  ]
+}

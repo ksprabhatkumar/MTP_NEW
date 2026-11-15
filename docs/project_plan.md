@@ -1,3 +1,7 @@
+# T10 dual-device pilot override — 15 November 2026
+
+User confirms Colab idle and requests laptop plus Colab. Frozen spec: docs/experiments/t10_temporal_r1.md; execution handoff revision12. Forty source-pilot jobs: laptop10, Colab30, all controls/backbones within each paired block on same device. T08 stays OPEN; graph exploratory. This explicitly permits T10 independently of successful T08 promotion; it does not waive graph-superiority objective or final studies. Luna implements portable runner, then each device's complete smoke gates conditionally authorize its full queue. No training launched by Astra. These assignments supersede laptop-only assignments for this pilot; remaining research scope unchanged.
+
 # Binding scope clarification — 15 November 2026
 
 User confirms laptop may run as long as needed. Research-grade completion takes priority over the provisional accelerated dates. Retain ALL required experiments previously planned for the workstation; relocate them to the laptop. Do not reduce controls, folds, seeds, epochs, rounds, model arms or evaluation coverage merely because hardware is smaller. The ten-day allocation below is superseded as a completion estimate. No deadline has been imposed.
