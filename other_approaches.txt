@@ -1,0 +1,356 @@
+OTHER APPROACHES FOR PLACEMENT-ROBUST WEARABLE HAR
+Research review: 17 November 2026
+Proposals only. T08 OPEN. No training authorization; no expected accuracy gain is guaranteed.
+
+1. RECOMMENDATION
+
+PRIMARY: bounded physical displacement augmentation plus source-only worst-group learning on the robust NO-GRAPH selective SSM (A). Separate coordinate rotation from position shift, and ask what residual failure remains after invariance. Graph routing is a controlled experimental factor, not a required winner.
+BACKUP: compact multi-lag within-IMU geometry with an optional signed-volume feature (B). This is easier and cheaper; its novelty is weaker and needs an information-preservation/efficiency argument plus strong comparisons.
+
+C (learned equivariant representation) is a strong comparator and a possible higher-cost direction. D (dual experts), E (donor-utility graph correction), F (self-supervised temporal geometry) are secondary options. Do not run every family merely because it is plausible.
+
+Direct prior-art constraints:
+- TRI-HAR (ISWC2026) already combines per-location equivariance/invariance with REALDISP mutual-displacement evaluation [R1]. Neither invariant multi-IMU HAR nor testing it on real displacement is new.
+- MODA (CVPR2025) studies motion-drift augmentation [R2], and WIMUSim realistic IMU variability [R3]. Physics-aware augmentation is not itself new.
+- Masked reconstruction plus Siamese/temporal rotation consistency has already been studied [R9].
+- Dynamic interactions, SSM-related wearable fusion and sensor transferability weighting are established in DynamicWHAR, DecomposeWHAR and SALIENCE [R6-R8].
+
+A defensible primary hypothesis is narrower: after removing fixed mounting rotations through invariance, does a bounded same-segment position-shift model with source-defined worst-group training improve remaining real-placement errors beyond generic gain/drift, rotation augmentation and published motion-drift augmentation, under matched capacity and compute? This is a candidate distinction, not established novelty. A detailed comparison with MODA/WIMUSim may invalidate it. A new method name or replacing a temporal module with Mamba is insufficient. No finite search proves absence of prior art.
+
+2. PROJECT REVIEW AND SAVED EVIDENCE
+
+Reviewed objectives/methodology, report/literature sections and bibliographies, and relevant context in:
+ resources/objectives_methodology.tex; resources/mtp1_a_full_report.tex;
+ resources/mtp_1_a_report.tex; resources/mtp1_presentation.tex;
+ resources/roadmap_review.tex; resources/additional_chat.txt; context.text;
+ resources/research_1.txt; resources/research_2.txt;
+ resources/new/alternative_approaches.md; resources/new/deep_research_result.md.
+The separate colloquium PDF was not independently extracted; its narrative was reviewed through the available report source. The old context contains globally normalized historical code: it must not override current fold-specific preprocessing.
+
+Objectives: O1 adaptive inter-sensor relationships, O2 rotation-stable representations, O3 federated learning across users. A no-graph winner changes the O1 conclusion, not the validity of O2/O3. A formal title/objective revision should be explicit if the final evidence does not support a graph claim.
+
+Reviewed results and implementation:
+ ../results_1/obj_1/explain.md; ../results_1/obj_2/explain.md; ../result_2/explain.md;
+ results/o2_full_20261017_075315/summary.json;
+ results/summer_o2_session_20261021_173341/training/summary.json;
+ results/t08_utility_gate_r6/full/summary.json;
+ results/t10_temporal_r1_laptop_fix2/full/jobs/*/result.json and environment.json;
+ results/t09_selective_ssm_r10/environment.json;
+ dataset/workstation_o1/audit.json and recording metadata;
+ o2_features.py; run_o1_selection.py; current T10 sources, specification and handoffs.
+Donor/predictive conclusions below also use the earlier consolidated result_2 review. This document is not a fresh checkpoint evaluation or full-file reproducibility audit.
+
+2.1 Do not combine unlike experiment families
+Modified O2 pipeline, nine primary jobs per condition, three held-out subjects and three seeds:
+ Input/fusion                  Ideal fixed33 F1    Induced fixed33 F1
+ raw/no graph                      94.224%              18.215%
+ rotation-trained raw/no graph      91.625%              83.727%
+ magnitude/no graph                 93.780%              87.274%
+ mag+dot/no graph                   94.491%              87.886%
+ mag+dot/residual                   94.512%              87.526%
+These values come directly from the original summary. The graph difference is only0.360 percentage points; it does not prove all graphs harmful.
+
+Restored summer pipeline, separately: induced F1 magnitude/no graph85.842%, mag+dot/no graph87.116%, mag+dot/residual86.551%, mag+dot/physical85.992%. Different recipes prevent treating them as replications of the same experiment. The earlier report shows substantially worse induced results for subject15. Its mutual4 file is all-zero and excluded. Coverage and subject-level outcomes must accompany averages.
+
+Later predictive graph source-validation gains were approximately+0.218pp self F1 versus robust no graph and+0.119pp versus local capacity, on two validation subjects/two seeds. The temporal donor audit found small substitution effects; removing correction hurt more, but alternative donors sometimes helped. This does not establish correctly aligned donor information as the source of gains. Utility gating did not earn promotion: graph-gated and frozen no graph both had94.05994% self F1.
+
+Completed T10 laptop block: excluded subject2, validation subject3, seed13,16epochs. SSM graph self F1=94.8843%, robust no graph=94.7260%, local repair=94.7484%. Margins are+0.158 and+0.136pp on ONE validation subject. Old-temporal graph remains below local repair. These are source-validation outcomes, not new induced confirmation. Running/smoke queues are not presumed complete from historical chat text.
+
+The strongest observed change is the representation change. It does not establish that all real displacement is rotation. Induced subjects2,5,15 have already informed research decisions; repeated evaluation there is exploratory.
+
+3. GEOMETRY AND DATA CONTRACT
+
+Audited raw windows: [T,N,F]=[50,9,6], stride25; declared rate50Hz. Six channels are acceleration a and angular velocity w. Subject, recording, scenario, window-start and availability metadata exist. Induced subjects are[2,5,15]. Retain the three known invalid all-zero-file exclusions in O2Corpus.
+
+Current five-channel mag+dot is exactly
+ u_i(t)=[||a_t||,||w_t||,a_t^T w_t,a_t^T a_(t-1),w_t^T w_(t-1)].
+The first lag uses the first sample itself. This is not a full Gram representation. If the same fixed proper rotation R_i acts on both modalities throughout a window, u(R_i X_i)=u(X_i). Time-varying rotations generally change lag terms. Transform raw vectors before feature normalization; fit scalar statistics on training subjects only.
+
+Independent mounting rotations form SO(3)^9. Cross-sensor vector dot products are not invariant to independent R_i and R_j. Fuse vectors only after a valid shared-frame alignment, or fuse invariant scalars. A no-graph temporal/classifier model can still mix sensors: no graph does not mean no cross-sensor information.
+
+Orientation offsets, translation on one rigid segment, soft-tissue motion, arbitrary body-site relocation, dropout and channel permutation are different interventions. No exact per-sensor displacement vector or time-aligned ideal/induced trajectory was established in the processed metadata reviewed. Do not train a physical displacement regressor from scenario labels, or treat same-activity recordings as aligned motion pairs.
+
+4. APPROACH A: BOUNDED PHYSICAL DISPLACEMENT + WORST-GROUP LEARNING
+Rank1; primary; works with graph or no graph.
+
+Idea/mathematics (proposed adaptation of established mechanics): for a point offset r fixed on the SAME rigid segment, expressed in the original sensor frame,
+ delta a(t,r)=alpha(t) cross r + w(t) cross (w(t) cross r).
+With a constant new mounting rotation Q:
+ a'(t)=Q[a(t)+delta a(t,r)], w'(t)=Q w(t).
+Gravity is approximately equal at nearby points and cancels in the difference. Convert gyro to radians/s and acceleration to SI units before calculating. Estimate alpha=dw/dt using a fixed smoothing/derivative operator. Constant r excludes relative-motion/Coriolis terms; the model does not describe a loose strap or crossing a joint.
+
+Define training groups g by source subject or synthetic intervention family/severity. Start with coarse family groups to avoid sparse subject-by-class cells. Use
+ L=L_clean+lambda sum_g q_g L_g,
+ q_g <- q_g exp(eta L_g), normalized to sum1.
+This is a group-DRO-style rule [R4]. Compare ERM with identical augmented samples. Class-balanced source sampling may be necessary so hard activities are not confused with nuisance severity. Group weights and all parameters use training/source validation only.
+
+Why it may help: fixed rotation invariance does not remove acceleration changes due to position. Gyro may provide relatively position-stable motion on a rigid segment. Worst-group learning may prevent easy subjects dominating the average. It can also amplify noisy labels or sparse classes.
+
+Prior art/distinction: MODA[R2], WIMUSim[R3], rigid-part position-invariant recognition[R12] and DRO[R4] directly limit novelty. Candidate gap: source-only bounded position stress AFTER invariant encoding, with explicit rotation-versus-position and ERM-versus-DRO controls. Claim novelty only after full algorithm comparison; a small implementation is a feasibility choice, not a new scientific principle.
+
+Integration: new augmentation module before o2_features.features; CPU-staged raw windows; same five-channel SSM baseline initially. Estimate derivatives inside recording boundaries with valid context masks. Preserve sensor identity and availability. Put changes in a new experiment namespace; do not edit an active T10 run's snapshotted scientific source.
+
+Controls/ablations: clean ERM, rotation only, current gain/drift, offset only, rotation+offset, same samples with ERM/DRO; acceleration-only, gyro-only and combined; r=0/Q=I sanity cases; derivative smoothing and source-defined severity; matched local capacity and one graph arm after no-graph mechanism evidence. Reproduce MODA faithfully; if WIMUSim needs unavailable calibration/kinematics, label the comparison limitation rather than inventing its inputs.
+
+Risks: incorrect units/frame sign, noisy derivatives, physically implausible offsets, saturation or label-changing severe stress. No tuning r on subject15 induced outcomes. Real soft-tissue shifts may violate the model. Rotating by a time-varying Q(t) without modelling its additional angular motion is not a physically valid loose-mount simulation.
+
+Paper evidence: improvement beyond matched generic and published augmentation, stable subject-level recorded-placement gains, retained ideal performance, sensitivity curves and new independent confirmation. If only synthetic rotation improves, reject the physical-position claim. If DRO adds nothing, remove that claim.
+
+Estimated implementation2–4developer days. Per16-epoch robust no-graph SSM job: laptop0.45–0.90h; workstation conditional scenario0.15–0.90h (Section10). No new runtime was measured.
+
+5. APPROACH B: COMPACT MULTI-LAG GEOMETRY
+Rank2; backup; no graph required.
+
+Let v,u be acceleration or gyro, and L a small predeclared lag set (e.g.{1,2,4} is a proposal, not a tuned choice). Add
+ G_(v,u,l)(t)=v(t)^T u(t-l),
+ C=G/[(||v(t)||+epsilon)(||u(t-l)||+epsilon)].
+Retain magnitude channels to preserve intensity. Differences ||v_t-v_(t-l)|| are determined by norms/dots: they are a reparameterization control, not extra information.
+
+Optional signed volume:
+ V_l(t)=a_t^T[a_(t-l) cross a_(t-2l)], with an all-gyro analogue.
+It is invariant under det(R)=+1 and can distinguish signed geometry lost by ordinary same-vector Gram features under abstract reflection. Gyro is an axial vector: do not claim physical mirror invariance by treating acceleration and gyro identically under improper rotations. The guarantee is SO(3). Signed volumes may be nearly zero for planar motion or noise-sensitive. Mask unsupported prefixes instead of inventing preceding samples.
+
+Why: preserve temporal motion geometry discarded by five scalars. Limits: absolute orientation is still lost; translation and within-window mounting changes remain. More features may simply add capacity or redundant noise.
+
+Prior art/gap: geometric/SVD invariants[R5], learned local invariants[R1], temporal Gram consistency[R9], and our lag-one features. Candidate distinction is a small information-audited feature family with a measured accuracy/efficiency trade-off. More dots alone is weak novelty.
+
+Integration: new feature mode with explicit width p and p->d projection; version WIDTHS/config/preprocessing. Parameter-match the changed first layer. Keep T50 and SSM dimensions unchanged initially; no dense100x100 Gram matrix per IMU.
+
+Controls: magnitude, mag+dot, temporal lags only, cross-modal lags, normalized/unnormalized products, signed term on/off, capacity-matched scalar controls, geometric/SVD preprocessing and TRI-HAR-like encoder. Test fixed independent rotations, time-varying rotations and real placement separately. Report low-motion numerical stability and affected classes.
+
+Risks: lag caches crossing recording/split boundaries, test-derived normalization, loss of informative posture axes, and induced-driven lag selection. Compute lag support consistently across controls.
+
+Paper evidence: useful new temporal information beyond lag-one, fair learned-invariant comparisons, real displacement and efficiency. If it merely matches existing approaches, frame it as a compact baseline/benchmark contribution subject to venue expectations.
+
+Estimated1–2developer days;0.45–0.65laptop h/job; conditional workstation0.15–0.65h. Four variants x four source fold/seed pairs=16jobs,7.2–10.4laptop h before reserve, minus exactly compatible anchors.
+
+
+6. APPROACH C: LEARNED PER-IMU EQUIVARIANT ENCODER BEFORE SCALAR SSM
+Rank3; expensive comparator/conditional research direction.
+
+Maintain vector channels V_i(t) in R^(c x3). Linear mixing W V commutes with right multiplication by R^T. Use equivariant nonlinearities/normalization, then norms or inner products:
+ E(R_i X_i)=E(X_i)R_i^T,
+ z_i=Invariant(E(X_i)), p=Classifier(SSM(Fuse(z_1,...,z_9))).
+Coordinate-wise ReLU generally breaks equivariance. Independent invariance must precede cross-IMU vector fusion. Isotropic modality scaling is required before vector layers.
+
+Why: learned geometry may retain more class information than handcrafted scalars. Limits: larger activations, no position-shift guarantee, discarded absolute orientation, and possible overcapacity for T50. It is not invariant to arbitrary time-varying rotations without further assumptions.
+
+Prior art: Vector Neurons[R10] supplies the toolbox; TRI-HAR[R1] is a direct wearable method with recorded-displacement evidence. A straightforward reproduction is a comparator, not our novelty. An uncertainty-aware bottleneck or a carefully justified temporal integration would need its own precise mechanism; simply replacing its backbone with Mamba is weak distinction.
+
+Integration: shared per-sensor vector encoder -> invariant scalar features -> fixed-width projection -> verified SSM. Keep nominal sensor identity and availability. Reuse T09 tests only for unchanged SSM code, and add numerical full-path invariance checks. Prototype small width before assuming4GB fits.
+
+Controls: author TRI-HAR, minimal VN, mag+dot, B, joint-global versus per-location fusion, scalar parameter/FLOP controls, no/fixed/dynamic sensor fusion. Same six channels, splits, training budget. Original paper scores remain separate from reimplemented project-protocol scores.
+
+Risks: hidden coordinate-wise normalization, cross-IMU vector mixing, external preprocessing differences, and extra capacity posing as invariance gain. No magnetometer/quaternion advantage unless comparator inputs match.
+
+Evidence: representation benefit beyond both handcrafted and published learned invariants, accurate invariance proof/test, real-placement evaluation and training/inference cost. Estimated3–6developer days;0.9–2.3laptop h per16-epoch job, conditional workstation0.3–2.3h. Memory fit is unverified; workstation preferred for this family.
+
+7. APPROACH D: INVARIANT / AXIS-SENSITIVE EXPERT MIXTURE
+Rank4; conditional on a persistent clean-versus-shift trade-off.
+
+Train invariant expert p_I and raw-axis expert p_A. Combine probabilities:
+ p(y|X)=g(z(X))p_I(y|X)+(1-g(z(X)))p_A(y|X), 0<=g<=1.
+Train the gate using out-of-fold SOURCE predictions and mixture CE. Features can include disagreement, source-calibrated uncertainty, rotation sensitivity and cross-sensor consistency. Gate inputs must not include test scenario labels. Entropy alone is not a displacement detector; confident errors exist.
+
+Why: preserve useful ideal posture/orientation information while retaining a robust expert. Limits: mixture usually loses exact invariance; gate may recognize activity/subject/recording signatures rather than misplacement. A synthetic quality label is not a physical-placement label.
+
+Prior art: SALIENCE[R8] already uses sensor transferability attention with target adaptation; inconsistent-wearable work used invariant substitute classifiers[R13]. Conditional fusion is established. Candidate distinction is source-only, recording-separated gate calibration and reliable risk/coverage evidence, not first adaptive HAR.
+
+Integration: start with frozen compatible checkpoints, cache logits keyed by corpus index/recording and train a small gate. A new raw/SSM expert is needed if existing raw checkpoints have another recipe. Each gate-training example needs predictions from experts that did not train on that subject. Existing pilot checkpoints are not automatically OOF for all source subjects.
+
+Controls: each expert, equal mixture, source-tuned constant mixture, learned gate, simple logistic stacking, a larger single-model capacity control, and explicitly labelled ORACLE routing as a bound. Ablate uncertainty cues. Evaluate NLL/Brier/ECE, false alarms by activity, selective risk and coverage. Abstained windows cannot vanish from the accuracy denominator without disclosure.
+
+Risks: OOF leakage, mismatched class ordering, gate collapse, unseen scenario confidence shifts. Accurate activity predictions do not establish localization of the misplaced sensor. Such a claim needs per-sensor ground truth not established in processed metadata.
+
+Evidence: improved ideal/shift trade-off versus each expert and simple averaging, robust source-only gating on unseen users, calibration and deployment overhead. Estimated2–4developer days; gate fit minutes to1h once caches exist; paired expert training0.7–1.5laptop h/fold/seed, conditional workstation0.23–1.5h, BEFORE OOF fold multiplication. Inference generally requires two expert passes.
+
+8. APPROACH E: CROSS-FITTED DONOR-UTILITY GRAPH CORRECTION
+Rank5; graph hypothesis, lower priority after the failed utility gate.
+
+Keep robust local path h_i. Let m_ij=P(h_j,e_ij), j!=i, be receiver-blind donor predictions. Form
+ a_ij=softmax_j(b_ij-tau*s_ij),
+ h'_i=h_i+g_i sum_(j!=i) a_ij m_ij, 0<=g_i<=g_max.
+Include an explicit null donor. s_ij is invariant inconsistency/uncertainty, not raw-axis disagreement. Cross-fit teachers on source subjects to create a utility target: whether the donor decreases classification loss relative to the local-only path on held-out SOURCE examples. Stop gradients through targets. Do not train the utility head only on overfit teacher predictions for its own training data.
+
+Why: judge corrective usefulness instead of correlation. Limits: mutually wrong sensors can agree; complementary limb motions need not agree; useful edges need not be anatomical. Another gate with the same failed target is not a meaningful new method.
+
+Prior art: DynamicWHAR[R6], DecomposeWHAR[R7], SALIENCE[R8], plus our predictive graph and failed utility gate. Candidate distinction is cross-fitted utility targets with causal donor interventions. Attention, residual correction and gating themselves are established.
+
+Integration: new predictive-model branch, frozen baseline first, invariant scalar donor summaries, identical local virtual-slot capacity control. Preserve zero-correction initialization and numerical equivalence tolerances. Keep SSM as a matched independent factor.
+
+Controls: no graph, local capacity, old predictive graph, ungated graph, previous utility gate, fixed/random edges, null-only, degree/parameter controls; remove/shuffle donors. Temporal donor tests must exclude overlapping windows, match availability and evaluate the same eligible receiver subset. Same-activity donor labels are diagnostic only, never deployment inputs. Permutations are repeated interventions, not independent subjects.
+
+Risks: cross-fitting teacher contamination, synthetic utility not transferring to real placement, graph smoothing away local evidence, and post-hoc selection of favorable donor subsets. Report eligibility and per-subject sign, including negative outcomes.
+
+Evidence: graph exceeds strong no graph AND local capacity on a frozen real-placement protocol; removing truly informative donors removes its advantage. If not, reject the graph mechanism. Estimated3–5developer days;0.8–1.5laptop h per16-epoch graph job, conditional workstation0.27–1.5h, plus teacher cross-fitting and donor-audit evaluation. No improvement is promised.
+
+9. APPROACH F: SOURCE-ONLY SELF-SUPERVISED TEMPORAL GEOMETRY
+Rank6 for deadline feasibility; useful if label efficiency is central.
+
+Two source views X,T(X), student f and stop-gradient teacher h:
+ L=L_masked_invariant+lambda||q(f(T(X)))-stopgrad(h(X))||^2
+   +mu*L_temporal_structure+nu*L_variance.
+Predict invariant masked geometry rather than arbitrary raw xyz from an invariant bottleneck; alternatively condition a raw decoder on the known applied rotation. Mask contiguous spans to avoid trivial interpolation. Use a validated non-collapse mechanism. Applying fixed rotation to already invariant mag+dot gives the same input: consistency alone can be redundant, not a new learning signal.
+
+Why: exploit unlabeled SOURCE recordings and preserve dynamics beyond class labels. Limits: pretraining can learn subject or recording identity, and cannot recover information discarded by the representation.
+
+Prior art: TS2Vec[R11] establishes time-series representation learning; recent Siamese masked reconstruction and rotation/temporal consistency[R9] directly overlaps this objective. Displacement-specific physically valid views plus an invariant target and rigorously separated evaluation are a possible distinction, pending novelty review. Adding SSM is insufficient alone.
+
+Integration: pretrain encoder/SSM per outer training split; supervise fine-tuning with a frozen budget. No unlabeled held-out subjects unless a separately labelled transductive protocol is intended. A model pretrained globally across all users is not valid source-only LOSO. Keep external pretraining datasets and overlap checks explicit.
+
+Controls: from scratch, longer supervised compute-matched training, masked-only, consistency-only, combined, TS2Vec, R9, label-budget curves, linear probe versus full fine-tuning. Avoid overlapping neighboring windows as independent contrastive examples; same-activity negatives may be false negatives.
+
+Risks: recording shortcuts, augmentation destroying labels, test-user pretraining leakage, reconstruction of nuisance axes, and extra training compute driving gains. Evidence needs label-efficiency curves and matched-compute comparisons plus real-placement generalization.
+
+Estimated3–6developer days. Illustrative50pretrain epochs+16fine-tuning epochs:2–6laptop h/fold/seed; conditional workstation0.67–6h. This epoch count is a costing scenario, not an approved setting. Multiple views and fold-specific pretraining favor workstation memory.
+
+10. HARDWARE AND COST INTERPRETATION
+
+MEASURED/DOCUMENTED:
+- Laptop saved environments identify NVIDIA GeForce RTX2050, PyTorch2.5.1+cu121. User reports4GB VRAM and approximately16GB system RAM. Native transparent PyTorch SSM is in use; fused-kernel speedups are not assumed.
+- Workstation is explicitly documented as RTX2000 Ada16GB in resources/new/deep_research_result.md section10. NVIDIA confirms the PRODUCT has16GB[R14]. This is a project record, not a fresh inventory of the actual workstation. No verified CPU, system RAM, driver, power limit or whole-job SSM timing was found in the inspected environment records. Do not substitute T4, RTX A2000 or RTX4090 specifications. The user's current execution plan remains laptop-only; workstation recommendations are optional if available, not an automatic reassignment.
+
+Actual completed T10 subject2/seed13 16-epoch cumulative history train.seconds (includes validation):
+ old clean no graph281.03s=4.68min; old robust no graph630.62s=10.51min;
+ old graph430.99s=7.18min;
+ SSM clean no graph742.49s=12.37min; SSM robust no graph1637.87s=27.30min;
+ SSM physical1972.94s=32.88min; SSM local2631.28s=43.85min;
+ SSM graph2680.47s=44.67min.
+Ten jobs together12072.64s=3.35h. The1.74h receipt is an invocation timer, not cumulative workload. These are noisy recorded wall times, not pure architectural speed ratios: validation, workload and contention matter. New actual-stress hashing adds transfers; old timings predate it.
+
+T09 short projected epochs (~4–5s old, ~38–40s SSM) are not queue wall times. Peak allocated tensors (~80–86MiB old, ~269–273MiB SSM) from that short calibration are not total VRAM and do not establish memory fit for C/F.
+
+ESTIMATES:
+All A–F training ranges refer to roughly the observed fold/recipe and exclude setup/retries/final audits; add25–40% reserve. Implementation days are developer effort, not GPU hours, broadly the same on both machines except external environment setup. Workstation ranges are sensitivity scenarios ONLY: assume speed factor s between1 and3, T_W=T_L/s. This is not a measured speedup or confidence interval; CPU/runtime limitations can put it outside this range. Four times the VRAM does not imply four times the speed.
+
+Future calibration, not executed here: time complete warm-up and smoke epochs with actual validation/checkpoint I/O on both machines at identical batch64, FP32 and sources. Then
+ T_queue=sum_jobs(T_setup+epochs*T_epoch_including_validation+T_final_audit).
+Include pretraining and cross-fitting. Estimate separately by fold/arm. Keep changes to mixed precision or fused kernels as explicit verified amendments. Measure batch1 inference latency with GPU synchronization and warm-up, preprocessing overhead, peak memory and parameters.
+
+Device allocation recommendation:
+ Laptop: unit/geometry/invariance checks, A/B source pilots, cache/audit/plots and writing. All retained scientific work can run sequentially here.
+ Workstation if available: C vector encoders, F pretraining, D/E cross-fit teachers and larger final seed/fold blocks. Keep all matched arms of a fold/seed on the same device when possible; run an identical anchor on both and report remaining hardware differences. Extra RAM/VRAM must not silently change batch size, channels or protocol. Assign explicit IDs to prevent duplicate jobs.
+
+
+11. EVALUATION, LEAKAGE AND REUSE CONTRACT
+
+Data separation:
+Use source-subject ideal recordings for fitting. Current source screen excludes subjects2/5, validates3/8, seeds13/29. That is two validation subjects, not four independent people. Planned final folds2/5/15 and seeds13/29/47 remain required where scientifically compatible, but their induced data are already inspected. A new seed is not independent confirmation; nested validation cannot undo earlier human decisions informed by target results.
+
+For a stronger paper obtain a locked new displaced cohort or genuinely untouched recordings/subjects with a documented inspection history. A second dataset with comparable RECORDED shifts is valuable. Ordinary DSADS/PAMAP2 plus synthetic rotations tests transfer/invariance, not independent physical displacement. If new data are unavailable, clearly state retrospective exploratory REALDISP evidence instead of claiming untouched confirmation.
+
+Split by subject/recording before overlapping windows. For temporal splits purge at least the full raw support of windows plus lag/derivative/pretraining context. T50/stride25 means adjacent windows share half the samples. No random window splits, overlapping donor retrieval, test-derived feature statistics, or test-user BatchNorm adaptation in the source-only protocol. Cache recording metadata and fingerprints; keep unavailable/all-zero inputs masked consistently.
+
+Matched comparisons:
+Hold backbone, class set, channels, optimizer, precision, batch size, training steps and validation fixed. Parameter/compute-match extra modules. Extra feature channels change the first layer. Published model scores from other splits/modalities are not directly comparable. If external reproduction is impossible, say so and narrow the claim rather than presenting a surrogate as the original method.
+
+Checkpoint selection: source ideal fixed33 macro-F1 as in T10. Predeclare candidate ranking on source self and clean-deficit tolerance; inherited0.5pp ideal deficit is a reasonable screening constraint, not a significance threshold. Never select on induced results. Freeze the candidate count/stopping rule before expensive evaluation. Do not search indefinitely until a graph wins.
+
+Metrics: fixed33 macro-F1 and accuracy per subject/scenario; class support/per-class F1/confusions; paired seed-averaged subject deltas; ideal-to-shift degradation; coverage/missing-sensor records; calibration; latency, memory, parameters and total compute. Common-class metrics are supplementary and must be labelled. Separate sensor dropout, rotations and relocation.
+
+Only three induced subjects make uncertainty fragile. Seeds/windows are not independent population units. Show every subject and sign; do not infer a tiny population p-value from overlapping windows. Subject/recording hierarchical bootstrap may be descriptive with an explicit small-sample caveat. Independent participants provide stronger evidence than more seeds. Report all exploratory candidate comparisons and selection history.
+
+Reuse ledger:
+- Historical O2 predictions/summaries: reuse for descriptive figures, class errors, baseline context and negative evidence. They are matched controls only if data/source/config/selection fingerprints match the new study. Another SSM recipe usually needs new matched training.
+- T09 correctness/reference evidence: reusable for unchanged component hashes. New frontend geometry still needs its own tests.
+- Completed T10 jobs: preserve and reuse as mag+dot anchors when scientifically compatible. They lack historical actual-stress hashes; a later probe cannot recreate that proof. Do not automatically discard or retrain them, and do not claim the missing historical property verified.
+- T08 frozen checkpoints: useful for donor/gate mechanism analysis and suitable expert diagnostics; not evidence for a new untrained representation. No warm-start across folds that introduces a held-out user through another fold's training.
+- Failed attempts remain engineering evidence; never include smoke in scientific averages. Active queues are separate from this proposal.
+
+12. PRIORITY AND BOUNDED RESEARCH PLAN
+
+Rank | Approach | Research value / main concern | Effort
+1 | A physical offsets+DRO | High if distinct from MODA; physical assumptions must hold |2–4dev days
+2 | B compact lag geometry | Medium; cheap and clear, novelty risk high |1–2days
+3 | C learned equivariance | High comparator value; reproduction itself is not new |3–6days
+4 | D dual experts | Medium if ideal/shift trade-off persists; gating leakage risk |2–4days+OOF
+5 | E donor utility graph | Conditional high mechanism value; earlier gate failed |3–5days+teachers
+6 | F SSL temporal geometry | Useful label-efficiency question; high prior overlap/compute |3–6days+pretrain
+These are qualitative research judgments, not predicted accuracy ranks.
+
+Proposed order, requiring a separate frozen execution specification:
+1. Finish and audit the already authorized T10 blocks; do not change active sources for these ideas.
+2. Verify A's units, frame conventions, derivative support and realistic offset bounds from SOURCE/documentation. If these cannot be justified, use B as the primary feasible direction.
+3. Initial A source screen: existing gain/drift anchor, physical-offset ERM, rotation+offset ERM, identical augmented samples with DRO. Four source fold/seed pairs =>16jobs, minus exactly compatible anchors. Illustrative laptop7.2–14.4h before reserve. This screen is not the paper matrix; other necessary controls follow if the mechanism passes.
+4. Prepare B's four feature variants;16 source jobs cost about7.2–10.4h if all new. Avoid broad simultaneous sweeps across six families. Keep all outcomes, including failed hypotheses.
+5. Select ONE main method on source evidence. Complete its declared raw/rotation/magnitude/mag+dot controls, ablations, no-graph/local/graph contrasts and published comparators. An example six-condition x three-final-subject x three-seed matrix already has54jobs for ONE temporal choice. At A's estimated cost this is24.3–48.6laptop h before reserve; temporal/graph/pretraining factors multiply it. Do not present a16-job screen as full thesis completion.
+6. Freeze final method before new independent recorded-displacement evaluation. Old induced evidence remains exploratory; new collection must be separately consented/protocolled and is not assumed available in a week.
+7. Carry the supported representation into O3 using its explicit federated protocol. This review neither drops O3 nor silently adds target-user adaptation.
+
+Primary paper evidence: physical/unit validity; benefit beyond matched generic and published augmentation; source-controlled model choice; subject-level recorded-placement robustness with acceptable clean performance; independent confirmation or explicit exploratory limits; measured cost and reproducibility. If DRO adds nothing or the physical model fails, remove those claims. A modest reproducible gain can matter; there is no justified4–5pp promise.
+
+Backup paper evidence: exact invariance proof/tests, isolated added temporal information, comparisons to strong geometric/learned invariants, efficiency and real-placement evaluation, and analysis of lost orientation information. If it only matches prior methods, position it as a compact baseline/benchmark with appropriate venue expectations.
+
+One week can plausibly cover development, bounded source screens and substantial analysis with continuous compute. It cannot be guaranteed to cover stronger comparators, new independent collection, all final centralized experiments and O3. Prefer one narrow defensible story; do not quietly reduce the retained scientific scope to meet a calendar target.
+
+13. PRIMARY REFERENCES AND VERIFICATION LIMITS
+
+[R1] Baek et al. Rotation-Invariant Multi-IMU Activity Recognition under Independent Per-Location Orientation Shifts (TRI-HAR), ISWC2026.
+https://arxiv.org/abs/2608.15621
+https://arxiv.org/html/2608.15621v1
+https://doi.org/10.1145/3830727.3834824
+Full text verified per-location invariance and a REALDISP mutual-displacement experiment. It is the closest learned-representation comparator. Its fold scores must not be compared numerically with our subject-separated87–88%.
+
+[R2] Wu, Guo and Qin. MODA: Motion-Drift Augmentation for Inertial Human Motion Analysis. CVPR2025,27771–27781.
+https://openaccess.thecvf.com/content/CVPR2025/html/Wu_MODA_Motion-Drift_Augmentation_for_Inertial_Human_Motion_Analysis_CVPR_2025_paper.html
+https://orca.cardiff.ac.uk/id/eprint/176927/1/camera-ready-version.pdf
+Primary indexed CVF abstract/metadata verified; direct CVF PDF fetch denied. Exact equations/code still require reproduction review before claiming A is distinct. Natural body-worn IMU displacement augmentation is already its stated scope.
+
+[R3] WIMUSim: simulating realistic variabilities in wearable IMUs for human activity recognition. Frontiers in Computer Science2025.
+https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1514933/full
+Publisher full text checked for generation/personalization and limitations. Its calibration/kinematic needs must be matched to available data; no simulator outputs were generated here.
+
+[R4] Sagawa et al. Distributionally Robust Neural Networks for Group Shifts: On the Importance of Regularization for Worst-Case Generalization. ICLR2020.
+https://arxiv.org/abs/1911.08731
+Worst-group learning and its regularization requirement are established; its results are not evidence for HAR displacement gains.
+
+[R5] Yurtman and Barshan. Activity Recognition Invariant to Sensor Orientation with Wearable Motion Sensors. Sensors2017,17(8),1838.
+https://www.mdpi.com/1424-8220/17/8/1838
+https://www.ee.bilkent.edu.tr/~billur/publ_list/sn17_2.pdf
+Geometric/SVD invariants precede this project. Constant orientation over a processed segment is a key condition.
+
+[R6] Miao et al. Towards a Dynamic Inter-Sensor Correlations Learning Framework for Multi-Sensor-Based Wearable Human Activity Recognition. IMWUT2022.
+https://doi.org/10.1145/3550331
+https://github.com/wdkhuans/DynamicWHAR
+Author implementation verifies dynamic wearable interactions. Prior project review notes its pairwise modulation is not identical to row-softmax adjacency; preserve that distinction in reproductions.
+
+[R7] Xie et al. Decomposing and Fusing Intra- and Inter-Sensor Spatio-Temporal Signal for Multi-Sensor Wearable Human Activity Recognition. AAAI2025.
+https://arxiv.org/abs/2501.10917
+https://ojs.aaai.org/index.php/AAAI/article/view/33582
+https://github.com/Anakin2555/DecomposeWHAR
+SSM temporal modelling and dynamic wearable fusion are established. Author repository warns of setting differences from earlier baselines; match our protocol rather than copying leaderboard comparisons.
+
+[R8] Chen et al. SALIENCE: An Unsupervised User Adaptation Model for Multiple Wearable Sensors Based Human Activity Recognition. IEEE TMC, accepted2022.
+https://arxiv.org/abs/2108.10213
+https://doi.org/10.1109/TMC.2022.3171312
+Sensor-level/global alignment and attention use target-user adaptation. It is not direct evidence for target-free generalization.
+
+[R9] Calatrava-Nicolas, Stoyanov and Martinez Mozos. Siamese masked reconstruction with temporal rotation consistency for inertial-based human activity recognition. Scientific Reports2026.
+https://doi.org/10.1038/s41598-026-64846-5
+https://pmc.ncbi.nlm.nih.gov/articles/PMC13476224/
+Publisher/PMC indexed passages verify reconstruction, Siamese and temporal structure losses with REALDISP among datasets. Direct opening met an access challenge; detailed reproduction remains pending.
+
+[R10] Deng et al. Vector Neurons: A General Framework for SO(3)-Equivariant Networks. ICCV2021.
+https://openaccess.thecvf.com/content/ICCV2021/html/Deng_Vector_Neurons_A_General_Framework_for_SO3-Equivariant_Networks_ICCV_2021_paper.html
+https://github.com/FlyingGiraffe/vnn
+Published equivariant vector operations; original point-cloud results do not establish wearable displacement performance.
+
+[R11] Yue et al. TS2Vec: Towards Universal Representation of Time Series. AAAI2022.
+https://arxiv.org/abs/2106.10466
+Temporal contrastive representation learning precedes this proposal. A source-only HAR adaptation needs recording-aware views and compute controls.
+
+[R12] Barshan and Yurtman. Classifying Daily and Sports Activities Invariantly to the Positioning of Wearable Motion Sensor Units. IEEE Internet of Things Journal2020.
+https://www.ee.bilkent.edu.tr/~billur/publ_list/IoT20.pdf
+Rigid-body-part position invariance is prior art. It is not a guarantee for arbitrary body-site relocation.
+
+[R13] Recognizing Physical Activity of Older People from Wearable Sensors and Inconsistent Data. Sensors2019.
+https://pmc.ncbi.nlm.nih.gov/articles/PMC6412200/
+Invariant substitute classification for inconsistent orientation is relevant prior work for D, not proof our gate will succeed.
+
+[R14] NVIDIA RTX2000 Ada Generation product information.
+https://www.nvidia.com/en-sg/products/workstations/rtx-2000/
+Confirms product memory capacity, not installed workstation CPU/RAM or measured speedup.
+
+Additional screening: arXiv2604.08910 describes style-augmented multi-sensor fusion; its arXiv record has an administrator text-overlap note. It is not treated here as verified peer-reviewed evidence or a main novelty anchor. This focused review is not an exhaustive systematic search. Full citation/code comparison around R1/R2/R3/R9 remains necessary before submission.
+
+End. Only other_approaches.txt was created for this request. No training launched, existing results changed, or Git operations performed.

@@ -1,5 +1,5 @@
 """Portable, fail-closed T10 source-validation runner for Linux Colab and Windows."""
-import argparse, contextlib, hashlib, json, os, random, sys, time, traceback
+import argparse, contextlib, hashlib, json, os, random, shutil, sys, time, traceback
 from datetime import datetime
 from pathlib import Path
 import numpy as np
@@ -58,10 +58,10 @@ def run_job(fold,job,cfg,path,device):
         history=state['history'];start_epoch=state['epoch']+1;best=state['best'];best_epoch=state['best_epoch']
     data=fold['data']['train'];n=len(data['y']);raw=fold['raw_train'];device_data={k:v for k,v in data.items()}
     for epoch in range(start_epoch,cfg['epochs']+1):
-        model.train();teacher.eval();order=torch.randperm(n,generator=gens['order']);totals={};seen=correct=0;t0=time.perf_counter();orderhash=make_order_hash(order)
+        model.train();teacher.eval();order=torch.randperm(n,generator=gens['order']);totals={};seen=correct=0;stresshash=hashlib.sha256();t0=time.perf_counter();orderhash=make_order_hash(order)
         for st in range(0,n,64):
             ix=order[st:st+64];batch={k:v[ix].to(device) for k,v in device_data.items()};batch['raw']=raw[ix].to(device)
-            opt.zero_grad(set_to_none=True);loss,parts,logits=loss_for_batch(model,teacher,batch,fold,gens['corruption'],epoch)
+            opt.zero_grad(set_to_none=True);loss,parts,logits=loss_for_batch(model,teacher,batch,fold,gens['corruption'],epoch,stress_hasher=stresshash)
             if not torch.isfinite(loss):raise FloatingPointError('nonfinite loss')
             loss.backward();norm=torch.nn.utils.clip_grad_norm_(model.parameters(),1.,error_if_nonfinite=True)
             if not torch.isfinite(norm):raise FloatingPointError('nonfinite grad norm')
@@ -71,7 +71,7 @@ def run_job(fold,job,cfg,path,device):
         ideal,_,_=evaluate(model,fold['data']['val_ideal'],64);selfm,_,_=evaluate(model,fold['data']['val_self'],64)
         if ideal['macro_f1']>best:
             best,best_epoch=ideal['macro_f1'],epoch;atomic_torch(path/'best.pt',dict(model=model.state_dict(),epoch=epoch,config=cfg,mean=fold['mean'],std=fold['std']))
-        sch.step();row=dict(epoch=epoch,train={**{k:v/seen for k,v in totals.items()},'clean_accuracy':correct/seen,'windows':seen,'order_sha256':orderhash,'seconds':time.perf_counter()-t0},val_ideal=ideal,val_self=selfm,lr=opt.param_groups[0]['lr'],peak_cuda_allocated_mb=torch.cuda.max_memory_allocated()/2**20);history.append(row)
+        sch.step();row=dict(epoch=epoch,train={**{k:v/seen for k,v in totals.items()},'clean_accuracy':correct/seen,'windows':seen,'order_sha256':orderhash,'stress_sha256':stresshash.hexdigest(),'seconds':time.perf_counter()-t0},val_ideal=ideal,val_self=selfm,lr=opt.param_groups[0]['lr'],peak_cuda_allocated_mb=torch.cuda.max_memory_allocated()/2**20);history.append(row)
         state=dict(model=model.state_dict(),teacher=teacher.state_dict(),optimizer=opt.state_dict(),scheduler=sch.state_dict(),config=cfg,epoch=epoch,best=best,best_epoch=best_epoch,history=history,mean=fold['mean'],std=fold['std'],raw_scale=fold['raw_scale'],streams={k:g.get_state() for k,g in gens.items()},**rng_state());atomic_torch(latest,state)
         with (path/'epochs.jsonl').open('a',encoding='utf8') as f:f.write(json.dumps(row)+'\n')
         atomic_json(path/'heartbeat.json',dict(epoch=epoch,updated=datetime.now().astimezone().isoformat(),pid=os.getpid()))
@@ -100,12 +100,19 @@ def validate_receipt(path,owner):
     r=json.loads(receipt.read_text());assert r.get('passed') is True and r.get('stage')=='smoke' and r.get('owner')==owner
     assert r.get('sources')==inventory() and r.get('data')==data_hashes(),'smoke fingerprint mismatch'
     assert r.get('jobs_passed')==10,'smoke must pass all10 jobs'
+def validate_reuse_source(path,owner,t09):
+    old=json.loads((Path(path)/'fingerprint.json').read_text())
+    assert old.get('owner')==owner and old.get('data')==data_hashes() and old.get('t09')==t09,'reuse source environment/data mismatch'
+    current=inventory();previous=old['sources'];assert set(current)==set(previous)
+    changed={name for name in current if current[name]!=previous[name]}
+    assert changed.issubset({'experiments/t10_temporal/run.py','experiments/t10_temporal/audit.py'}),'training or check sources changed; cannot reuse smoke jobs'
+    return Path(path)
 class Tee:
     def __init__(self,console,log):self.console=console;self.log=log
     def write(self,value):self.console.write(value);self.log.write(value);self.log.flush()
     def flush(self):self.console.flush();self.log.flush()
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--owner',choices=['laptop','colab'],required=True);p.add_argument('--stage',choices=['smoke','full'],required=True);p.add_argument('--output',required=True);p.add_argument('--smoke-receipt');p.add_argument('--preflight',required=True);p.add_argument('--t09-output',required=True);p.add_argument('--reference-dir');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--owner',choices=['laptop','colab','laptop_remaining'],required=True);p.add_argument('--stage',choices=['smoke','full'],required=True);p.add_argument('--output',required=True);p.add_argument('--smoke-receipt');p.add_argument('--preflight',required=True);p.add_argument('--t09-output',required=True);p.add_argument('--reference-dir');p.add_argument('--reuse-smoke-jobs');a=p.parse_args()
     out=Path(a.output).resolve();fresh=not out.exists();out.mkdir(parents=True,exist_ok=True);device='cuda'
     logfile=(out/'console.log').open('a',encoding='utf8');sys.stdout=Tee(sys.stdout,logfile);sys.stderr=Tee(sys.stderr,logfile)
     with queue_lock(out/'.queue.lock'):
@@ -114,6 +121,7 @@ def main():
             assert torch.cuda.is_available();torch.set_num_threads(4);torch.set_num_interop_threads(2);torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False;torch.backends.cudnn.benchmark=False
             pre=json.loads(Path(a.preflight).read_text());assert pre.get('passed') and pre.get('owner')==a.owner and pre.get('jobs')==10 and pre.get('sources')==inventory() and pre.get('data')==data_hashes(),'preflight gate/fingerprint missing or failed'
             t09=validate_t09(a.t09_output)
+            reuse=validate_reuse_source(a.reuse_smoke_jobs,a.owner,t09) if a.reuse_smoke_jobs else None
             if a.stage=='full':validate_receipt(a.smoke_receipt,a.owner)
             src=inventory();data=data_hashes();fingerprint=dict(sources=src,data=data,owner=a.owner,t09=t09)
             if (out/'fingerprint.json').exists():assert json.loads((out/'fingerprint.json').read_text())==fingerprint,'output fingerprint mismatch; preserve and use fresh attempt'
@@ -126,7 +134,7 @@ def main():
                 else:target.write_bytes((ROOT/name).read_bytes())
                 assert sha(target)==h
             atomic_json(out/'environment.json',dict(python=sys.version,torch=torch.__version__,cuda=torch.version.cuda,gpu=torch.cuda.get_device_name(),device=device,precision='fp32',stage=a.stage,owner=a.owner))
-            corpus=O2Corpus();selected=[j for j in MATRIX['jobs'] if j['owner']==a.owner]
+            corpus=O2Corpus();selected=[j for j in MATRIX['jobs'] if j['owner']==('colab' if a.owner=='laptop_remaining' else a.owner)]
             if a.stage=='smoke':selected=[dict(subject=2,seed=13,temporal=t,arm=arm,owner=a.owner,id=f'{t}__{arm}__subject_2__seed_13') for t in TEMPORALS for arm in ARMS]
             assert len(selected)==(10 if a.stage=='smoke' else (10 if a.owner=='laptop' else 30))
             done=[];folds={}
@@ -135,7 +143,12 @@ def main():
                 if sid not in folds:
                     f=build_fold(corpus,sid);ix=f['indices']['train'];f['raw_train']=corpus.x[ix];f['data']['train']['raw']=f['raw_train'];f['raw_scale']=f['raw_train'].std((0,1)).reshape(9,2,3).square().mean(-1).sqrt().clamp_min(1e-4).repeat_interleave(3,-1)
                     f['metadata']={k:dict(corpus_indices=ids,subjects=corpus.subjects[ids],recordings=corpus.sources[ids],scenarios=corpus.scenarios[ids],window_starts=corpus.starts[ids].numpy()) for k,ids in f['indices'].items()};folds[sid]=f;atomic_json(out/f'fold_{sid:02d}.json',f['summary']);atomic_torch(out/f'normalization_{sid:02d}.pt',dict(mean=f['mean'],std=f['std'],indices=f['indices']))
-                cfg=config(a.owner,a.stage,j);cfg['validation_subject']=folds[sid]['summary']['validation_subject'];jobpath=out/'jobs'/j['id'];res=run_job(folds[sid],j,cfg,jobpath,device);done.append(j['id']);atomic_json(out/'progress.json',dict(completed=done,total=len(selected)))
+                cfg=config(a.owner,a.stage,j);cfg['validation_subject']=folds[sid]['summary']['validation_subject'];jobpath=out/'jobs'/j['id']
+                if reuse and not (jobpath/'result.json').exists():
+                    prior=reuse/'jobs'/j['id'];prior_result=json.loads((prior/'result.json').read_text());assert prior_result['config']==cfg,'reused smoke job config mismatch'
+                    assert all((prior/n).is_file() for n in ('latest.pt','best.pt','epochs.jsonl','predictions_val_ideal.npz','predictions_val_self.npz'))
+                    jobpath.parent.mkdir(parents=True,exist_ok=True);shutil.copytree(prior,jobpath)
+                res=run_job(folds[sid],j,cfg,jobpath,device);done.append(j['id']);atomic_json(out/'progress.json',dict(completed=done,total=len(selected)))
             assert inventory()==src and data_hashes()==data
             from experiments.t10_temporal.audit import audit
             audit_result=audit(out,a.owner,a.stage);atomic_json(out/'audit.json',audit_result);assert audit_result['passed']

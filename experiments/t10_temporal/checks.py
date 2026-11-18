@@ -1,5 +1,5 @@
 """T10 preflight: ten real-data FP32 backward paths, sharing and restart gate."""
-import argparse,copy,json,random
+import argparse,copy,json,random,hashlib
 from pathlib import Path
 import numpy as np
 import torch
@@ -8,6 +8,8 @@ from experiments.t10_temporal.training import streams,make_teacher,loss_for_batc
 from run_o1_selection import build_fold,restore_rng,rng_state
 from o2_features import O2Corpus
 from workstation_experiments import seed_all
+from summer_o1_experiments import scheduler_for
+from experiments.t10_temporal.training import corrupt_raw
 from experiments.t10_temporal.run import inventory,data_hashes
 ROOT=Path(__file__).resolve().parents[2]
 def main():
@@ -35,7 +37,36 @@ def main():
    if temporal=='ssm':
     for term in ('A_log','D','x_proj','dt_proj','conv1d'):
      assert any(term in n and v>0 for n,v in grads.items()),f'no SSM gradient: {term}'
-   # Check that stochastic continuation survives full state/RNG serialization.
+   # Test the next stochastic optimizer step through a real disk checkpoint.
+   sch=scheduler_for(opt,16)
+   opt.step();update_teacher(teacher,m);sch.step()
+   disk=out/f'{temporal}__{arm}__recovery.pt'
+   torch.save(dict(model=m.state_dict(),teacher=teacher.state_dict(),optimizer=opt.state_dict(),scheduler=sch.state_dict(),streams={k:g.get_state() for k,g in gens.items()},rng=rng_state()),disk)
+   def next_step():
+    m.train();opt.zero_grad(set_to_none=True)
+    value,_,prediction=loss_for_batch(m,teacher,batch,fold,gens['corruption'],4)
+    value.backward();torch.nn.utils.clip_grad_norm_(m.parameters(),1.,error_if_nonfinite=True)
+    opt.step();update_teacher(teacher,m);sch.step()
+    return dict(loss=value.detach().clone(),logits=prediction.detach().clone(),model=copy.deepcopy(m.state_dict()),teacher=copy.deepcopy(teacher.state_dict()),optimizer=copy.deepcopy(opt.state_dict()),scheduler=copy.deepcopy(sch.state_dict()))
+   expected_step=next_step()
+   recovered=torch.load(disk,weights_only=False)
+   m.load_state_dict(recovered['model']);teacher.load_state_dict(recovered['teacher']);opt.load_state_dict(recovered['optimizer']);sch.load_state_dict(recovered['scheduler']);restore_rng(recovered['rng'])
+   for k,g in gens.items():g.set_state(recovered['streams'][k])
+   actual_step=next_step()
+   def compare(x,y):
+    if torch.is_tensor(x):torch.testing.assert_close(x,y,atol=1e-6,rtol=0)
+    elif isinstance(x,dict):
+     assert x.keys()==y.keys()
+     for k in x:compare(x[k],y[k])
+    elif isinstance(x,(list,tuple)):
+     assert len(x)==len(y)
+     for u,v in zip(x,y):compare(u,v)
+    else:assert x==y
+   compare(expected_step,actual_step)
+   stress,mask=corrupt_raw(batch['raw'],batch['a'],fold['raw_scale'],streams(13)['corruption'])
+   stress_hash=hashlib.sha256(stress.detach().cpu().numpy().tobytes()+mask.cpu().numpy().tobytes()).hexdigest()
+   (out/f'{temporal}__{arm}__recovery.json').write_text(json.dumps(dict(passed=True,stress_sha256=stress_hash)))
+   # Retain the existing evaluation replay check as an additional gate.
    opt.step();update_teacher(teacher,m);saved=dict(model=copy.deepcopy(m.state_dict()),teacher=copy.deepcopy(teacher.state_dict()),optimizer=copy.deepcopy(opt.state_dict()),streams={k:g.get_state() for k,g in gens.items()},rng=rng_state())
    x=batch['x'];av=batch['a'];m.eval();teacher.eval()
    with torch.no_grad():expected=m(x,av)[0].cpu()
@@ -43,11 +74,14 @@ def main():
    for k,g in gens.items():g.set_state(saved['streams'][k])
    with torch.no_grad():actual=m(x,av)[0].cpu()
    torch.testing.assert_close(actual,expected,atol=1e-6,rtol=0)
-   records.append(dict(arm=arm,temporal=temporal,loss=float(loss),finite_gradients=True,ssm_gradient_checks=(temporal=='ssm'),checkpoint_replay=True,gradient_norms=grads));del m,teacher,opt;torch.cuda.empty_cache()
+   records.append(dict(arm=arm,temporal=temporal,loss=float(loss),finite_gradients=True,ssm_gradient_checks=(temporal=='ssm'),checkpoint_replay=True,disk_next_step_recovery=True,stress_sha256=stress_hash,gradient_norms=grads));del m,teacher,opt;torch.cuda.empty_cache()
  for t in TEMPORALS:
   reference=initial[(t,ARMS[0])]
   for arm in ARMS[1:]:
    for k,v in reference.items():torch.testing.assert_close(v,initial[(t,arm)][k],atol=0,rtol=0,msg=f'initialization mismatch {t}/{arm}/{k}')
- payload=dict(passed=len(records)==10 and all(x['checkpoint_replay'] for x in records),owner=a.owner,jobs=len(records),records=records,device=torch.cuda.get_device_name(),sources=inventory(),data=data_hashes())
+ for arm in ARMS:
+  for k,v in initial[('old',arm)].items():torch.testing.assert_close(v,initial[('ssm',arm)][k],atol=0,rtol=0,msg=f'cross-temporal initialization {arm}/{k}')
+ assert len({r['stress_sha256'] for r in records})==1,'matched stress mismatch'
+ payload=dict(passed=len(records)==10 and all(x['checkpoint_replay'] for x in records),owner=a.owner,jobs=len(records),records=records,cross_temporal_initialization=True,matched_stress_probe=True,device=torch.cuda.get_device_name(),sources=inventory(),data=data_hashes())
  (out/'preflight.json').write_text(json.dumps(payload,indent=2)+'\n');assert payload['passed'];print(json.dumps(payload))
 if __name__=='__main__':main()

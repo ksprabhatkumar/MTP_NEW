@@ -1,0 +1,142 @@
+WORKSTATION LUNA — REVISION 16 — SETUP AND SMOKE ONLY
+Prepared 18 November 2026. This is self-contained operational context.
+
+1. AUTHORIZATION
+Run workstation setup, preflight and the 20-job full-data smoke. STOP after
+smoke, report its receipt/audit/timing, and wait. The user will review smoke
+with Astra in the original chat. Do NOT start full training automatically.
+No Git commands. User pushes/clones and copies dataset. Preserve all results.
+No scientific setting changes, reduced data, relaxed tolerances or silent retries.
+T08 remains OPEN. Existing T10 pilot is complete; do not repeat it.
+
+2. PROJECT AND DATA
+Set working directory to the cloned directory containing this file, models/,
+experiments/, requirements_workstation.txt, and docs/. Depending on clone
+layout this may itself be start_summer_o2 or a subdirectory of the clone.
+Copy the entire processed dataset/ directory here before running anything.
+Required: dataset/workstation_o1/audit.json and all NPZ/JSON files listed in
+experiments/t11_core_confirmation/dataset_manifest.json (93 files).
+The manifest is checked byte-for-byte. Report missing/mismatched files; never
+regenerate the dataset or change the manifest to bypass a mismatch.
+No laptop venv, old results, old checkpoints, raw har_data or GAE_Mamba_WHAR
+directory is required. Keep all project Python modules; the runner imports
+shared modules from the project root, T08, T09 and T10 namespaces.
+Bundled reference_payload.json contains exact upstream Mamba reference bytes
+and license; preflight decodes them and validates their original hashes offline.
+The source matrix still has historical laptop assignment fields. This revision
+assigns ALL 90 T11 jobs to this workstation; settings/IDs remain unchanged.
+
+3. ENVIRONMENT (CREATE LOCALLY, NEVER COPY A VENV)
+Use 64-bit Python 3.11, venv name Prabhat, NVIDIA GPU and working NVIDIA driver.
+Use the pinned PyTorch 2.5.1 CUDA 12.1 wheel on Windows/Linux x86-64. No system
+CUDA compiler, mamba-ssm, causal-conv1d or torch-geometric installation needed.
+The selective SSM uses the project's pure-PyTorch implementation.
+
+Windows PowerShell, from project root:
+  py -3.11 -m venv Prabhat
+  .\Prabhat\Scripts\python.exe -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+  .\Prabhat\Scripts\python.exe -m pip install -r requirements_workstation.txt
+  .\Prabhat\Scripts\python.exe -m pip check
+
+Linux, from project root:
+  python3.11 -m venv Prabhat
+  Prabhat/bin/python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121
+  Prabhat/bin/python -m pip install -r requirements_workstation.txt
+  Prabhat/bin/python -m pip check
+
+If Prabhat already exists, inspect its Python/package versions before reusing it;
+do not overwrite a running environment. Obtain normal network approval if
+package installation needs it. Stop on incompatible OS/GPU/driver/dependencies.
+Do not silently use CPU, upgrade torch, enable AMP/TF32 or increase batch size.
+Workstation speed and RAM/VRAM are not assumed: readiness records actual GPU,
+VRAM, driver, RAM/CPU, free disk, package versions and nvidia-smi output.
+
+4. BEFORE LAUNCH
+Check nvidia-smi and OS process information for existing Python trainers.
+If inspection is denied, request access; an empty restricted result is not
+proof that nothing runs. Do not launch a duplicate or remove a lock.
+Use one GPU sequentially, stable local disk with ample free space (recommend
+at least 30 GB free beyond dataset/venv), AC power and sleep disabled.
+Reserve results/t11_workstation_r1 as a fresh attempt directory. If it already
+contains an active/completed attempt, inspect it instead of launching again.
+After a failed check preserve the whole attempt and return to Astra; fixes
+require a new attempt path and renewed preflight/smoke.
+
+5. EXACT SMOKE COMMAND (RUN ONLY THE COMMAND FOR THE HOST OS)
+Windows:
+  .\Prabhat\Scripts\python.exe -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r1 --detach
+Linux:
+  Prabhat/bin/python -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r1 --detach
+
+The detached supervisor survives closing the chat/terminal, but not shutdown
+or suspension. It logs its PID and log path. Confirm that the supervisor and
+child are alive and status/heartbeat advances before exiting. A launch receipt
+alone does not mean checks passed. No second launch while the first is active.
+
+Sequence: readiness -> offline SSM reference checks -> 20 geometry/gradient/
+shared-initialization/fresh-interpreter recovery cases -> 20 smoke jobs ->
+independent checkpoint/prediction audit -> learning curves/timing -> STOP.
+Any nonzero child exit or failed assertion stops the supervisor and preserves
+the failure. The 1e-6 recovery tolerance is unchanged; reference tolerances
+are inherited unchanged from T09. No induced evaluation occurs during smoke.
+
+Smoke = both temporal backbones x all five spatial arms x subjects 2 and 15,
+seed 13, four complete epochs per job, batch 64, FP32, full source data.
+Subject 5 split is also checked in preflight. No smoke weights enter full jobs.
+
+6. MONITOR AND RETURN
+Under results/t11_workstation_r1/ inspect:
+  launcher_smoke_*.json / *.log: durable launcher PID and log
+  smoke_supervisor.json: state and active child command/PID
+  readiness.json: passed, actual hardware/dependencies/data/source hashes
+  preflight/preflight.json: passed=true, cases=20, fingerprint and diagnostics
+  preflight/partial_checks.json and recovery *.pt: preserved gate evidence
+  smoke/status.json and progress.json: queue state / completed IDs
+  smoke/jobs/<job>/heartbeat.json: last completed epoch
+  smoke/receipt.json: passed=true, stage=smoke, jobs_passed=20
+  smoke/audit.json: passed=true, audited_jobs=20, paired_contrasts=36
+  smoke/metrics.csv: 40 source-validation rows
+  smoke/timing.json and learning_curves.png/.pdf
+Check all these, not only the process exit or last printed epoch.
+Append a dated execution entry to docs/agent_exchange/Luna_to_Astra.md and
+READ IT BACK. Include exact command/output path, pass/fail, counts, source/data
+and reference provenance, GPU/RAM/VRAM, timing, failed attempts, and whether
+any process is still active. Do not claim full was authorized. If writing fails,
+save a separate return note under the attempt folder and report the failure.
+
+7. SAVED VALUES
+Every job saves best.pt and latest.pt; latest contains model, EMA teacher,
+optimizer, scheduler, global and independent RNG states, epoch/history,
+normalization/raw-scale and exact configuration. Best is selected ONLY by
+source-ideal fixed-33 macro-F1 (earliest tie). Every epoch records losses and
+components, gradient norm, LR, train accuracy, source ideal/self metrics,
+class supports, peak CUDA allocation, elapsed time and actual order/stress
+hashes. Save fold indices/recording IDs/availability, source snapshots and
+environment fingerprints. Prediction NPZ files contain logits, labels,
+predictions, subject/recording/scenario/window identifiers. Audits reconstruct
+metrics and confusion matrices. Mechanism probes save graph/gate/quality/
+correction arrays for a documented source-validation subset. Never treat
+these descriptive probes as a full donor-causality audit.
+
+8. FULL QUEUE — LOCKED UNTIL SEPARATE USER CONFIRMATION
+Frozen full design: 90 jobs = old/ssm x none_clean/none_robust/physical_robust/
+local_repair/graph_repair x held-out subjects 2/5/15 x seeds 13/29/47.
+Source validation subjects 3/8/16; 31 epochs from scratch; batch 64; FP32.
+Full runner requires the passing preflight and smoke receipt with unchanged
+source, data and environment fingerprints plus an explicit confirmation flag.
+Do NOT supply this flag in the current assignment. Astra will provide the
+full-launch prompt after the user returns smoke results.
+For later authorized use only, the launcher interface is:
+  <Prabhat python> -m experiments.t11_core_confirmation.launch --stage full --output-base results/t11_workstation_r1 --confirm-full SMOKE_REVIEWED_BY_USER --detach
+Full includes 180 source-validation metric rows / 162 paired contrasts, then
+frozen held-out ideal/self/induced evaluation (270 primary rows / 243 contrasts),
+five rotation seeds and nine sensor-dropout diagnostics. No target scores
+select epochs or alter training. Preserve previously-inspected-induced caveat.
+Existing compatible pilot results remain evidence, but their 16-epoch schedule
+cannot substitute for this separately frozen 31-epoch study.
+
+9. IMPLEMENTATION STATUS
+Package created by Astra; syntax/import/matrix/reference-byte checks only on
+the laptop. Workstation GPU preflight, recovery and smoke are NOT yet claimed
+passed. Run the gates, stop on failure and return evidence. Do not infer success
+from this document. No training or Git action was performed during preparation.

@@ -1,0 +1,53 @@
+old none_clean subj2 seed13 epoch1/4 idealF1=0.0469 selfF1=0.0452
+old none_clean subj2 seed13 epoch2/4 idealF1=0.7958 selfF1=0.7537
+old none_clean subj2 seed13 epoch3/4 idealF1=0.8147 selfF1=0.7842
+old none_clean subj2 seed13 epoch4/4 idealF1=0.8143 selfF1=0.7829
+old none_robust subj2 seed13 epoch1/4 idealF1=0.0469 selfF1=0.0452
+old none_robust subj2 seed13 epoch2/4 idealF1=0.7958 selfF1=0.7537
+old none_robust subj2 seed13 epoch3/4 idealF1=0.8157 selfF1=0.7797
+old none_robust subj2 seed13 epoch4/4 idealF1=0.8180 selfF1=0.7791
+old physical_robust subj2 seed13 epoch1/4 idealF1=0.0491 selfF1=0.0263
+old physical_robust subj2 seed13 epoch2/4 idealF1=0.7906 selfF1=0.7290
+old physical_robust subj2 seed13 epoch3/4 idealF1=0.8534 selfF1=0.7676
+old physical_robust subj2 seed13 epoch4/4 idealF1=0.8441 selfF1=0.7614
+old local_repair subj2 seed13 epoch1/4 idealF1=0.0469 selfF1=0.0451
+old local_repair subj2 seed13 epoch2/4 idealF1=0.7938 selfF1=0.7603
+old local_repair subj2 seed13 epoch3/4 idealF1=0.8146 selfF1=0.7937
+old local_repair subj2 seed13 epoch4/4 idealF1=0.8227 selfF1=0.7871
+old graph_repair subj2 seed13 epoch1/4 idealF1=0.0472 selfF1=0.0452
+old graph_repair subj2 seed13 epoch2/4 idealF1=0.7954 selfF1=0.7603
+old graph_repair subj2 seed13 epoch3/4 idealF1=0.8177 selfF1=0.7916
+old graph_repair subj2 seed13 epoch4/4 idealF1=0.8221 selfF1=0.7866
+ssm none_clean subj2 seed13 epoch1/4 idealF1=0.0301 selfF1=0.0348
+ssm none_clean subj2 seed13 epoch2/4 idealF1=0.8689 selfF1=0.7998
+ssm none_clean subj2 seed13 epoch3/4 idealF1=0.9196 selfF1=0.8630
+ssm none_clean subj2 seed13 epoch4/4 idealF1=0.9204 selfF1=0.8610
+ssm none_robust subj2 seed13 epoch1/4 idealF1=0.0301 selfF1=0.0348
+ssm none_robust subj2 seed13 epoch2/4 idealF1=0.8689 selfF1=0.7998
+ssm none_robust subj2 seed13 epoch3/4 idealF1=0.9148 selfF1=0.8664
+ssm none_robust subj2 seed13 epoch4/4 idealF1=0.9160 selfF1=0.8619
+ssm physical_robust subj2 seed13 epoch1/4 idealF1=0.0356 selfF1=0.0339
+ssm physical_robust subj2 seed13 epoch2/4 idealF1=0.8691 selfF1=0.7840
+ssm physical_robust subj2 seed13 epoch3/4 idealF1=0.8942 selfF1=0.8053
+ssm physical_robust subj2 seed13 epoch4/4 idealF1=0.8937 selfF1=0.8015
+ssm local_repair subj2 seed13 epoch1/4 idealF1=0.0299 selfF1=0.0349
+ssm local_repair subj2 seed13 epoch2/4 idealF1=0.8785 selfF1=0.8100
+ssm local_repair subj2 seed13 epoch3/4 idealF1=0.9173 selfF1=0.8757
+ssm local_repair subj2 seed13 epoch4/4 idealF1=0.9212 selfF1=0.8726
+ssm graph_repair subj2 seed13 epoch1/4 idealF1=0.0301 selfF1=0.0350
+ssm graph_repair subj2 seed13 epoch2/4 idealF1=0.8777 selfF1=0.8131
+ssm graph_repair subj2 seed13 epoch3/4 idealF1=0.9193 selfF1=0.8775
+ssm graph_repair subj2 seed13 epoch4/4 idealF1=0.9219 selfF1=0.8745
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t10_temporal\run.py", line 146, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t10_temporal\run.py", line 141, in main
+    audit_result=audit(out,a.owner,a.stage);atomic_json(out/'audit.json',audit_result);assert audit_result['passed']
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t10_temporal\audit.py", line 38, in audit
+    left=by[('ssm',subject,seed,x,split)];right=by[('old',subject,seed,x,split)];label='ssm_minus_old:'+x
+         ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: ('ssm', 2, 13, 'ssm', 'val_ideal')

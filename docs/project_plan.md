@@ -1,3 +1,19 @@
+# Current decision — T10 complete; T11 core design frozen — 17 November 2026
+
+T10:40/40source pilot jobs complete, saved audits pass. T08 remains OPEN / no graph promotion. Full scientific review: reviews/t10_complete_20261117/decision.md. SSM graph margins are small/inconsistent; robust no graph is reference and old temporal backbone remains cost control.
+
+Next core design: experiments/t11_core_confirmation_r1.md and its90-job matrix. Both temporal choices x five arms x subjects2/5/15 x seeds13/29/47,31epochs. Revision15 assigns implementation and20full-data smoke jobs only before separate full-launch instruction. All computation on laptop. No active-source/result/Git changes. Core does not complete representation/external-comparator/GAE/augmentation/O3 requirements; these remain explicitly tracked. Historical overrides below are superseded by this paragraph and revision15.
+
+---
+
+# Current override — laptop only; report complete; WAIT — 16 November 2026
+
+All workstation/Colab experiments are now assigned to the RTX 2050 laptop with full scientific scope retained. User explicitly requested the post-results_1 report before further execution, then wait. Current status: HOLD_AFTER_RESULT_2. Do not follow older launch commands until resumed and a new reviewed handoff is issued.
+
+Report: ../../result_2/explain.md. Schedule: ../../result_2/one_week_plan.md. Ten T10 jobs are saved with passing artifact audit; thirty remain. T09 local validation passed; T08 remains OPEN. Review missing T10 recovery/initialization/corruption gates before extending the queue. Preserve compatible completed results. Final centralized and O3 matrices/calibration remain prerequisites. Existing task numbering T01–T24 is retained; every older workstation/cloud assignment below is superseded by laptop-only allocation.
+
+---
+
 # T10 runner implementation update — 15 November 2026
 
 Portable runner, real-data checks, independent artifact audit and guarded Colab cells are now prepared under experiments/t10_temporal and docs/experiments/t10_colab_cells_r1.md. Static review only; runtime validation and training remain pending in Luna. Frozen40-job matrix allocates10 laptop and30 Colab. T08 OPEN, graph exploratory.

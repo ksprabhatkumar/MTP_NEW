@@ -1,0 +1,10 @@
+
+--- attempt failure ---
+Traceback (most recent call last):
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t10_temporal\run.py", line 141, in main
+    audit_result=audit(out,a.owner,a.stage);atomic_json(out/'audit.json',audit_result);assert audit_result['passed']
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\prabh\OneDrive\Desktop\mtp\start_summer_o2\experiments\t10_temporal\audit.py", line 38, in audit
+    left=by[('ssm',subject,seed,x,split)];right=by[('old',subject,seed,x,split)];label='ssm_minus_old:'+x
+         ~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: ('ssm', 2, 13, 'ssm', 'val_ideal')

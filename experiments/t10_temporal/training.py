@@ -39,7 +39,7 @@ def update_teacher(teacher,student,decay=.99):
         if a.is_floating_point():a.mul_(decay).add_(b,alpha=1-decay)
         else:a.copy_(b)
 
-def loss_for_batch(model,teacher,batch,fold,generator,epoch):
+def loss_for_batch(model,teacher,batch,fold,generator,epoch,stress_hasher=None):
     with precision_context():
         clean,_,dc=model(batch['x'],batch['a'],return_diagnostics=True)
         ce_clean=F.cross_entropy(clean,batch['y'])
@@ -47,6 +47,9 @@ def loss_for_batch(model,teacher,batch,fold,generator,epoch):
     if model.arm=='none_clean' or epoch<=2:
         return ce_clean,dict(ce_clean=ce_clean.detach(),ce_corrupt=zero,consistency=zero,repair=zero,quality=zero),clean
     perturbed,mask=corrupt_raw(batch['raw'],batch['a'],fold['raw_scale'],generator)
+    if stress_hasher is not None:
+        stress_hasher.update(perturbed.detach().cpu().numpy().tobytes())
+        stress_hasher.update(mask.detach().cpu().numpy().tobytes())
     with torch.no_grad():
         encoded=features(perturbed.float(),'mag_dot')
         encoded=(encoded-fold['mean'].to(encoded.device))/fold['std'].to(encoded.device)

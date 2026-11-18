@@ -6,10 +6,10 @@ import torch
 from workstation_experiments import metric_values
 ROOT=Path(__file__).resolve().parents[2]
 def audit(out,owner,stage):
- matrix=json.loads((ROOT/'experiments/t10_temporal/matrix.json').read_text());expected=[j for j in matrix['jobs'] if j['owner']==owner]
+ matrix=json.loads((ROOT/'experiments/t10_temporal/matrix.json').read_text());expected=[j for j in matrix['jobs'] if j['owner']==('colab' if owner=='laptop_remaining' else owner)]
  if stage=='smoke':expected=[dict(id=f'{t}__{a}__subject_2__seed_13',temporal=t,arm=a,subject=2,seed=13,owner=owner) for t in matrix['temporal'] for a in matrix['arms']]
  assert len(expected)==(10 if stage=='smoke' or owner=='laptop' else 30)
- records={};orders={};metricrows=[]
+ records={};orders={};stresses={};metricrows=[]
  for j in expected:
   path=out/'jobs'/j['id'];r=json.loads((path/'result.json').read_text());cfg=r['config'];assert cfg['owner']==owner and cfg['stage']==stage and cfg['arm']==j['arm'] and cfg['temporal']==j['temporal'] and cfg['subject']==j['subject'] and cfg['seed']==j['seed'];assert r['split']['test_data_evaluated'] is False
   latest=torch.load(path/'latest.pt',map_location='cpu',weights_only=False);best=torch.load(path/'best.pt',map_location='cpu',weights_only=False)
@@ -22,6 +22,10 @@ def audit(out,owner,stage):
     metricrows.append(dict(job=j['id'],arm=j['arm'],temporal=j['temporal'],subject=j['subject'],seed=j['seed'],split=split,**{k:float(m[k]) for k in ('accuracy','macro_f1','weighted_f1','windows')}))
     expectedval=cfg['validation_subject'];assert np.all(d['subjects']==expectedval);assert np.all(d['scenarios']==('ideal' if split=='val_ideal' else 'self'))
   key=(j['subject'],j['seed']);oh=[x['train']['order_sha256'] for x in r['history']];assert len(oh)==cfg['epochs'];assert key not in orders or orders[key]==oh;orders[key]=oh
+  if j['arm']!='none_clean':
+   sh=[x['train']['stress_sha256'] for x in r['history']]
+   assert key not in stresses or stresses[key]==sh,'actual corruption mismatch'
+   stresses[key]=sh
   records[j['id']]=r
  assert len(records)==len(expected)
  import csv
@@ -32,13 +36,13 @@ def audit(out,owner,stage):
  for t in sorted({r['temporal'] for r in metricrows}):
   for subject,seed in sorted({(r['subject'],r['seed']) for r in metricrows}):
    for split in ('val_ideal','val_self'):
-    for x,y in (('graph_repair','local_repair'),('graph_repair','none_robust'),('ssm','old')):
-     if y=='old':
-      if t!='ssm':continue
-      left=by[('ssm',subject,seed,x,split)];right=by[('old',subject,seed,x,split)];label='ssm_minus_old:'+x
-     else:
-      left=by[(t,subject,seed,x,split)];right=by[(t,subject,seed,y,split)];label=x+'_minus_'+y
+    for x,y in (('graph_repair','local_repair'),('graph_repair','none_robust')):
+     left=by[(t,subject,seed,x,split)];right=by[(t,subject,seed,y,split)];label=x+'_minus_'+y
      contrasts.append(dict(temporal=t,subject=subject,seed=seed,split=split,contrast=label,accuracy_pp=100*(left['accuracy']-right['accuracy']),macro_f1_pp=100*(left['macro_f1']-right['macro_f1'])))
+    if t=='ssm':
+     for arm in ('none_clean','none_robust','physical_robust','local_repair','graph_repair'):
+      left=by[('ssm',subject,seed,arm,split)];right=by[('old',subject,seed,arm,split)]
+      contrasts.append(dict(temporal=t,subject=subject,seed=seed,split=split,contrast='ssm_minus_old:'+arm,accuracy_pp=100*(left['accuracy']-right['accuracy']),macro_f1_pp=100*(left['macro_f1']-right['macro_f1'])))
  atomic=(out/'paired_contrasts.json');atomic.write_text(json.dumps(contrasts,indent=2)+'\n')
  return dict(passed=True,owner=owner,stage=stage,expected_jobs=len(expected),audited_jobs=len(records),test_evaluated=False,order_stream_pairs=len(orders),recomputed_metrics=True,checkpoint_selection='ideal fixed33 macro-F1',paired_contrasts=len(contrasts))
 def main():

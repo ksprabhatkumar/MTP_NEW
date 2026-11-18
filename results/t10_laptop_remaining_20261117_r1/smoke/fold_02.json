@@ -1,0 +1,54 @@
+{
+  "test_subject_excluded": 2,
+  "validation_subject": 3,
+  "train_subjects": [
+    1,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "counts": {
+    "train": 25038,
+    "val_ideal": 1607,
+    "val_self": 1856
+  },
+  "recordings": {
+    "train": [
+      "subject10_ideal.log",
+      "subject11_ideal.log",
+      "subject12_ideal.log",
+      "subject13_ideal.log",
+      "subject14_ideal.log",
+      "subject15_ideal.log",
+      "subject16_ideal.log",
+      "subject17_ideal.log",
+      "subject1_ideal.log",
+      "subject4_ideal.log",
+      "subject5_ideal.log",
+      "subject6_ideal.log",
+      "subject7_ideal.log",
+      "subject8_ideal.log",
+      "subject9_ideal.log"
+    ],
+    "val_ideal": [
+      "subject3_ideal.log"
+    ],
+    "val_self": [
+      "subject3_self.log"
+    ]
+  },
+  "normalization": "CPU float32 train-only mean/std, correction=1",
+  "representation": "mag_dot",
+  "test_data_evaluated": false
+}

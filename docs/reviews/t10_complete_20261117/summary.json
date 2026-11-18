@@ -1,0 +1,202 @@
+{
+  "jobs": 40,
+  "validation_subjects": [
+    3,
+    8
+  ],
+  "seeds": [
+    13,
+    29
+  ],
+  "summaries": [
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "ideal": 93.87660716889204,
+      "self": 92.71958389964291,
+      "acc": 92.88084501143979,
+      "minutes": 3.197018887083262
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "ideal": 94.82115358465491,
+      "self": 94.19156291280702,
+      "acc": 94.45400596502697,
+      "minutes": 7.523876636666652
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "ideal": 93.32993528974824,
+      "self": 91.47268891379052,
+      "acc": 92.15749611864683,
+      "minutes": 8.096341186666859
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "ideal": 94.81835554343716,
+      "self": 94.32253096026403,
+      "acc": 94.38799742604999,
+      "minutes": 7.755565479166785
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "ideal": 94.86349244919955,
+      "self": 94.1476909699983,
+      "acc": 94.30985965844091,
+      "minutes": 7.923806970833387
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "ideal": 93.57218477864683,
+      "self": 93.20604856850589,
+      "acc": 93.01682004821049,
+      "minutes": 13.148827054583405
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "ideal": 94.60332462058905,
+      "self": 94.53235181835721,
+      "acc": 94.43517374162444,
+      "minutes": 29.034859017916702
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "ideal": 93.63332881317695,
+      "self": 92.39681682691102,
+      "acc": 93.00590374244157,
+      "minutes": 29.519696126249983
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "ideal": 94.65857810992439,
+      "self": 94.54655407039053,
+      "acc": 94.44723913221115,
+      "minutes": 35.866945195416626
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "ideal": 94.59032600887588,
+      "self": 94.572295040012,
+      "acc": 94.48228621915345,
+      "minutes": 34.41232260166676
+    }
+  ],
+  "paired_graph_effects": [
+    {
+      "temporal": "old",
+      "subject": 2,
+      "validation": 3,
+      "seed": 13,
+      "graph_none": 0.12078720716733882,
+      "graph_local": -0.08500439795317005,
+      "ideal_graph_none": 0.07167053496979214
+    },
+    {
+      "temporal": "old",
+      "subject": 2,
+      "validation": 3,
+      "seed": 29,
+      "graph_none": -0.47037358289714337,
+      "graph_local": -0.3269142639039435,
+      "ideal_graph_none": 0.01997413355901978
+    },
+    {
+      "temporal": "old",
+      "subject": 5,
+      "validation": 8,
+      "seed": 13,
+      "graph_none": 0.13995531538432138,
+      "graph_local": -0.46179030550654865,
+      "ideal_graph_none": -0.13629848307650239
+    },
+    {
+      "temporal": "old",
+      "subject": 5,
+      "validation": 8,
+      "seed": 29,
+      "graph_none": 0.034143289110633024,
+      "graph_local": 0.17434900630074468,
+      "ideal_graph_none": 0.2140092727263454
+    },
+    {
+      "temporal": "ssm",
+      "subject": 2,
+      "validation": 3,
+      "seed": 13,
+      "graph_none": 0.15831704490398835,
+      "graph_local": 0.13594795144582505,
+      "ideal_graph_none": 0.05624882105470519
+    },
+    {
+      "temporal": "ssm",
+      "subject": 2,
+      "validation": 3,
+      "seed": 29,
+      "graph_none": -0.3009046993107445,
+      "graph_local": 0.15113343598958107,
+      "ideal_graph_none": 0.03777212761150173
+    },
+    {
+      "temporal": "ssm",
+      "subject": 5,
+      "validation": 8,
+      "seed": 13,
+      "graph_none": 0.19637688085132332,
+      "graph_local": -0.07779500643992909,
+      "ideal_graph_none": -0.08335474569013401
+    },
+    {
+      "temporal": "ssm",
+      "subject": 5,
+      "validation": 8,
+      "seed": 29,
+      "graph_none": 0.10598366017461336,
+      "graph_local": -0.10632250250955932,
+      "ideal_graph_none": -0.06266064982870523
+    }
+  ],
+  "compatibility": [
+    {
+      "source": "experiments/t10_temporal/training.py",
+      "removed": [
+        "def loss_for_batch(model,teacher,batch,fold,generator,epoch):"
+      ],
+      "added": [
+        "def loss_for_batch(model,teacher,batch,fold,generator,epoch,stress_hasher=None):",
+        "    if stress_hasher is not None:",
+        "        stress_hasher.update(perturbed.detach().cpu().numpy().tobytes())",
+        "        stress_hasher.update(mask.detach().cpu().numpy().tobytes())"
+      ]
+    },
+    {
+      "source": "experiments/t10_temporal/run.py",
+      "removed": [
+        "        model.train();teacher.eval();order=torch.randperm(n,generator=gens['order']);totals={};seen=correct=0;t0=time.perf_counter();orderhash=make_order_hash(order)",
+        "            opt.zero_grad(set_to_none=True);loss,parts,logits=loss_for_batch(model,teacher,batch,fold,gens['corruption'],epoch)",
+        "        sch.step();row=dict(epoch=epoch,train={**{k:v/seen for k,v in totals.items()},'clean_accuracy':correct/seen,'windows':seen,'order_sha256':orderhash,'seconds':time.perf_counter()-t0},val_ideal=ideal,val_self=selfm,lr=opt.param_groups[0]['lr'],peak_cuda_allocated_mb=torch.cuda.max_memory_allocated()/2**20);history.append(row)",
+        "    p=argparse.ArgumentParser();p.add_argument('--owner',choices=['laptop','colab'],required=True);p.add_argument('--stage',choices=['smoke','full'],required=True);p.add_argument('--output',required=True);p.add_argument('--smoke-receipt');p.add_argument('--preflight',required=True);p.add_argument('--t09-output',required=True);p.add_argument('--reference-dir');p.add_argument('--reuse-smoke-jobs');a=p.parse_args()",
+        "            corpus=O2Corpus();selected=[j for j in MATRIX['jobs'] if j['owner']==a.owner]"
+      ],
+      "added": [
+        "        model.train();teacher.eval();order=torch.randperm(n,generator=gens['order']);totals={};seen=correct=0;stresshash=hashlib.sha256();t0=time.perf_counter();orderhash=make_order_hash(order)",
+        "            opt.zero_grad(set_to_none=True);loss,parts,logits=loss_for_batch(model,teacher,batch,fold,gens['corruption'],epoch,stress_hasher=stresshash)",
+        "        sch.step();row=dict(epoch=epoch,train={**{k:v/seen for k,v in totals.items()},'clean_accuracy':correct/seen,'windows':seen,'order_sha256':orderhash,'stress_sha256':stresshash.hexdigest(),'seconds':time.perf_counter()-t0},val_ideal=ideal,val_self=selfm,lr=opt.param_groups[0]['lr'],peak_cuda_allocated_mb=torch.cuda.max_memory_allocated()/2**20);history.append(row)",
+        "    p=argparse.ArgumentParser();p.add_argument('--owner',choices=['laptop','colab','laptop_remaining'],required=True);p.add_argument('--stage',choices=['smoke','full'],required=True);p.add_argument('--output',required=True);p.add_argument('--smoke-receipt');p.add_argument('--preflight',required=True);p.add_argument('--t09-output',required=True);p.add_argument('--reference-dir');p.add_argument('--reuse-smoke-jobs');a=p.parse_args()",
+        "            corpus=O2Corpus();selected=[j for j in MATRIX['jobs'] if j['owner']==('colab' if a.owner=='laptop_remaining' else a.owner)]"
+      ]
+    }
+  ],
+  "decision": "NO_GRAPH_PROMOTION",
+  "T08": "OPEN",
+  "T10": "COMPLETE_SOURCE_PILOT",
+  "cumulative_epoch_seconds": 42355.022197500104
+}

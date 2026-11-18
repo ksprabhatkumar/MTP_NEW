@@ -1,0 +1,38 @@
+{
+  "checked": 1794908641.495239,
+  "smoke_jobs": 10,
+  "smoke_epochs": 40,
+  "smoke_cumulative_epoch_seconds": 1701.1525655000005,
+  "launch": {
+    "command": [
+      "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\Prabhat\\Scripts\\python.exe",
+      "-u",
+      "-m",
+      "experiments.t10_temporal.run",
+      "--owner",
+      "laptop_remaining",
+      "--preflight",
+      "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\t10_laptop_remaining_20261117_r1\\preflight\\preflight.json",
+      "--t09-output",
+      "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\t09_selective_ssm_r10",
+      "--stage",
+      "full",
+      "--output",
+      "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\t10_laptop_remaining_20261117_r1\\full",
+      "--smoke-receipt",
+      "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\t10_laptop_remaining_20261117_r1\\smoke\\receipt.json"
+    ],
+    "pid": 9532,
+    "supervisor_pid": 21536,
+    "started": 1794908585.5784059,
+    "smoke_receipt": "C:\\Users\\prabh\\OneDrive\\Desktop\\mtp\\start_summer_o2\\results\\t10_laptop_remaining_20261117_r1\\smoke\\receipt.json",
+    "expected_jobs": 30
+  },
+  "heartbeats": {
+    "old__none_clean__subject_2__seed_29": {
+      "epoch": 5,
+      "updated": "2026-11-17T15:13:58.681388+05:30",
+      "pid": 10756
+    }
+  }
+}
