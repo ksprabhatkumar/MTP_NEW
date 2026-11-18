@@ -64,3 +64,11 @@ Resumed same smoke output from saved checkpoint after confirming no trainer was 
   "owner": "laptop_remaining"
 }
 . Two of ten jobs have completed; third is SSM physical_robust in progress. No smoke receipt/audit exists yet. No full queue launched. Continue monitoring this process; do not duplicate. T08 OPEN.
+
+## 2026-11-18 workstation revision 16 execution
+
+Command: `.\Prabhat\Scripts\python.exe -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r1 --detach`. Output: `results/t11_workstation_r1`. One attempt, preserved. Supervisor failed because the checks child exited nonzero after writing its results. Launcher log ends with `Exception ignored in: Exception ignored in sys.unraisablehook` and does not reveal the underlying exit cause. No smoke jobs started, so receipt, audit, metrics and smoke timing are absent. Full training was not authorized or launched.
+
+Readiness passed. All 93 manifest data files matched SHA-256. Source and data hashes and environment are recorded in readiness.json and preflight.json. Offline SSM reference passed, output maximum difference 0 and largest reported parameter gradient difference 7.450580596923828e-09; reference files and provenance are preserved in preflight/reference_check and reference_cache. Preflight.json reports passed=true, 20 cases, 163.25 seconds, and all 20 case PASS lines were logged, but the checks process exited nonzero, so the supervisor marked the attempt failed. Preserve partial_checks.json and recovery checkpoints for diagnosis.
+
+Windows, Python 3.11.9 64-bit, torch 2.5.1+cu121, pip check passed, NVIDIA RTX A2000 12GB, 12877955072 bytes VRAM, driver 596.71, RAM 68387848192 bytes, 24 logical processors, free disk 575514652672 bytes at readiness. Launch 21:39:50 and failure 21:42:53 local time, approximately 183 seconds. Package installation encountered repeated DNS warnings on an extra index but both install commands succeeded. Process inspection after failure showed no Python processes. No retry was launched.

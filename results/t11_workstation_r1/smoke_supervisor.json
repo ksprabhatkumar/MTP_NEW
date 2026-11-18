@@ -1,0 +1,5 @@
+{
+  "state": "failed",
+  "stage": "smoke",
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\experiments\\t11_core_confirmation\\launch.py\", line 40, in main\n    if not pre.exists():run('experiments.t11_core_confirmation.checks',['--output',pre])\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\experiments\\t11_core_confirmation\\launch.py\", line 35, in run\n    if child.wait()!=0:raise RuntimeError('Child failed: '+module)\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nRuntimeError: Child failed: experiments.t11_core_confirmation.checks\n"
+}
