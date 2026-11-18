@@ -1,0 +1,851 @@
+{
+  "experiment": "t11_core_confirmation_r1",
+  "status": "FROZEN_DESIGN_IMPLEMENTATION_AND_SMOKE_REQUIRED",
+  "device": "laptop RTX 2050 4GB",
+  "temporal": [
+    "old",
+    "ssm"
+  ],
+  "arms": [
+    "none_clean",
+    "none_robust",
+    "physical_robust",
+    "local_repair",
+    "graph_repair"
+  ],
+  "excluded_subjects": [
+    2,
+    5,
+    15
+  ],
+  "validation_subjects": {
+    "2": 3,
+    "5": 8,
+    "15": 16
+  },
+  "seeds": [
+    13,
+    29,
+    47
+  ],
+  "epochs": 31,
+  "batch_size": 64,
+  "precision": "fp32",
+  "features": "mag_dot",
+  "selection": "source ideal fixed33 macro-F1, earliest strict improvement",
+  "training_scenarios": [
+    "ideal"
+  ],
+  "jobs": [
+    {
+      "id": "old__none_clean__subject_2__seed_13",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_2__seed_13",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_2__seed_13",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_2__seed_13",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_2__seed_13",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_2__seed_13",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_2__seed_13",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_2__seed_13",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_2__seed_13",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_2__seed_13",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_2__seed_29",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_2__seed_29",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_2__seed_29",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_2__seed_29",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_2__seed_29",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_2__seed_29",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_2__seed_29",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_2__seed_29",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_2__seed_29",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_2__seed_29",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_2__seed_47",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_2__seed_47",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_2__seed_47",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_2__seed_47",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_2__seed_47",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_2__seed_47",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_2__seed_47",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_2__seed_47",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_2__seed_47",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_2__seed_47",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 2,
+      "validation_subject": 3,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_5__seed_13",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_5__seed_13",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_5__seed_13",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_5__seed_13",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_5__seed_13",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_5__seed_13",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_5__seed_13",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_5__seed_13",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_5__seed_13",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_5__seed_13",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_5__seed_29",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_5__seed_29",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_5__seed_29",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_5__seed_29",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_5__seed_29",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_5__seed_29",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_5__seed_29",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_5__seed_29",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_5__seed_29",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_5__seed_29",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_5__seed_47",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_5__seed_47",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_5__seed_47",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_5__seed_47",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_5__seed_47",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_5__seed_47",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_5__seed_47",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_5__seed_47",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_5__seed_47",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_5__seed_47",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 5,
+      "validation_subject": 8,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_15__seed_13",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_15__seed_13",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_15__seed_13",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_15__seed_13",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_15__seed_13",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_15__seed_13",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_15__seed_13",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_15__seed_13",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_15__seed_13",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_15__seed_13",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 13,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_15__seed_29",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_15__seed_29",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_15__seed_29",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_15__seed_29",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_15__seed_29",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_15__seed_29",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_15__seed_29",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_15__seed_29",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_15__seed_29",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_15__seed_29",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 29,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_clean__subject_15__seed_47",
+      "temporal": "old",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__none_robust__subject_15__seed_47",
+      "temporal": "old",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__physical_robust__subject_15__seed_47",
+      "temporal": "old",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__local_repair__subject_15__seed_47",
+      "temporal": "old",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "old__graph_repair__subject_15__seed_47",
+      "temporal": "old",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_clean__subject_15__seed_47",
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__none_robust__subject_15__seed_47",
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__physical_robust__subject_15__seed_47",
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__local_repair__subject_15__seed_47",
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    },
+    {
+      "id": "ssm__graph_repair__subject_15__seed_47",
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "subject": 15,
+      "validation_subject": 16,
+      "seed": 47,
+      "device": "laptop"
+    }
+  ]
+}

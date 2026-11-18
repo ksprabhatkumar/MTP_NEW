@@ -1,0 +1,8 @@
+The Mamba reference files are from state-spaces/mamba, commit
+e9594ce1c732d97440f0332fdc43170a2294dbfa:
+https://github.com/state-spaces/mamba/tree/e9594ce1c732d97440f0332fdc43170a2294dbfa
+Their original LICENSE is included. The JSON payload in the parent directory
+encodes the original reference files byte-for-byte to preserve upstream hash
+checks across Windows/Linux checkout line-ending conversion. Preflight uses
+the existing T09 scoped reference adapter, without importing upstream CUDA
+extensions. See reference.json for exact upstream path hashes.
