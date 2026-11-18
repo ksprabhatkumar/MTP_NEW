@@ -1,3 +1,19 @@
+# Astra repair note — revision 17
+
+Reviewed the transferred r1 logs: readiness/reference passed, preflight 20 cases
+passed in 163.2487 seconds, supervisor failed on nonzero preflight child; no
+smoke receipt. No error.txt/status.json was present in the transferred preflight
+folder. CPU reproduction of the un-restored Tee/closed-file lifetime produced
+exit 120 and the same unraisablehook symptom. The original supervisor did not
+record its child exit code, so 120 is the reproduced value, not a recorded r1 value.
+Fixed stream restoration in preflight and training; supervisor records future
+exit codes. Two CPU regressions passed (success exit 0; intentional exception
+exit 1 with readable traceback). No GPU checks/training launched by Astra.
+Revision 17 assigns fresh r2 preflight and smoke only. Old results untouched.
+Full unauthorized; T08 OPEN. Luna must append actual workstation execution.
+
+---
+
 # Astra preparation note — workstation revision 16 — 18 November 2026
 
 This is a preparation note, NOT a Luna execution result. The portable T11

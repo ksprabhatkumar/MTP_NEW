@@ -91,3 +91,16 @@ class Tee:
     def __init__(self,console,log):self.console=console;self.log=log
     def write(self,value):self.console.write(value);self.log.write(value);self.log.flush()
     def flush(self):self.console.flush();self.log.flush()
+
+@contextlib.contextmanager
+def console_log(log):
+    """Restore process streams before the enclosing log file is closed."""
+    stdout,stderr=sys.stdout,sys.stderr
+    sys.stdout,sys.stderr=Tee(stdout,log),Tee(stderr,log)
+    try:
+        yield
+    finally:
+        # Restore even on a training exception or log flush failure. Never
+        # leave interpreter shutdown attempting to flush a closed log.
+        sys.stdout,sys.stderr=stdout,stderr
+        log.flush()

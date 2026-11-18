@@ -57,8 +57,8 @@ def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output');parser.add_argument('--worker');a=parser.parse_args()
     if a.worker:return worker(a.worker)
     assert a.output;out=Path(a.output).resolve();out.mkdir(parents=True,exist_ok=False);configure()
-    with queue_lock(ROOT/'results/.t11_device.lock'),(out/'console.log').open('w',encoding='utf8') as log:
-        sys.stdout=Tee(sys.stdout,log);sys.stderr=Tee(sys.stderr,log);started=time.perf_counter()
+    with queue_lock(ROOT/'results/.t11_device.lock'),(out/'console.log').open('w',encoding='utf8') as log,console_log(log):
+        started=time.perf_counter()
         try:
             fp=fingerprint();atomic_json(out/'environment.json',environment())
             # Official reference is bundled, unchanged, with its license/hashes.

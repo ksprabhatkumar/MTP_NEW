@@ -1,4 +1,12 @@
-WORKSTATION LUNA — REVISION 16 — SETUP AND SMOKE ONLY
+REVISION 17 AMENDMENT — READ FIRST
+Preserve failed results/t11_workstation_r1. The new attempt is r2.
+Logging shutdown is fixed in common.py, checks.py and run.py; launch.py now
+records child exit codes. Before smoke, run the CPU regression test specified
+in docs/agent_exchange/Astra_to_Luna.md; both tests must pass. Rerun all
+preflight gates with current code. No bypass of r1's nonzero child exit.
+Smoke only; full remains unauthorized until the user returns passing evidence.
+
+WORKSTATION LUNA — REVISION 17 — SETUP AND SMOKE ONLY
 Prepared 18 November 2026. This is self-contained operational context.
 
 1. AUTHORIZATION
@@ -57,16 +65,16 @@ If inspection is denied, request access; an empty restricted result is not
 proof that nothing runs. Do not launch a duplicate or remove a lock.
 Use one GPU sequentially, stable local disk with ample free space (recommend
 at least 30 GB free beyond dataset/venv), AC power and sleep disabled.
-Reserve results/t11_workstation_r1 as a fresh attempt directory. If it already
+Reserve results/t11_workstation_r2 as a fresh attempt directory. If it already
 contains an active/completed attempt, inspect it instead of launching again.
 After a failed check preserve the whole attempt and return to Astra; fixes
 require a new attempt path and renewed preflight/smoke.
 
 5. EXACT SMOKE COMMAND (RUN ONLY THE COMMAND FOR THE HOST OS)
 Windows:
-  .\Prabhat\Scripts\python.exe -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r1 --detach
+  .\Prabhat\Scripts\python.exe -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r2 --detach
 Linux:
-  Prabhat/bin/python -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r1 --detach
+  Prabhat/bin/python -m experiments.t11_core_confirmation.launch --stage smoke --output-base results/t11_workstation_r2 --detach
 
 The detached supervisor survives closing the chat/terminal, but not shutdown
 or suspension. It logs its PID and log path. Confirm that the supervisor and
@@ -85,7 +93,7 @@ seed 13, four complete epochs per job, batch 64, FP32, full source data.
 Subject 5 split is also checked in preflight. No smoke weights enter full jobs.
 
 6. MONITOR AND RETURN
-Under results/t11_workstation_r1/ inspect:
+Under results/t11_workstation_r2/ inspect:
   launcher_smoke_*.json / *.log: durable launcher PID and log
   smoke_supervisor.json: state and active child command/PID
   readiness.json: passed, actual hardware/dependencies/data/source hashes
@@ -127,7 +135,7 @@ source, data and environment fingerprints plus an explicit confirmation flag.
 Do NOT supply this flag in the current assignment. Astra will provide the
 full-launch prompt after the user returns smoke results.
 For later authorized use only, the launcher interface is:
-  <Prabhat python> -m experiments.t11_core_confirmation.launch --stage full --output-base results/t11_workstation_r1 --confirm-full SMOKE_REVIEWED_BY_USER --detach
+  <Prabhat python> -m experiments.t11_core_confirmation.launch --stage full --output-base results/t11_workstation_r2 --confirm-full SMOKE_REVIEWED_BY_USER --detach
 Full includes 180 source-validation metric rows / 162 paired contrasts, then
 frozen held-out ideal/self/induced evaluation (270 primary rows / 243 contrasts),
 five rotation seeds and nine sensor-dropout diagnostics. No target scores

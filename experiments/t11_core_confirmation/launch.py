@@ -32,7 +32,10 @@ def main():
             command=[sys.executable,'-u','-m',module,*map(str,args)]
             child=subprocess.Popen(command,cwd=ROOT)
             atomic_json(status,dict(state='running',stage=a.stage,pid=os.getpid(),child_pid=child.pid,command=command))
-            if child.wait()!=0:raise RuntimeError('Child failed: '+module)
+            returncode=child.wait()
+            with (base/'child_exits.jsonl').open('a',encoding='utf8') as f:
+                f.write(json.dumps(dict(command=command,pid=child.pid,returncode=returncode,time=time.time()))+'\n')
+            if returncode!=0:raise RuntimeError(f'Child failed: {module}; exit code {returncode}')
         try:
             pre=base/'preflight'
             if a.stage=='smoke':

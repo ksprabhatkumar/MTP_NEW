@@ -89,8 +89,8 @@ def main():
         else:
             assert fresh,'Existing output without fingerprint; use a fresh attempt'
             atomic_json(out/'fingerprint.json',fp)
-        with queue_lock(out/'.queue.lock'),(out/'console.log').open('a',encoding='utf8') as log:
-            sys.stdout=Tee(sys.stdout,log);sys.stderr=Tee(sys.stderr,log);started=time.perf_counter()
+        with queue_lock(out/'.queue.lock'),(out/'console.log').open('a',encoding='utf8') as log,console_log(log):
+            started=time.perf_counter()
             try:
                 atomic_json(out/'status.json',dict(state='running',stage=a.stage,pid=os.getpid()))
                 atomic_json(out/'environment.json',environment())
