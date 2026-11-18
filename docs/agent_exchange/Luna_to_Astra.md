@@ -1,3 +1,16 @@
+# Astra smoke review — revision 18
+
+Accepted transferred r2 smoke metrics/gates:20jobs,40 independently recomputed
+prediction metrics,36contrasts, matching saved fingerprints, zero child exits,
+3584.114481epoch seconds. No full launch performed by Astra. Copied checkpoint
+binaries were absent; transferred snapshot line endings differed, with all
+recorded hashes recoverable and no normalized-content differences. Revision18
+requires a read-only check against ORIGINAL workstation snapshots/checkpoints
+and live fingerprint before launching90jobs. No gate relaxation or result edits.
+Full conditionally authorized by the reviewed handoff; T08 remains OPEN.
+
+---
+
 # Astra repair note — revision 17
 
 Reviewed the transferred r1 logs: readiness/reference passed, preflight 20 cases
