@@ -1,3 +1,14 @@
+# Astra startup repair - revision24
+
+Confirmed r22supervisor failed on self-created output directory before any
+training command. Added r24supervisor with one-time reservation/claim, direct
+sequential child supervision and unchanged scientific gates. All5CPUregression
+tests passed. Old supervisor/results preserved; training source untouched.
+Revision24 authorizes check-only then fresh full launch, raw r2followed by
+magnitude r3. No training launched by Astra. T08 OPEN.
+
+---
+
 # Astra review - revision22
 
 Verified revision21diagnostic exit0 and worker output; original output absent,

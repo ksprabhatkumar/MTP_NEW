@@ -1,41 +1,51 @@
-# Astra to Luna - revision22: controlled magnitude-only smoke recovery
+# Astra to Luna - revision24: repaired sequential FULL launch
 
-Reviewed revision21 diagnostic: original recovery worker loaded the failed-case
-checkpoint, completed its optimizer continuation, saved output and exited0.
-Original output absent; no parent-reference comparison was possible. Event logs
-did not identify the native cause. This does not prove a root-cause repair.
-It justifies ONE fresh full magnitude preflight and smoke, with native fault
-logging enabled and unchanged checks. No automatic retry after another failure.
+User has authorized180new T12full jobs after both smokes passed. The previous
+r22sequence supervisor failed before issuing raw training: validate_gates
+rejected its own launcher-created status directory. No training started.
+Preserve results/t12_full_workstation_r22 and the original r22supervisor script.
 
-Raw r2smoke is valid and must NOT be rerun. No fingerprinted training source,
-precision, model, dependency, thread count or tolerance changed. This revision
-adds only docs/agent_exchange/t12_resume_magnitude.py; transfer this script and
-updated handoffs, preserving original workstation source bytes and results.
+Repair: t12_full_sequential_r24.py separates scientific gates from folder
+reservation. Parent creates a new output folder and unique reservation; child
+claims it exactly once using exclusive started.json creation. Existing status,
+wrong reservation and duplicate claims fail closed. One detached outer process
+runs raw then magnitude as direct children, waits for actual exit codes, and
+requires all raw completion/audit/checkpoint checks before magnitude. No nested
+detached trainer polling. Training source/settings/fingerprints unchanged.
+Five CPU regressions pass: owned folder, wrong/duplicate reservation, sequential
+success, child failure and audit failure (the latter two block magnitude).
 
-1. Use existing Prabhat on workstation. Check no active training or T12queue;
-   never bypass locks. Preserve r1/r2,T11 and revision21diagnostic evidence.
-2. From project root run ONCE (fresh output path):
-   .\Prabhat\Scripts\python.exe docs/agent_exchange/t12_resume_magnitude.py --output-root results/t12_representation_workstation_r3 --detach
-   Linux substitute Prabhat/bin/python. Do not use the old two-representation
-   queue: it would repeat raw or encounter existing outputs.
-3. This wrapper verifies passing raw receipt/audit and exact source/data hashes,
-   validates successful revision21replay, then runs original magnitude readiness,
-   ALL20preflight cases with original parent-reference equivalence checks,
-   and20full-data smoke jobs ONLY if preflight exits0. Fault handling propagates
-   into child workers. No settings changes. No reuse of15partial passes as20.
-4. Verify recovery_status.json, magnitude/smoke_supervisor.json, advancing
-   heartbeats and best.pt/latest.pt updates. The detached wrapper continues
-   after chat closure while workstation stays awake. Report first real progress.
-5. Any failure: STOP, preserve all logs/checkpoints and native fault trace,
-   record child_exit.json. No retry, reinstall, driver change or relaxed gate.
-6. Success: magnitude preflight20/20 and smoke20/20,40metrics/36contrasts,
-   receipt/auditpassed and childexit0. Wrapper validates matching source/data/
-   hardware across preserved raw and new magnitude, then writes smoke_pair.json
-   referencing raw r2 and magnitude r3. It does not rewrite old receipts.
-7. Append AND read back Luna_to_Astra.md; return smoke_pair.json, preflight,
-   receipt,audit,timing and child_exit. STOP for the separate full-launch review.
+EXECUTE on workstation from project root using existing Prabhat:
+1. Confirm no active trainer/supervisor and both original raw/magnitude full
+   folders are still absent. Preserve all smoke/T11/failed-launch evidence.
+   Transfer the two new docs scripts and this handoff only; no Git operations
+   by Luna, no dependency/source/line-ending/tolerance changes.
+2. .\Prabhat\Scripts\python.exe docs/agent_exchange/test_t12_full_supervisor.py -v
+   Require5tests passed. These mocks run no GPU gates or training.
+3. .\Prabhat\Scripts\python.exe docs/agent_exchange/t12_full_sequential_r24.py --output-root results/t12_full_workstation_r24 --check-only
+   Require passed; verifies BOTH original smoke receipts/preflights/audits,
+   current source/data/environment and frozen180job matrix. No artifact writes.
+4. Only after gate passes, launch ONCE:
+   .\Prabhat\Scripts\python.exe docs/agent_exchange/t12_full_sequential_r24.py --output-root results/t12_full_workstation_r24 --detach
+   Linux substitute Prabhat/bin/python. Fresh supervisor folder required.
+   Original training destinations remain:
+   raw: results/t12_representation_workstation_r2/raw/full
+   magnitude: results/t12_representation_workstation_r3/magnitude/full
+   Do not use a single-root old queue command. Do not rerun either smoke or T11.
+5. Verify status.json running, direct child PID and first actual training
+   heartbeat/checkpoint advancement. latest.pt must update every epoch with
+   model,EMA teacher,optimizer,scheduler,RNG,normalization/config/history;
+   best.pt must track strict source-ideal validation improvement. Report real
+   RUNNING status only after this evidence; chat may then close while the
+   durable supervisor continues and workstation stays powered/awake.
+6. Complete raw90jobs/31epochs, source180rows/162contrasts, target270rows/
+   243contrasts plus diagnostics/checkpoint audits BEFORE magnitude90jobs.
+   Require zero child exit and passing receipts/audits for each. Final outer
+   status must be complete with both stages, not merely a launched PID.
+7. Any failure: stop, preserve evidence, no automatic retry/settings changes.
+   Append AND read back Luna_to_Astra.md with command/PIDs, progress/checkpoint
+   evidence, output paths and actual status. T08 remains OPEN.
 
-Full training still blocked until both smoke results are reviewed. Later full
-commands must use raw r2 and magnitude r3 bases, not assume both are under r3.
-No full launch in revision22. T08 OPEN. Astra checked script syntax and replay
-artifacts; no workstation GPU run or verified native root-cause fix claimed.
+Astra verified the startup regression repair locally with5CPUtests; no full
+training launched here. This revision authorizes the existing frozen FULL
+queue; no further smoke or extra permission step is required if gates pass.
