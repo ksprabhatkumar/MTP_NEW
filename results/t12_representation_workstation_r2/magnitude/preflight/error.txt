@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\Users\Test\Desktop\prabhat\MTP_NEW\experiments\t12_representation\checks.py", line 115, in main
+    subprocess.run([sys.executable,'-m','experiments.t12_representation.checks','--worker',str(path)],cwd=ROOT,check=True,stdout=log,stderr=log)
+  File "C:\Users\Test\AppData\Local\Programs\Python\Python311\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\Prabhat\\Scripts\\python.exe', '-m', 'experiments.t12_representation.checks', '--worker', 'C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\results\\t12_representation_workstation_r2\\magnitude\\preflight\\magnitude__ssm__none_clean__subject_15__seed_13.pt']' returned non-zero exit status 3221226505.
