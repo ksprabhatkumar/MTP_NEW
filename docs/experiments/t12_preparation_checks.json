@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-27",
+  "passed": true,
+  "cpu_tests": 4,
+  "new_full_jobs": 180,
+  "reused_parent_jobs": 90,
+  "total_smoke_jobs": 40,
+  "gpu_preflight_run": false,
+  "training_launched": false,
+  "checks": [
+    "module syntax/imports",
+    "matrix uniqueness/spec equality",
+    "common parameter identity with T11",
+    "20 CPU forward/backward combinations",
+    "raw/magnitude robust-loss backward paths",
+    "rotation feature contract",
+    "logging success and exception exits"
+  ],
+  "source_hashes": {
+    "audit.py": "d0c535ae9cf5d6574e548a9fd488995ac3f3704185370bc2a2d2fec7ee306530",
+    "checks.py": "4ff2ebbfe1764c619e579b24181d4583dd051fab60a40f3d9d79fd86a7dc471b",
+    "common.py": "e416c0423c7541d95d0808f4708fcc5b40f53a8fb473e5250390e32509518dd6",
+    "data.py": "53edd1fe4ff88eab1514b79890e740c4009872f065323d2abae6d7236440a2b0",
+    "launch.py": "86509f51b007338e4f5c5fc0dff50ed73ff8dbb1b19101b8872d6954ff674077",
+    "model.py": "168e424e2fea7afde57daafec8147fdfcf819247fa4b762e574929c5d1a8f8b5",
+    "queue.py": "35d9b8c62c8e865dac78fed3c1814b3ad3b7561a348b9fb4f0390dcafe856f0a",
+    "readiness.py": "c70805c9cd0e4dee8acef90c784bf7c0c0e5fcc176bafaae1822ca1d05db89ef",
+    "report.py": "f7769e1ef6e6c85fecfe4b8a57bcb965d4964cf5f099566d85e66d7354962ca9",
+    "run.py": "31a280fbc2dec07af5fa1e19090515e438ce9202358b97691b648d3ffd80c491",
+    "targets.py": "2d9e5f33f34e34f7954eee84c5acbe5822c547a622d0616492a9339d5857e7f4",
+    "test_contract.py": "f649dc34be6d05eb5f364d3a441073087db17a6c62537055570c662097e0d5fa",
+    "test_logging.py": "80384753e0674557dc10597f15974336b0ebb90ac43196b0c14df39e7bd6e0d5",
+    "training.py": "93b32a7c577c894e59c60dd11f99e7068c3a8c25ad96455be10b8621ae4edb8c",
+    "__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

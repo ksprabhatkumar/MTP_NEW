@@ -1,0 +1,82 @@
+T11 SCIENTIFIC REVIEW â€” 22 November 2026
+
+DECISION: T11 core execution is complete. Current graph repair is NOT promoted as a superior displacement method. T08 stays OPEN pending evidence closeout; its desired graph-superiority claim is not established. No new training is authorized by this review.
+
+ARTIFACTS AND VERIFICATION
+Expected folder: results/t11_workstation_r2/full. Present: completed full supervisor/status/receipt, zero final child exit,90 unique jobs,2790 epochs, source audit180 rows/162 contrasts, target audit270 rows/243 contrasts. Saved smoke/preflight/full fingerprints agree. Independently recomputed all1710 prediction files:180 source,270 primary target,450 rotations,810 dropout; accuracy/fixed33-F1/weighted-F1 agree within1e-10; finite logits and argmax predictions verified. Target confusion matrices recomputed. Metadata aligns across paired arms/seeds. Source order/corruption histories match. Earliest best source-ideal F1 selection verified in histories.
+Local copy has NO best/latest checkpoint binaries or normalization .pt artifacts. Therefore this is a prediction/history review, not independent checkpoint replay. Preserve and verify all90 best/latest pairs, teacher/optimizer/scheduler/RNG/normalization on workstation before any cleanup. Historical handoff only records full startup; this review supersedes that RUNNING status based on completion evidence. Source snapshot byte provenance on transferred copies may differ by checkout line endings, as observed in smoke review; do not rewrite manifests to repair that.
+
+Measured epoch time 44.955h; receipt elapsed 45.278h including queue overhead/final diagnostics. Eleven jobs select epoch31: this does not by itself justify an unplanned extension of the matched budget.
+
+TARGET MEANS (%)
+Aggregation: average three seeds within each subject, then average the three subjects equally. Balanced matrix; not pooled-window accuracy.
+temporal | arm | scenario | accuracy | fixed33 macro-F1
+old | graph_repair | ideal | 97.8843 | 93.3780
+old | graph_repair | induced | 87.6048 | 87.4198
+old | graph_repair | self | 96.9810 | 92.9330
+old | local_repair | ideal | 98.0473 | 93.6425
+old | local_repair | induced | 87.7069 | 87.5142
+old | local_repair | self | 97.2377 | 93.0546
+old | none_clean | ideal | 98.2022 | 93.6689
+old | none_clean | induced | 87.5319 | 87.3786
+old | none_clean | self | 96.7949 | 92.5890
+old | none_robust | ideal | 97.7186 | 93.2128
+old | none_robust | induced | 87.4367 | 87.1377
+old | none_robust | self | 96.3762 | 92.2860
+old | physical_robust | ideal | 97.3604 | 92.8886
+old | physical_robust | induced | 86.7038 | 85.5719
+old | physical_robust | self | 95.8681 | 91.4565
+ssm | graph_repair | ideal | 98.2179 | 93.9016
+ssm | graph_repair | induced | 87.4260 | 87.5643
+ssm | graph_repair | self | 97.7116 | 93.7690
+ssm | local_repair | ideal | 98.1553 | 93.8378
+ssm | local_repair | induced | 87.4222 | 87.5576
+ssm | local_repair | self | 97.9179 | 93.9533
+ssm | none_clean | ideal | 98.3153 | 94.1657
+ssm | none_clean | induced | 87.0638 | 87.1170
+ssm | none_clean | self | 97.0847 | 93.2444
+ssm | none_robust | ideal | 98.1566 | 93.7895
+ssm | none_robust | induced | 87.4094 | 87.5083
+ssm | none_robust | self | 97.9125 | 93.8609
+ssm | physical_robust | ideal | 97.9230 | 93.7153
+ssm | physical_robust | induced | 87.3868 | 86.4904
+ssm | physical_robust | self | 97.0304 | 92.8809
+
+GRAPH CONTRASTS (percentage points; subjects ordered2,5,15)
+old graph minus none_robust ideal: mean F1 +0.165165; subject F1 [-0.02320041964325078, 0.17509790249078394, 0.34359783263670696]; mean accuracy +0.165681
+old graph minus none_robust self: mean F1 +0.647053; subject F1 [0.05566973709811851, 1.7280228197421366, 0.15746772826040756]; mean accuracy +0.604840
+old graph minus none_robust induced: mean F1 +0.282193; subject F1 [0.5446049512418487, 0.02716231293773778, 0.2748104429079209]; mean accuracy +0.168117
+old graph minus local_repair ideal: mean F1 -0.264528; subject F1 [-0.00108510842466251, -0.7517826778956256, -0.0407166754911296]; mean accuracy -0.163010
+old graph minus local_repair self: mean F1 -0.121567; subject F1 [0.02625495424593005, -0.4255241549693108, 0.03456791236099062]; mean accuracy -0.256698
+old graph minus local_repair induced: mean F1 -0.094343; subject F1 [-0.011721817720289351, -0.007548712402412801, -0.26375980552037304]; mean accuracy -0.102098
+ssm graph minus none_robust ideal: mean F1 +0.112085; subject F1 [0.0008623399301669702, 0.09270874682196042, 0.24268315407764973]; mean accuracy +0.061319
+ssm graph minus none_robust self: mean F1 -0.091928; subject F1 [0.000791989410712605, -0.2536895747044706, -0.022886126964031618]; mean accuracy -0.200819
+ssm graph minus none_robust induced: mean F1 +0.055923; subject F1 [0.0542330057012097, -0.1765622009111974, 0.29009764388303605]; mean accuracy +0.016657
+ssm graph minus local_repair ideal: mean F1 +0.063804; subject F1 [-0.010266012278363029, 0.15437945341100584, 0.047298136889702594]; mean accuracy +0.062652
+ssm graph minus local_repair self: mean F1 -0.184269; subject F1 [-0.07163750031886629, -0.4421098046075489, -0.03906093072737482]; mean accuracy -0.206227
+ssm graph minus local_repair induced: mean F1 +0.006617; subject F1 [0.036600391072831126, -0.0005269308806288286, -0.016223344928378847]; mean accuracy +0.003821
+
+INTERPRETATION
+1. SSM graph induced87.5643F1 is effectively tied with local87.5576 and robust-no-graph87.5083 at this scale; tiny rankings do not establish benefit. Graph-vs-local induced signs are positive only on subject2 and negative on5/15. Self graph93.7690 is below local93.9533 and robust-no-graph93.8609. No4â€“5pp gain.
+2. Old graph improves induced F1 by0.2822pp over robust no-graph but loses0.0943pp to local repair, losing on all three subject means. The gain cannot be attributed specifically to cross-sensor message passing.
+3. SSM robust no-graph improves self F1 by1.5749pp and induced by0.3706pp versus its old counterpart. SSM local improves self by0.8987pp but induced by only0.0433pp versus old local. Retain old local as the efficiency comparator. Do not claim universal SSM superiority.
+4. Mean SSM robust-no-graph training is54.73min/job versus11.13min for old robust-no-graph (~4.92x); graph55.77 vs12.49min. These are measured epoch times including validation, not pure model throughput.
+5. SSM robust-no-graph induced subject F1:2=98.1885,5=94.5361,15=69.8004. Local and graph also remain near70 on subject15. This warrants recording/class/sensor coverage diagnostics, not a new graph architecture selected against the inspected target.
+6. Zero prediction-label changes across450 rotation files; maximum absolute logit difference 1.9803643226623535e-05. This supports observed numerical rotation robustness on this diagnostic, not robustness to all real displacement. Single-sensor dropout mean F1: SSM graph 91.8078, local 91.7636, robust no-graph 91.4710. Physical graph and clean-only models are much weaker on this diagnostic.
+7. Fixed33 F1 is reduced by absent classes: subject15 ideal missing IDs30,31,32; self missing28,29,30; subject5 self missing31. All33 classes occur in induced for all three subjects, so absent-class effects do not explain subject15 induced collapse. Keep primary fixed33 metrics and add labelled supported/common-class diagnostics; do not replace the registered metric.
+8. Only three induced subjects; seeds are repeats, overlapping windows are not independent subjects. No significance or generalization claim based on nine seeds or thousands of windows. Induced data were previously inspected and are now inspected again; never call them an untouched test.
+
+NEXT TASKS â€” DEPENDENCY ORDER
+1. Preserve/check workstation best/latest checkpoint pairs and normalization/source manifests for90jobs; transfer a compact inventory with sizes/hashes, not necessarily every binary to laptop. Do not retrain completed jobs.
+2. No-training diagnostic round using saved predictions: per-recording/per-class errors and class coverage for ALL subjects/methods, emphasising subject15; inspect masks and displacement/sensor metadata; report seed spread and worst-subject outcomes. This is explanatory post-hoc analysis, not an independent test.
+3. If T08 mechanism closure is still required, evaluate saved graph/local/no-graph checkpoints under matched zero-correction and leakage-safe donor interventions using the already defined recording/temporal donor protocol. Reuse prior compatible audits as supporting evidence, but do not claim they audit these new31-epoch checkpoints. No retraining is needed.
+4. Retain the previously selected SSM robust-no-graph reference, local capacity control and old efficiency backbone. Do not select a new winner solely from the tiny induced ranking. Stop expanding graph complexity for the purpose of forcing a win.
+5. Build the remaining coverage matrix for representation (raw axes, magnitude, mag+dot), augmentation, external comparators, GAE and O3 against original objectives; reuse only results with compatible subjects/seeds/preprocessing/recipe. Existing16-epoch pilots are supporting evidence, not substitutes for31-epoch matched rows.
+6. Next TRAINING round should fill the missing matched representation/control cells, not repeat these90jobs. Freeze source-only selection, folds,seeds,budget and the exact remaining job IDs after coverage review; retain a no-graph primary and graph/local controls where required by the question. Any new physical/multi-lag/robustness method requires a separate preregistered pilot and an independent evaluation strategy. No new hyperparameters may be justified as confirmatory by the already-inspected induced scores.
+7. Then complete remaining O3/efficiency and report work. T11 completion is not completion of the whole23-task thesis.
+
+FILES
+analysis.json: full aggregates, subject deltas, runtime/dropout values and absent-class IDs.
+comparison.png/.pdf: all ten model combinations by scenario.
+paired_induced.png/.pdf: per-subject graph-control deltas (seed averages).
+No source results, checkpoints, or training code were changed by this review.

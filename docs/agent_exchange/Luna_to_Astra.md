@@ -1,3 +1,28 @@
+# Astra preparation — revision19, 27 November 2026
+
+Prepared isolated T12representation runner:180newraw/magnitude jobs,90T11mag_dot
+jobs reused;40full-data smoke jobs first. CPU tests4/4passed, no GPUpreflight,
+smoke or training launched. Preserve workstation90checkpoint pairs; inventory
+script provided. FinalGPUexecution remains unverified until Luna runs gates.
+Paper/venue work deferred at user request. O3/GAE/augmentation/SOTA requirements
+remain tracked, not declared complete. T08 OPEN. Actual execution report follows
+when Luna runs revision19; do not interpret this preparation as training.
+
+---
+
+# Astra completed-results review — 22 November 2026
+
+T11 full is COMPLETE based on saved supervisor/receipt/audits and90job histories.
+Independently recomputed1710prediction artifacts; all metrics agree.2790epochs;
+44.955h epoch sum,45.278h receipt elapsed.270target rows/243contrasts and180source
+rows/162contrasts. Local copy lacks .pt checkpoints: preserve/verify originals
+on workstation. Current graph gains do not establish superiority beyond local
+control. T08 stays OPEN; no new training launched or authorized. Detailed review:
+docs/reviews/t11_complete_20261122/review.txt. Historical RUNNING entries below
+are superseded, not deleted.
+
+---
+
 # Astra smoke review — revision 18
 
 Accepted transferred r2 smoke metrics/gates:20jobs,40 independently recomputed

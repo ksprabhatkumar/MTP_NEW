@@ -1,0 +1,974 @@
+{
+  "verified_prediction_files": 1710,
+  "job_count": 90,
+  "epoch_count": 2790,
+  "source_metric_rows": 180,
+  "target_metric_rows": 270,
+  "aggregate": [
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "accuracy": 97.8843125851673,
+      "macro_f1": 93.37798151083403
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "accuracy": 87.6047943468219,
+      "macro_f1": 87.41984890235923
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "accuracy": 96.9810404838415,
+      "macro_f1": 92.93302175387026
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "accuracy": 98.04732304732305,
+      "macro_f1": 93.64250966477117
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "accuracy": 87.70689262156404,
+      "macro_f1": 87.5141923475736
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "self",
+      "accuracy": 97.23773836373282,
+      "macro_f1": 93.05458884999106
+    },
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "scenario": "ideal",
+      "accuracy": 98.20215871497922,
+      "macro_f1": 93.66892516791947
+    },
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "scenario": "induced",
+      "accuracy": 87.53191368326347,
+      "macro_f1": 87.37863886019454
+    },
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "scenario": "self",
+      "accuracy": 96.79492117986564,
+      "macro_f1": 92.5889919170418
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "accuracy": 97.71863147931525,
+      "macro_f1": 93.21281640567261
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "accuracy": 87.43667783228778,
+      "macro_f1": 87.13765633333006
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "self",
+      "accuracy": 96.37620022610666,
+      "macro_f1": 92.28596832550338
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "scenario": "ideal",
+      "accuracy": 97.3603699244725,
+      "macro_f1": 92.88863941628519
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "scenario": "induced",
+      "accuracy": 86.70376694586763,
+      "macro_f1": 85.57186976602648
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "scenario": "self",
+      "accuracy": 95.86812569679014,
+      "macro_f1": 91.45652595689182
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "accuracy": 98.21790902987485,
+      "macro_f1": 93.90160425652512
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "accuracy": 87.42600711579523,
+      "macro_f1": 87.56426564487879
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "accuracy": 97.71163558456152,
+      "macro_f1": 93.76900883384616
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "accuracy": 98.15525721508628,
+      "macro_f1": 93.83780039718434
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "accuracy": 87.42218623505882,
+      "macro_f1": 87.55764893979084
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "self",
+      "accuracy": 97.91786268014219,
+      "macro_f1": 93.95327824573076
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "scenario": "ideal",
+      "accuracy": 98.31525707594085,
+      "macro_f1": 94.16565457474555
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "scenario": "induced",
+      "accuracy": 87.0638027835414,
+      "macro_f1": 87.116958115558
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "scenario": "self",
+      "accuracy": 97.08473636854563,
+      "macro_f1": 93.24435015371095
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "accuracy": 98.15659016513717,
+      "macro_f1": 93.78951950958187
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "accuracy": 87.409350380789,
+      "macro_f1": 87.50834282865443
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "self",
+      "accuracy": 97.91245418267883,
+      "macro_f1": 93.8609367379321
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "scenario": "ideal",
+      "accuracy": 97.92297604263416,
+      "macro_f1": 93.71526121930894
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "scenario": "induced",
+      "accuracy": 87.3868136462894,
+      "macro_f1": 86.4903771620671
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "scenario": "self",
+      "accuracy": 97.03035792489668,
+      "macro_f1": 92.8808557805872
+    }
+  ],
+  "graph_contrasts": [
+    {
+      "temporal": "old",
+      "control": "none_robust",
+      "scenario": "ideal",
+      "subject_f1_pp": [
+        -0.02320041964325078,
+        0.17509790249078394,
+        0.34359783263670696
+      ],
+      "mean_f1_pp": 0.16516510516141336,
+      "subject_accuracy_pp": [
+        -0.0366300366300365,
+        0.37654653039268515,
+        0.15712682379348902
+      ],
+      "mean_accuracy_pp": 0.1656811058520459
+    },
+    {
+      "temporal": "old",
+      "control": "none_robust",
+      "scenario": "self",
+      "subject_f1_pp": [
+        0.05566973709811851,
+        1.7280228197421366,
+        0.15746772826040756
+      ],
+      "mean_f1_pp": 0.6470534283668875,
+      "subject_accuracy_pp": [
+        0.05065856129685686,
+        1.5335801163405605,
+        0.23028209556706924
+      ],
+      "mean_accuracy_pp": 0.6048402577348289
+    },
+    {
+      "temporal": "old",
+      "control": "none_robust",
+      "scenario": "induced",
+      "subject_f1_pp": [
+        0.5446049512418487,
+        0.02716231293773778,
+        0.2748104429079209
+      ],
+      "mean_f1_pp": 0.2821925690291691,
+      "subject_accuracy_pp": [
+        0.4727855272926222,
+        0.055679287305121505,
+        -0.024115270995361815
+      ],
+      "mean_accuracy_pp": 0.1681165145341273
+    },
+    {
+      "temporal": "old",
+      "control": "local_repair",
+      "scenario": "ideal",
+      "subject_f1_pp": [
+        -0.00108510842466251,
+        -0.7517826778956256,
+        -0.0407166754911296
+      ],
+      "mean_f1_pp": -0.26452815393713924,
+      "subject_accuracy_pp": [
+        -0.01831501831501825,
+        -0.4482696790389114,
+        -0.022446689113357156
+      ],
+      "mean_accuracy_pp": -0.16301046215576226
+    },
+    {
+      "temporal": "old",
+      "control": "local_repair",
+      "scenario": "self",
+      "subject_f1_pp": [
+        0.02625495424593005,
+        -0.4255241549693108,
+        0.03456791236099062
+      ],
+      "mean_f1_pp": -0.1215670961207967,
+      "subject_accuracy_pp": [
+        0.016886187098952288,
+        -0.8637405252952571,
+        0.0767606985223527
+      ],
+      "mean_accuracy_pp": -0.25669787989131737
+    },
+    {
+      "temporal": "old",
+      "control": "local_repair",
+      "scenario": "induced",
+      "subject_f1_pp": [
+        -0.011721817720289351,
+        -0.007548712402412801,
+        -0.26375980552037304
+      ],
+      "mean_f1_pp": -0.09434344521435839,
+      "subject_accuracy_pp": [
+        -0.003907318407377533,
+        -0.0371195248700847,
+        -0.2652679809489392
+      ],
+      "mean_accuracy_pp": -0.10209827474213382
+    },
+    {
+      "temporal": "ssm",
+      "control": "none_robust",
+      "scenario": "ideal",
+      "subject_f1_pp": [
+        0.0008623399301669702,
+        0.09270874682196042,
+        0.24268315407764973
+      ],
+      "mean_f1_pp": 0.11208474694325904,
+      "subject_accuracy_pp": [
+        0.0,
+        0.07172314864622628,
+        0.11223344556677468
+      ],
+      "mean_accuracy_pp": 0.06131886473766699
+    },
+    {
+      "temporal": "ssm",
+      "control": "none_robust",
+      "scenario": "self",
+      "subject_f1_pp": [
+        0.000791989410712605,
+        -0.2536895747044706,
+        -0.022886126964031618
+      ],
+      "mean_f1_pp": -0.09192790408592988,
+      "subject_accuracy_pp": [
+        -3.700743415417188e-15,
+        -0.5640754450907799,
+        -0.03838034926118006
+      ],
+      "mean_accuracy_pp": -0.20081859811732122
+    },
+    {
+      "temporal": "ssm",
+      "control": "none_robust",
+      "scenario": "induced",
+      "subject_f1_pp": [
+        0.0542330057012097,
+        -0.1765622009111974,
+        0.29009764388303605
+      ],
+      "mean_f1_pp": 0.05592281622434945,
+      "subject_accuracy_pp": [
+        0.03516586566639408,
+        -0.06959910913140188,
+        0.08440344848375339
+      ],
+      "mean_accuracy_pp": 0.016656735006248532
+    },
+    {
+      "temporal": "ssm",
+      "control": "local_repair",
+      "scenario": "ideal",
+      "subject_f1_pp": [
+        -0.010266012278363029,
+        0.15437945341100584,
+        0.047298136889702594
+      ],
+      "mean_f1_pp": 0.0638038593407818,
+      "subject_accuracy_pp": [
+        -0.01831501831501825,
+        0.16137708445400634,
+        0.04489337822671062
+      ],
+      "mean_accuracy_pp": 0.06265181478856624
+    },
+    {
+      "temporal": "ssm",
+      "control": "local_repair",
+      "scenario": "self",
+      "subject_f1_pp": [
+        -0.07163750031886629,
+        -0.4421098046075489,
+        -0.03906093072737482
+      ],
+      "mean_f1_pp": -0.18426941188459667,
+      "subject_accuracy_pp": [
+        -0.06754474839581656,
+        -0.49356601445443476,
+        -0.05757052389177009
+      ],
+      "mean_accuracy_pp": -0.2062270955806738
+    },
+    {
+      "temporal": "ssm",
+      "control": "local_repair",
+      "scenario": "induced",
+      "subject_f1_pp": [
+        0.036600391072831126,
+        -0.0005269308806288286,
+        -0.016223344928378847
+      ],
+      "mean_f1_pp": 0.0066167050879411505,
+      "subject_accuracy_pp": [
+        0.015629273629506425,
+        0.013919821826280376,
+        -0.018086453246516733
+      ],
+      "mean_accuracy_pp": 0.0038208807364233563
+    }
+  ],
+  "subject_means": [
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.19561821719897
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 92.7119483812445
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 87.73088261857438
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 98.81998958199124
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 88.34534954508119
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 89.69256584943768
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 97.1824519902627
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 93.84600095488639
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 70.3845160548411
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.17350290598037
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 93.6388289616309
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 88.11519712670223
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 98.84940436484342
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 90.49889651979265
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 89.8154656653371
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 97.73877875922486
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 93.88071198022654
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 70.92308630326939
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.17241779755571
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 92.88704628373527
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 88.07448045121109
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 98.87565931908937
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 90.07337236482333
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 89.8500335776981
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 97.72705694150457
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 93.87316326782413
+    },
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 70.659326497749
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.13205785676745
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 93.46947398694422
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 88.76702668503393
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 99.11658338895465
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 92.29959478972792
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 90.1666320351137
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 98.18851359250147
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 94.53609003429825
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 69.8004248591636
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.14318620897596
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 93.40780328035518
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 88.96241170222187
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 99.18901287868424
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 92.48801501963099
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 90.18280683887704
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 98.20614620712983
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 94.36005476426769
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 70.10674584797502
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 2,
+      "macro_f1": 99.13292019669761
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 5,
+      "macro_f1": 93.56218273376619
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "ideal",
+      "subject": 15,
+      "macro_f1": 89.00970983911158
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 2,
+      "macro_f1": 99.11737537836537
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 5,
+      "macro_f1": 92.04590521502345
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "self",
+      "subject": 15,
+      "macro_f1": 90.14374590814967
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 2,
+      "macro_f1": 98.24274659820267
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 5,
+      "macro_f1": 94.35952783338706
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "scenario": "induced",
+      "subject": 15,
+      "macro_f1": 70.09052250304664
+    }
+  ],
+  "dropout_f1": [
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "macro_f1": 91.51693889002671
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "macro_f1": 91.71429131563285
+    },
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "macro_f1": 88.55338754702807
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "macro_f1": 90.81482736298747
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "macro_f1": 84.87217763591582
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "macro_f1": 91.80784199705985
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "macro_f1": 91.76362152583559
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "macro_f1": 88.41557287605403
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "macro_f1": 91.47102929872655
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "macro_f1": 85.11671733919309
+    }
+  ],
+  "missing_class_ids": [
+    {
+      "subject": 2,
+      "scenario": "ideal",
+      "absent": []
+    },
+    {
+      "subject": 2,
+      "scenario": "induced",
+      "absent": []
+    },
+    {
+      "subject": 2,
+      "scenario": "self",
+      "absent": []
+    },
+    {
+      "subject": 5,
+      "scenario": "ideal",
+      "absent": []
+    },
+    {
+      "subject": 5,
+      "scenario": "induced",
+      "absent": []
+    },
+    {
+      "subject": 5,
+      "scenario": "self",
+      "absent": [
+        31
+      ]
+    },
+    {
+      "subject": 15,
+      "scenario": "ideal",
+      "absent": [
+        30,
+        31,
+        32
+      ]
+    },
+    {
+      "subject": 15,
+      "scenario": "induced",
+      "absent": []
+    },
+    {
+      "subject": 15,
+      "scenario": "self",
+      "absent": [
+        28,
+        29,
+        30
+      ]
+    }
+  ],
+  "rotation_prediction_disagreements": 0,
+  "rotation_max_absolute_logit_difference": 1.9803643226623535e-05,
+  "mean_minutes_per_job": [
+    {
+      "temporal": "old",
+      "arm": "graph_repair",
+      "minutes": 12.48998895037264
+    },
+    {
+      "temporal": "old",
+      "arm": "local_repair",
+      "minutes": 12.508101657408513
+    },
+    {
+      "temporal": "old",
+      "arm": "none_clean",
+      "minutes": 4.467524461667225
+    },
+    {
+      "temporal": "old",
+      "arm": "none_robust",
+      "minutes": 11.128916671114577
+    },
+    {
+      "temporal": "old",
+      "arm": "physical_robust",
+      "minutes": 11.213954494632263
+    },
+    {
+      "temporal": "ssm",
+      "arm": "graph_repair",
+      "minutes": 55.774005254632705
+    },
+    {
+      "temporal": "ssm",
+      "arm": "local_repair",
+      "minutes": 55.8921461046294
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_clean",
+      "minutes": 26.54852425796109
+    },
+    {
+      "temporal": "ssm",
+      "arm": "none_robust",
+      "minutes": 54.73138984759398
+    },
+    {
+      "temporal": "ssm",
+      "arm": "physical_robust",
+      "minutes": 54.946266849260965
+    }
+  ],
+  "epoch_hours": 44.955122782391,
+  "receipt_hours": 45.27795641294448,
+  "best_epoch31_count": 11,
+  "local_checkpoint_files": 0,
+  "T08": "OPEN; no graph promotion",
+  "aggregation": "Mean seeds within each subject, then equal subjects; balanced 3x3 design, no pooled-window weighting"
+}

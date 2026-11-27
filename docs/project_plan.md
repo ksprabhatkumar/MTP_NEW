@@ -1,3 +1,18 @@
+# Current override — 27 November 2026: MTP research first
+
+T11 core90jobs COMPLETE. T12 fills raw/magnitude cells with180newjobs and reuses
+90mag_dot jobs. Revision19 authorizes workstation setup/preflight/40smoke jobs;
+full follows the existing smoke-review workflow. Exact matrix/spec under
+experiments/t12_representation_r1.* in this docs directory; coverage ledger:
+experiments/research_coverage_20261127.json. Existing evidence is preserved.
+Then finalize matched external SOTA comparisons and remaining objective scope,
+including approved federation scope; do not silently skip or shrink tasks.
+User deferred paper/venue formatting and prioritizes college MTP presentation.
+No graph promotion: T08 OPEN. No new training ran during Astra preparation.
+Older laptop-only, launch-status and calendar statements below are historical.
+
+---
+
 # Current decision — T10 complete; T11 core design frozen — 17 November 2026
 
 T10:40/40source pilot jobs complete, saved audits pass. T08 remains OPEN / no graph promotion. Full scientific review: reviews/t10_complete_20261117/decision.md. SSM graph margins are small/inconsistent; robust no graph is reference and old temporal backbone remains cost control.

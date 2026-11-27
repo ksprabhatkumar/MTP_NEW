@@ -1,0 +1,79 @@
+T12 REPRESENTATION COMPLETION — frozen 27 November 2026
+
+Purpose: complete the originally planned raw/magnitude/mag+dot comparison under
+the T11 model/optimization protocol. This is an ablation study, not a new graph
+architecture, proof of novelty, or a promise of improved target accuracy.
+
+Reuse: all90 T11 mag_dot jobs. New: raw90 + magnitude90 =180 jobs.
+Each representation: old/ssm x none_clean/none_robust/physical_robust/
+local_repair/graph_repair x excluded2/5/15 x seeds13/29/47. Validation3/8/16.
+The machine-readable t12_representation_r1_matrix.json binds every job ID.
+All valid ideal source subjects except excluded+validation fit normalization.
+31epochs from scratch; batch64; explicit FP32; same Adam/OneCycle/EMA,
+source-only robust losses, two clean warmup epochs and source-ideal best-F1
+selection as T11. No induced/self fitting or target-selected epoch.
+
+Raw has6channels; magnitude has2. Mag+dot parent has5. Only the three active
+input linear layers change width: two GIN encoder projections and sender
+projection. They use a separate CPU RNG (seed+40000), leaving common weights
+and caller RNG unchanged. Input-layer parameter counts necessarily differ;
+report this, do not call the models exactly parameter-matched across inputs.
+All matched spatial/temporal controls within an input retain common initial
+weights. Unused inherited decoder/affinity allocations remain unchanged.
+Raw scalar normalization uses train-only per-channel mean/std, as in the
+existing raw baseline. There is no raw rotation-invariance claim. Magnitudes
+are formed before train-only scalar normalization. Temporal repair targets
+remain normalized local latent features. Corrupt raw vectors before each
+representation; no hard-coded mag_dot remains in the new training loss.
+
+Isolated implementation: experiments/t12_representation. Existing T11/T10 code
+and results are untouched. Reuse T11 offline reference payload and93-file
+manifest; no reference download or new dependency. Fingerprint includes T12
+source, exact representation, T12matrix, parent source/data/environment.
+The same T11 device/supervisor lock is deliberately retained to prevent overlap.
+
+Gates: CPU contracts/logging, original workstation checkpoint inventory,
+readiness, inherited offline SSM reference checks,20cases/representation of
+geometry/backprop/common-initialization/streams/fresh-interpreter recovery.
+Unchanged tolerances. Full-data smoke20jobs/representation: all10combinations
+at excluded2/15 seed13,4epochs; fold5checked in preflight. Total40smoke jobs.
+No target evaluation during smoke. Each smoke:40validation rows/36contrasts,
+passing audit/receipt and zero child exit. Rerun no completed T11 training.
+
+The outer queue runs raw then magnitude automatically, sequentially, and
+survives chat closure. It never promotes smoke to full. After both smokes pass,
+return results for the established Astra/user review. A later separate full
+command checks BOTH smoke fingerprints before any full training.
+
+Saving: best.pt on strict source-ideal macro-F1 improvement; latest.pt every
+epoch with student,EMA teacher,optimizer,scheduler,global/independent RNG,
+normalization/raw scale,config/history. Atomic writes. Prediction logits,
+labels/window/recording IDs; losses,LR,grad norms,order/stress hashes,epoch
+seconds,peakmemory,class supports,confusions,mechanism probe,plots; source/data
+fingerprints,source snapshots,commands/PIDs,child exit codes,tracebacks and
+receipts. Source audit180rows/162contrasts PER representation. After each full
+queue, target evaluation270rows/243contrasts plus rotation5seeds/dropout9sensors
+PER representation. Availability/all-missing policies unchanged. Fail closed.
+
+Reuse boundary: historical126summerO1/63summerO2 and40T10 jobs remain supporting
+results, not exact replacement cells: architectures/losses/temporal blocks or
+schedule differ. Reuse all90T11mag_dot results after provenance and metadata
+alignment. Do not extend16epoch OneCycle checkpoints into31epochs.
+
+Interpretation: compare paired seeds, average within subjects then equal
+subjects. Existing induced data are already inspected; report exploratory
+placement comparisons, not an untouched confirmatory test. Keep fixed33F1,
+accuracy and coverage; add labelled common-class diagnostics. No selective
+post-hoc exclusion of subject15. No graph promotion from tiny aggregate gains.
+
+Timing: measured T11epoch compute44.955h for90jobs on RTX A2000 12GB; doubling
+is89.91h for180jobs before differences/overhead. Provisional25-40% reserve is
+112-126h plus final diagnostics. Replace with T12smoke timings; no time cutoff
+or reduced scientific scope. These are estimates, not measured T12 times.
+
+After T12: compare representations, audit remaining augmentation/GAE coverage,
+then freeze and implement external SOTA comparisons with same data/splits,
+input modalities and comparable tuning budget. Published scores from different
+protocols are not directly rankable. O3's144 historical bundles remain in
+scope pending portable model/protocol reconciliation. Paper formatting is
+DEFERRED by user; complete MTP evidence and college presentation first.

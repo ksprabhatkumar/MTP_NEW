@@ -1,0 +1,79 @@
+[
+  {
+    "scope": "T11 mag_dot: old/ssm x five arms x three subjects x three seeds",
+    "status": "DONE_REUSE",
+    "jobs": 90,
+    "evidence": "results/t11_workstation_r2/full",
+    "reason": "exact parent experiment; 31 epochs, CPU normalization, matching input-independent parameters"
+  },
+  {
+    "scope": "T12 raw axes: same ten combinations/folds/seeds",
+    "status": "PENDING_NEW",
+    "jobs": 90,
+    "evidence": "docs/experiments/t12_representation_r1_matrix.json",
+    "reason": "no exact matching predictive-repair/selective-SSM representation study found"
+  },
+  {
+    "scope": "T12 magnitude only: same ten combinations/folds/seeds",
+    "status": "PENDING_NEW",
+    "jobs": 90,
+    "evidence": "docs/experiments/t12_representation_r1_matrix.json",
+    "reason": "older magnitude study uses different routing/architecture/recipe; supporting evidence only"
+  },
+  {
+    "scope": "Historical summer O1",
+    "status": "DONE_SUPPORTING",
+    "jobs": 126,
+    "evidence": "results/summer_o1_session_20261017_232945/training/completed.json",
+    "reason": "retain fixed/global/dynamic/residual and reconstruction/augmentation evidence; not exact T12 cells"
+  },
+  {
+    "scope": "Historical summer O2",
+    "status": "DONE_SUPPORTING",
+    "jobs": 63,
+    "evidence": "results/summer_o2_session_20261021_173341/training/O2_REVIEW.json",
+    "reason": "retain magnitude/mag_dot/rotation-augmentation results; different parent than T11"
+  },
+  {
+    "scope": "T10 source temporal pilot",
+    "status": "DONE_SUPPORTING",
+    "jobs": 40,
+    "evidence": "docs/reviews/t10_complete_20261117",
+    "reason": "16 epochs; do not substitute into 31-epoch matrix"
+  },
+  {
+    "scope": "Current-model rotation augmentation and reconstruction ablations",
+    "status": "SCOPE_RECONCILIATION_PENDING",
+    "jobs": null,
+    "evidence": "entire_plan.md; resources/objectives_methodology.tex",
+    "reason": "retain historical evidence; freeze missing current-model jobs after representation comparison; not waived"
+  },
+  {
+    "scope": "External state-of-the-art comparator reproduction",
+    "status": "PENDING_AFTER_CORE",
+    "jobs": null,
+    "evidence": "docs/project_plan.md",
+    "reason": "user requests after remaining core training; choose implementations and matched protocol before launch"
+  },
+  {
+    "scope": "O3 federation approved historical matrix",
+    "status": "PENDING_PORTABLE_RECONCILIATION",
+    "jobs": 144,
+    "evidence": "summer_o3_study.json",
+    "reason": "4 methods x4arms x3subjects x3seeds; old absolute paths and selected architecture need explicit reconciliation; not reduced or waived"
+  },
+  {
+    "scope": "T08 graph superiority",
+    "status": "OPEN_NO_PROMOTION",
+    "jobs": 0,
+    "evidence": "docs/reviews/t11_complete_20261122/review.txt",
+    "reason": "current graph is not superior to local control; do not invent positive conclusion"
+  },
+  {
+    "scope": "MTP presentation and final research synthesis",
+    "status": "AFTER_RESULTS",
+    "jobs": null,
+    "evidence": "resources/objectives_methodology.tex",
+    "reason": "user deferred paper/venue preparation; complete research first"
+  }
+]
