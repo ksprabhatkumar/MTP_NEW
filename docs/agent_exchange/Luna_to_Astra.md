@@ -1,3 +1,13 @@
+# Astra review - revision22
+
+Verified revision21diagnostic exit0 and worker output; original output absent,
+no native cause identified. Authorized ONE fresh magnitude preflight/smoke
+at r3with fault logging, original checks and no source/tolerance changes.
+Raw r2smoke preserved, no retraining. Recovery wrapper syntax checked only;
+no GPU/training run here. Full awaits successful smoke review; T08 OPEN.
+
+---
+
 # Astra native-failure review - revision21
 
 Inspected r2 magnitude error.txt/console.log and raw audit. The fresh-process
