@@ -1,42 +1,40 @@
-# Astra to Luna — revision 19: T12 workstation smoke
+# Astra to Luna — revision 20: native readiness repair, smoke only
 
-User priority: complete MTP research training, then matched SOTA comparison,
-then college presentation. Paper/venue formatting is deferred. T11 is complete;
-DO NOT rerun its90jobs. T08 remains OPEN; no graph superiority claim.
+Revision19 stopped before preflight/training when the optional implementation
+choice of a PowerShell CIM RAM/CPU query exited1. Original stderr was not saved;
+no particular WMI/permission root cause is established. The failed r1 remains
+unchanged. T12readiness now uses native Win32 GlobalMemoryStatusEx and Python
+os.cpu_count (POSIX sysconf on Linux), validates positive RAM/CPU values and
+still fails on native detection errors. nvidia-smi remains required; its exit,
+stdout/stderr and command errors are now recorded. CUDA, package/data hashes,
+reference/recovery checks, locks and numerical tolerances are unchanged.
 
-Read docs/experiments/t12_representation_r1.txt and its matrix. New runner exists
-in experiments/t12_representation; raw and magnitude missing cells total180jobs,
-reusing90mag_dot results. No configuration choices delegated to Luna.
+1. User transfers updated code; no Git actions by Luna. Use existing workstation
+   Prabhat environment. Inspect active trainers and locks before launching.
+2. Run eight CPU tests; require all passed:
+   .\Prabhat\Scripts\python.exe -m unittest experiments.t12_representation.test_readiness experiments.t12_representation.test_contract experiments.t12_representation.test_logging -v
+   Also run pip check using that interpreter. No dependency upgrades needed.
+3. Reuse the successful saved r1/t11_checkpoint_inventory.json: confirm
+   passed=true,checkpoint_pairs90,normalization_files3. Do not overwrite it,
+   repeat T11 training or delete any checkpoints. If originals have since been
+   changed/moved, stop and report rather than assume the old inventory applies.
+4. Use a fresh results/t12_representation_workstation_r2. If already present,
+   inspect/report before another launch. Preserve the entire failed r1.
+   .\Prabhat\Scripts\python.exe -m experiments.t12_representation.queue --stage smoke --output-root results/t12_representation_workstation_r2 --detach
+   Linux: substitute Prabhat/bin/python. Raw then magnitude run sequentially;
+   readiness, preflight and smoke are rerun with the new source fingerprint.
+5. Verify raw/readiness.json has passed=true plus actual system_resources and
+   nvidia-smi output. Check child exit0, fresh preflight and advancing smoke
+   heartbeats. Verify best.pt and latest.pt exist and latest epoch advances.
+6. Stop on any failure; save traceback and native/command diagnostics. No silent
+   retries or bypasses. No edits to scientific settings, data or tolerances.
+7. Require BOTH representations to finish preflight20cases,smoke20jobs,
+   audit40metric rows/36contrasts,passingreceipt,childexit0. Outer smoke batch
+   status must be complete. Report timing,checkpoint activity and paths;
+   append AND read back Luna_to_Astra.md. No full training in this revision.
 
-1. User transfers code manually; no Git actions. Reuse workstation Prabhat
-   Python3.11/torch2.5.1+cu121/requirements_workstation.txt. Inspect running
-   processes and locks. Keep original T11 results and checkpoints intact.
-2. From project root, run CPU contracts:
-   .\Prabhat\Scripts\python.exe -m unittest experiments.t12_representation.test_contract experiments.t12_representation.test_logging -v
-   Require4tests passed. No package upgrade or scientific-source edits.
-3. Inventory original T11 checkpoints (read-only except NEW output):
-   .\Prabhat\Scripts\python.exe docs/agent_exchange/t11_checkpoint_inventory.py --output results/t12_representation_workstation_r1/t11_checkpoint_inventory.json
-   Require90best/latest pairs plus3normalization files. If anything is missing,
-   stop/report; do not retrain T11 to manufacture the missing artifact.
-4. Run the single durable SMOKE queue:
-   .\Prabhat\Scripts\python.exe -m experiments.t12_representation.queue --stage smoke --output-root results/t12_representation_workstation_r1 --detach
-   Linux: replace interpreter with Prabhat/bin/python. The queue runs raw then
-   magnitude automatically, sequentially. Both use fresh readiness/preflight
-   and full-data smoke. No duplicate trainers, no hidden full launch.
-5. Check smoke_batch_status.json, raw/smoke_supervisor.json and corresponding
-   magnitude files, per-job heartbeats, best.pt/latest.pt update times and
-   epochs. Confirm advancing heartbeat/checkpoints before closing the chat.
-   The durable process continues on workstation while powered on and awake.
-6. Stop on ANY failure; preserve partial outputs and traceback. Never alter
-   tolerances, overwrite attempts or reduce data. Return exact failing command.
-7. Completion needs each representation: preflight20cases, smoke20jobs,
-   audit40rows/36contrasts, passingreceipt and child exit0. Outer status complete.
-   Total40smokejobs. Save measured timings, disk/VRAM, checkpoints and source/data
-   provenance. Append AND read back Luna_to_Astra.md.
-
-STOP AFTER BOTH SMOKES. Existing user workflow requires returned smoke evidence
-before the separate full-launch prompt. No full training is launched by this
-revision. For the later reviewed full assignment only, queue interface is:
-<Prabhat python> -m experiments.t12_representation.queue --stage full --output-root results/t12_representation_workstation_r1 --confirm-full SMOKE_REVIEWED_BY_USER --detach
-It runs180newjobs sequentially and checks both smoke fingerprints first.
-Astra has run CPU tests only; GPU preflight/recovery/smoke remain workstation work.
+Reference scientific specification remains docs/experiments/t12_representation_r1.txt
+and its180new-job matrix. Reuse90T11mag_dot results. Smoke totals40jobs. The
+original user workflow requires smoke review before a separate full-launch
+prompt. T08 remains OPEN. Astra ran8CPU regressions (including real native
+RAM/CPU retrieval on the laptop); no GPU readiness/preflight or training ran.

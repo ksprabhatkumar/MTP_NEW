@@ -1,3 +1,16 @@
+# Astra readiness repair — revision20, 27 November 2026
+
+Read transferred r1readiness/supervisor evidence and revision19 execution entry.
+PowerShell CIM inventory exited1 after CUDA/packages/data checks; its original
+stderr is absent, so the underlying Windows error is unknown. Replaced CIM
+with native Win32 RAM/Python CPU detection, retaining fail-closed resource and
+GPU checks. Added recorded command exit/stdout/stderr/timeouts. All8CPUtests
+passed, including actual native resource retrieval and forced failure cases.
+No GPUreadiness/training launched. Preserve failed r1; revision20 assigns fresh
+r2smoke only, reusing prior90pair T11checkpoint inventory. T08 OPEN.
+
+---
+
 # Astra preparation — revision19, 27 November 2026
 
 Prepared isolated T12representation runner:180newraw/magnitude jobs,90T11mag_dot
