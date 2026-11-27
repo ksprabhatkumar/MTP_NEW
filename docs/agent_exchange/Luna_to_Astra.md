@@ -1,3 +1,16 @@
+# Astra native-failure review - revision21
+
+Inspected r2 magnitude error.txt/console.log and raw audit. The fresh-process
+recovery worker failed after15passing cases with0xC0000409; saved logs do not
+locate its internal failure stage. The failed-case checkpoint is absent from
+the transferred copy. Added standalone stage/fault diagnostics outside training
+source folders. Raw smoke preserved. Syntax validated; no GPU replay or training.
+Revision21 assigns ONE bounded workstation diagnostic, no smoke/full retry.
+Root cause and repair remain unverified; T08 OPEN. Historical return bytes
+below were preserved, including their pre-existing mixed text encoding.
+
+---
+
 # Astra readiness repair — revision20, 27 November 2026
 
 Read transferred r1readiness/supervisor evidence and revision19 execution entry.

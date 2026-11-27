@@ -1,40 +1,41 @@
-# Astra to Luna — revision 20: native readiness repair, smoke only
+# Astra to Luna — revision21: targeted native-crash diagnostic ONLY
 
-Revision19 stopped before preflight/training when the optional implementation
-choice of a PowerShell CIM RAM/CPU query exited1. Original stderr was not saved;
-no particular WMI/permission root cause is established. The failed r1 remains
-unchanged. T12readiness now uses native Win32 GlobalMemoryStatusEx and Python
-os.cpu_count (POSIX sysconf on Linux), validates positive RAM/CPU values and
-still fails on native detection errors. nvidia-smi remains required; its exit,
-stdout/stderr and command errors are now recorded. CUDA, package/data hashes,
-reference/recovery checks, locks and numerical tolerances are unchanged.
+Raw r2smoke passed20jobs/40metrics/36contrasts. Preserve it; DO NOT rerun raw.
+Magnitude preflight passed15cases; the fresh-process recovery worker for
+magnitude__ssm__none_clean__subject_15__seed_13 exited3221226505 (0xC0000409).
+No magnitude smoke or full ran. The code is a native fail-fast status; it does
+not establish OOM, model math error, stack overwrite or a particular DLL cause.
+The transferred logs lack worker-stage/native diagnostics and checkpoint
+binaries. Astra cannot establish or claim a fix from this evidence alone.
 
-1. User transfers updated code; no Git actions by Luna. Use existing workstation
-   Prabhat environment. Inspect active trainers and locks before launching.
-2. Run eight CPU tests; require all passed:
-   .\Prabhat\Scripts\python.exe -m unittest experiments.t12_representation.test_readiness experiments.t12_representation.test_contract experiments.t12_representation.test_logging -v
-   Also run pip check using that interpreter. No dependency upgrades needed.
-3. Reuse the successful saved r1/t11_checkpoint_inventory.json: confirm
-   passed=true,checkpoint_pairs90,normalization_files3. Do not overwrite it,
-   repeat T11 training or delete any checkpoints. If originals have since been
-   changed/moved, stop and report rather than assume the old inventory applies.
-4. Use a fresh results/t12_representation_workstation_r2. If already present,
-   inspect/report before another launch. Preserve the entire failed r1.
-   .\Prabhat\Scripts\python.exe -m experiments.t12_representation.queue --stage smoke --output-root results/t12_representation_workstation_r2 --detach
-   Linux: substitute Prabhat/bin/python. Raw then magnitude run sequentially;
-   readiness, preflight and smoke are rerun with the new source fingerprint.
-5. Verify raw/readiness.json has passed=true plus actual system_resources and
-   nvidia-smi output. Check child exit0, fresh preflight and advancing smoke
-   heartbeats. Verify best.pt and latest.pt exist and latest epoch advances.
-6. Stop on any failure; save traceback and native/command diagnostics. No silent
-   retries or bypasses. No edits to scientific settings, data or tolerances.
-7. Require BOTH representations to finish preflight20cases,smoke20jobs,
-   audit40metric rows/36contrasts,passingreceipt,childexit0. Outer smoke batch
-   status must be complete. Report timing,checkpoint activity and paths;
-   append AND read back Luna_to_Astra.md. No full training in this revision.
+No fingerprinted training/preflight files changed in this revision. Only a
+read-only-source diagnostic script under docs/agent_exchange was added, to
+preserve the passing raw smoke fingerprint. Do not change source line endings,
+dependencies, CPU threads, CUDA flags or tolerances. Do not bypass checks.
 
-Reference scientific specification remains docs/experiments/t12_representation_r1.txt
-and its180new-job matrix. Reuse90T11mag_dot results. Smoke totals40jobs. The
-original user workflow requires smoke review before a separate full-launch
-prompt. T08 remains OPEN. Astra ran8CPU regressions (including real native
-RAM/CPU retrieval on the laptop); no GPU readiness/preflight or training ran.
+On original workstation, from project root:
+1. Confirm no trainer/queue is active. Keep failed r2, prior r1 and T11 intact.
+2. Confirm the failed checkpoint .pt still exists in magnitude/preflight.
+   If absent, STOP/report. Do not manufacture it by rerunning preflight.
+3. Execute exactly ONE bounded isolated diagnostic:
+   .\Prabhat\Scripts\python.exe docs/agent_exchange/t12_native_diagnostic.py --output results/t12_native_diagnostics_r21
+   Use a fresh output directory. Do not retry if this command fails.
+   This checks the original raw source/data fingerprints, copies the failed
+   checkpoint to a new diagnostic folder, then executes the original recovery
+   worker with fault handling and stage tracing. It runs one diagnostic
+   optimizer continuation, NOT scientific training. Native numeric settings
+   stay unchanged. It records stdout/stderr, exit code in decimal/hex, optional
+   Windows application error events and whether output existed before the
+   original failure. If original output exists and replay succeeds, compare
+   outputs using the unchanged numerical comparator. No old files are written.
+4. Return diagnostic.json, worker.log and windows_application_events.txt if
+   available. Record last STAGE line and any faulting module/native code. A
+   denied event query is diagnostic context, not permission to change settings.
+5. Append AND read back Luna_to_Astra.md. STOP. Even a successful isolated
+   replay does NOT complete magnitude preflight or authorize smoke/full.
+
+Astra performed syntax validation only; original failed-case .pt is not in
+this laptop copy. No GPU/diagnostic replay or training was launched here.
+After this evidence identifies the failure stage, Astra will prepare a
+specific repair/revalidation preserving raw smoke wherever scientifically
+valid. Current full gate remains blocked. T08 remains OPEN.
