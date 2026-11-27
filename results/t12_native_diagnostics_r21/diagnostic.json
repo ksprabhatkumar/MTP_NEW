@@ -1,0 +1,27 @@
+{
+  "scientific_training_launched": false,
+  "smoke_authorized": false,
+  "full_authorized": false,
+  "original_checkpoint_sha256": "4cfdc20c3eb07b09ec149927a6e000350a0f2a599cf9d08b0979b02ba11677b4",
+  "raw_smoke_preserved": true,
+  "original_worker_output_exists": false,
+  "command": [
+    "C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\Prabhat\\Scripts\\python.exe",
+    "-X",
+    "faulthandler",
+    "-u",
+    "C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\docs\\agent_exchange\\t12_native_diagnostic.py",
+    "--worker",
+    "C:\\Users\\Test\\Desktop\\prabhat\\MTP_NEW\\results\\t12_native_diagnostics_r21\\magnitude__ssm__none_clean__subject_15__seed_13.pt"
+  ],
+  "environment_overrides": {
+    "MTP_T12_REPRESENTATION": "magnitude",
+    "PYTHONFAULTHANDLER": "1"
+  },
+  "caveat": "Isolated diagnostic worker; original parent held corpus/GPU allocations. A successful replay is not a repaired preflight.",
+  "returncode": 0,
+  "returncode_hex": "0x00000000",
+  "worker_output_exists": true,
+  "state": "diagnostic_completed",
+  "event_query_returncode": 0
+}
